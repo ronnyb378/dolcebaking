@@ -2,10 +2,13 @@ import { BrowserRouter as Router, Route, Switch } from 'react-router-dom'
 import React from 'react';
 // import logo from './logo.svg';
 // import { Counter } from './features/counter/Counter';
-import './App.css';
+
+import 'bootstrap/dist/css/bootstrap.min.css';
+import './App.scss';
 import Home from './pages/Home';
 import Login from './pages/Login';
 import Cart from './pages/Cart';
+import NavBar from './components/NavBar';
 
 function App() {
   return (
@@ -56,6 +59,7 @@ function App() {
         </span>
       </header> */}
     <Router>
+      <NavBar />
       <Switch>
         <Route exact path="/">
           <Home />

@@ -1,3 +1,12 @@
+$grey: #2B2D42;
+$pink: #E86A92;
+$yellow: #F7E733;
+$white: #F7F7F9;
+$mint: #41E2BA;
+
+
+
+
 .App {
   text-align: center;
 }
@@ -36,4 +45,31 @@
   100% {
     transform: translateY(0px);
   }
+}
+
+.navbar {
+  background-color: #2B2D42!important;
+  .navbar-brand {
+    color: $mint;
+  }
+  .nav-link {
+    color: $mint !important;
+  }
+  img {
+    height: 30px;
+  }
+
+}
+
+html, body {
+  width: 100%;
+  height: 100%;
+  overflow-x: hidden;
+  background-color: #F7F7F9;
+}
+
+h1 { 
+  color: $pink;
+  font-size: 5em;
+  font-family: 'Leckerli One', cursive;
 }
