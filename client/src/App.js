@@ -1,12 +1,16 @@
+import { BrowserRouter as Router, Route, Switch } from 'react-router-dom'
 import React from 'react';
-import logo from './logo.svg';
-import { Counter } from './features/counter/Counter';
+// import logo from './logo.svg';
+// import { Counter } from './features/counter/Counter';
 import './App.css';
+import Home from './pages/Home';
+import Login from './pages/Login';
+import Cart from './pages/Cart';
 
 function App() {
   return (
     <div className="App">
-      <header className="App-header">
+      {/* <header className="App-header">
         <img src={logo} className="App-logo" alt="logo" />
         <Counter />
         <p>
@@ -50,7 +54,20 @@ function App() {
             React Redux
           </a>
         </span>
-      </header>
+      </header> */}
+    <Router>
+      <Switch>
+        <Route exact path="/">
+          <Home />
+        </Route>
+        <Route path="/login">
+          <Login />
+        </Route>
+        <Route path="/cart">
+          <Cart />
+        </Route>
+      </Switch>
+    </Router>
     </div>
   );
 }
