@@ -1,0 +1,14 @@
+import React from 'react'
+import { Container } from 'react-bootstrap'
+import bakeTool from '../images/dolce_baking_tool.png'
+
+export default function BrandHeader() {
+    return (
+        <div>
+            <Container className="pt-4 pb-4 brandHeader">
+                <h1>Dolce<br /> Desserts</h1>
+                <h6>Houston <img src={bakeTool} /> Fast <img src={bakeTool} /> Est. 2016</h6>
+            </Container>
+        </div>
+    )
+}

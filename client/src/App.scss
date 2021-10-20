@@ -50,6 +50,7 @@ $mint: #41E2BA;
 .navbar {
   background-color: #2B2D42!important;
   .navbar-brand {
+    font-family: 'Leckerli One', cursive;
     color: $mint;
   }
   .nav-link {
@@ -73,3 +74,23 @@ h1 {
   font-size: 5em;
   font-family: 'Leckerli One', cursive;
 }
+
+.nowrap {
+  white-space: nowrap;
+}
+
+h6 {
+  font-family: 'Open Sans Condensed', sans-serif;
+  font-size: 1.1em;
+}
+
+.brandHeader {
+  img {
+    height: 1.8em;
+  }
+}
+
+.menu {
+  background-color: $yellow;
+}
+
