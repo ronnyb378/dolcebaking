@@ -9,6 +9,7 @@ import Home from './pages/Home';
 import Login from './pages/Login';
 import Cart from './pages/Cart';
 import NavBar from './components/NavBar';
+import BrandHeader from './components/BrandHeader';
 
 function App() {
   return (
@@ -60,6 +61,7 @@ function App() {
       </header> */}
     <Router>
       <NavBar />
+      <BrandHeader />
       <Switch>
         <Route exact path="/">
           <Home />
