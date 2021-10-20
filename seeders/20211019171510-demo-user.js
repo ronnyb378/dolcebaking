@@ -13,7 +13,7 @@ module.exports = {
       email:'example@ex.com',
       username:'guest',
       phoneNumber: '9',
-      password: 'filler',
+      password: 'f',
       createdAt: new Date(),
       updatedAt: new Date()
     }], {});
