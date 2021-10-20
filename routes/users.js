@@ -4,9 +4,24 @@ const db = require('../models')
 const bcrypt = require('bcrypt')
 
 /* GET users listing. */
-router.get('/', function (req, res, next) {
-  res.send('respond with a resource');
-  // res.render('index', { title: 'Express' });
+router.post('/signup', function (req, res, next) {
+  // check for username, email, and password fields (non sanitized, sanitization will be done with middleware using express-validator)
+  if (!req.body.username) {
+    res.status(400).json({
+      error: 'Include a username'
+    })
+    return
+  } else if (!req.body.email) {
+    res.status(400).json({
+      error: 'Email is required'
+    })
+    return
+  } else if (!req.body.password) {
+    res.status(400).json({
+      error: 'Password is required'
+    })
+    return
+  }
 });
 
 router.post('/login', async (req, res) => {
