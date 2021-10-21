@@ -10,6 +10,7 @@ import Login from './pages/Login';
 import Cart from './pages/Cart';
 import NavBar from './components/NavBar';
 import BrandHeader from './components/BrandHeader';
+import Footer from './components/Footer';
 
 function App() {
   return (
@@ -73,6 +74,7 @@ function App() {
           <Cart />
         </Route>
       </Switch>
+      <Footer />
     </Router>
     </div>
   );
