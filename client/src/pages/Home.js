@@ -5,10 +5,10 @@ import poundCake from '../images/pound_cake.jpg'
 export default function Home() {
     return (
         <div>
-            <Container className="pt-2 pb-4 menu vh-100" fluid>
+            <Container className="pt-2 pb-4 menu" fluid>
 
                 <h2>Menu</h2>
-                <Row xs={1} md={2} lg={4} xl={4} className="g-4">
+                <Row xs={1} md={2} lg={2} xl={4} className="g-4">
                     <Col>
                         <Card className="bg-dark text-white">
                             <Card.Img src={poundCake} alt="Card image"/>
