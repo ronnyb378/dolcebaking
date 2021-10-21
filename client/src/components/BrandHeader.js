@@ -7,7 +7,7 @@ export default function BrandHeader() {
         <div>
             <Container className="pt-4 pb-4 brandHeader">
                 <h1>Dolce<br /> Desserts</h1>
-                <h6>Houston <img src={bakeTool} /> Fast <img src={bakeTool} /> Est. 2016</h6>
+                <h6>Houston <img src={bakeTool} alt="spatula"/> Fast <img src={bakeTool} alt="spatula"/> Est. 2016</h6>
             </Container>
         </div>
     )

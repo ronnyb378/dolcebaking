@@ -1,51 +1,59 @@
 import React from 'react'
-import { Container, Card, CardGroup } from 'react-bootstrap'
+import { Container, Card, Row, Col } from 'react-bootstrap'
 import poundCake from '../images/pound_cake.jpg'
 
 export default function Home() {
     return (
         <div>
-            <Container className="pt-2 pb-4 menu" fluid>
+            <Container className="pt-2 pb-4 menu vh-100" fluid>
 
                 <h2>Menu</h2>
-                <CardGroup>
-                <Card>
-                    <Card.Img variant="top" src={poundCake} />
-                    <Card.Body>
-                        <Card.Text>
-                            Some quick example text to build on the card title and make up the bulk
-                            of the card's content.
-                        </Card.Text>
-                    </Card.Body>
-                </Card>
-                <Card>
-                    <Card.Img variant="top" src={poundCake} />
-                    <Card.Body>
-                        <Card.Text>
-                            Some quick example text to build on the card title and make up the bulk
-                            of the card's content.
-                        </Card.Text>
-                    </Card.Body>
-                </Card>
-                <Card>
-                    <Card.Img variant="top" src={poundCake} />
-                    <Card.Body>
-                        <Card.Text>
-                            Some quick example text to build on the card title and make up the bulk
-                            of the card's content.
-                        </Card.Text>
-                    </Card.Body>
-                </Card>
-                <Card>
-                    <Card.Img variant="top" src={poundCake} />
-                    <Card.Body>
-                        <Card.Text>
-                            Some quick example text to build on the card title and make up the bulk
-                            of the card's content.
-                        </Card.Text>
-                    </Card.Body>
-                </Card>
-                </CardGroup>
+                <Row xs={1} md={2} lg={4} xl={4} className="g-4">
+                    <Col>
+                        <Card className="bg-dark text-white">
+                            <Card.Img src={poundCake} alt="Card image"/>
+                            <Card.ImgOverlay>
+                                <Card.Title>Pound Cake</Card.Title>
+                                <Card.Text>
+                                    Order
+                                </Card.Text>
+                            </Card.ImgOverlay>
+                        </Card>
+                    </Col>
+                    <Col>
+                        <Card className="bg-dark text-white">
+                            <Card.Img src={poundCake} alt="Card image" />
+                            <Card.ImgOverlay>
+                                <Card.Title>Pound Cake</Card.Title>
+                                <Card.Text>
+                                    Order
+                                </Card.Text>
+                            </Card.ImgOverlay>
+                        </Card>
+                    </Col>
+                    <Col>
+                        <Card className="bg-dark text-white">
+                            <Card.Img src={poundCake} alt="Card image" />
+                            <Card.ImgOverlay>
+                                <Card.Title>Pound Cake</Card.Title>
+                                <Card.Text>
+                                    Order
+                                </Card.Text>
+                            </Card.ImgOverlay>
+                        </Card>
+                    </Col>
+                    <Col>
+                        <Card className="bg-dark text-white">
+                            <Card.Img src={poundCake} alt="Card image" />
+                            <Card.ImgOverlay>
+                                <Card.Title>Pound Cake</Card.Title>
+                                <Card.Text>
+                                    Order
+                                </Card.Text>
+                            </Card.ImgOverlay>
+                        </Card>
+                    </Col>
+                </Row>
             </Container>
         </div>
     )
