@@ -27,7 +27,7 @@ export default function Home() {
                         <Card className="bg-dark text-white">
                             <Card.Img src={halloStraws} alt="Card image" />
                             <Card.ImgOverlay>
-                                <Card.Title>Pound Cake</Card.Title>
+                                <Card.Title>Strawberries</Card.Title>
                                 <Card.Text>
                                     Order
                                 </Card.Text>
@@ -38,7 +38,7 @@ export default function Home() {
                         <Card className="bg-dark text-white">
                             <Card.Img src={cake} alt="Card image" />
                             <Card.ImgOverlay>
-                                <Card.Title>Pound Cake</Card.Title>
+                                <Card.Title>Cakes</Card.Title>
                                 <Card.Text>
                                     Order
                                 </Card.Text>
@@ -49,7 +49,7 @@ export default function Home() {
                         <Card className="bg-dark text-white">
                             <Card.Img src={empanadas} alt="Card image" />
                             <Card.ImgOverlay>
-                                <Card.Title>Pound Cake</Card.Title>
+                                <Card.Title>Empanadas</Card.Title>
                                 <Card.Text>
                                     Order
                                 </Card.Text>
@@ -57,6 +57,7 @@ export default function Home() {
                         </Card>
                     </Col>
                 </Row>
+
             </Container>
         </div>
     )
