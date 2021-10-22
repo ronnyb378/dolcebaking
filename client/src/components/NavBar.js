@@ -17,7 +17,7 @@ export default function NavBar() {
                         <Nav>
                             <Nav.Link href="/login">Login</Nav.Link>
                             <Nav.Link eventKey={2} href="/cart">
-                                <img src={cart} />
+                                <img src={cart} alt="shopping cart"/>
                             </Nav.Link>
                         </Nav>
                     </Navbar.Collapse>
