@@ -22,6 +22,32 @@ router.post('/signup', function (req, res, next) {
     })
     return
   }
+
+  // check if username or email has been taken
+  db.User.findOne({
+    where: {
+      username: req.body.username
+    }
+  })
+    .then((user) => {
+      if (user) {
+        res.status(400).json({
+          error: 'Username already in use',
+          message: user.email,
+          req: req.body.email
+        })
+        return
+      } 
+      else if (req.body.email === user.email) {
+        res.status(400).json({
+          error: 'Email is already used'
+        })
+        return
+      }
+      res.json({
+        message: 'It happened'
+      })
+    })
 });
 
 router.post('/login', async (req, res) => {
