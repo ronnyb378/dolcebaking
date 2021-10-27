@@ -21,24 +21,47 @@ router.post('/signup', function (req, res, next) {
       error: 'Password is required'
     })
     return
+  } else if (req.body.password != req.body.confirmed_password) {
+    res.status(400).json({
+      error: 'Password does not match'
+    })
+    return
   }
-
   // check if username or email has been taken
   db.User.findOne({
     where: {
-      username: req.body.username
+      email: req.body.email
     }
   })
     .then((user) => {
       if (user) {
         res.status(400).json({
-          error: 'Username already in use',
+          error: 'Email already associated with another account',
           message: user.email,
           req: req.body.email
         })
         return
       } 
+      bcrypt.hash(req.body.password, 10)
+        .then((hash) => {
+          dateCreated = new Date()
+          db.User.create({
+            username: req.body.username,
+            email: req.body.email,
+            password: hash,
+            firstName: req.body.first_name,
+            lastName: req.body.last_name,
+            phoneNumber: req.body.phone_number,
+            date: dateCreated
+          })
+            .then((user)=> {
+              res.status(201).json({
+                success: user
+              })
+            })
+        })
     })
+
 });
 
 router.post('/login', async (req, res) => {
