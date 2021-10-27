@@ -38,15 +38,6 @@ router.post('/signup', function (req, res, next) {
         })
         return
       } 
-      else if (req.body.email === user.email) {
-        res.status(400).json({
-          error: 'Email is already used'
-        })
-        return
-      }
-      res.json({
-        message: 'It happened'
-      })
     })
 });
 
