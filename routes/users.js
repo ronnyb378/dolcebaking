@@ -3,7 +3,7 @@ var router = express.Router();
 const db = require('../models')
 const bcrypt = require('bcrypt')
 
-/* GET users listing. */
+// users signup
 router.post('/signup', function (req, res, next) {
   // check for username, email, and password fields (non sanitized, sanitization will be done with middleware using express-validator)
   if (!req.body.username) {
@@ -21,9 +21,50 @@ router.post('/signup', function (req, res, next) {
       error: 'Password is required'
     })
     return
+  } else if (req.body.password != req.body.confirmed_password) {
+    res.status(400).json({
+      error: 'Password does not match'
+    })
+    return
   }
+  // check if username or email has been taken
+  db.User.findOne({
+    where: {
+      email: req.body.email
+    }
+  })
+    .then((user) => {
+      if (user) {
+        res.status(400).json({
+          error: 'Email already associated with another account',
+          message: user.email,
+          req: req.body.email
+        })
+        return
+      }
+      bcrypt.hash(req.body.password, 10)
+        .then((hash) => {
+          dateCreated = new Date()
+          db.User.create({
+            username: req.body.username,
+            email: req.body.email,
+            password: hash,
+            firstName: req.body.first_name,
+            lastName: req.body.last_name,
+            phoneNumber: req.body.phone_number,
+            date: dateCreated
+          })
+            .then((user) => {
+              res.status(201).json({
+                success: user
+              })
+            })
+        })
+    })
+
 });
 
+// users login
 router.post('/login', async (req, res) => {
   // check for email and password
   if (!req.body.email || !req.body.password) {
@@ -55,13 +96,44 @@ router.post('/login', async (req, res) => {
     return
   }
   //login
-  console.log('this ran')
   req.session.user = user
 
   // respond with success
   res.json({
     success: 'Successfully logged in',
-    user: user
+    user: req.session
   })
+})
+
+// guest users
+router.get('/login/guest', async (req, res) => {
+  const guest = db.User.findOne({
+    where: {
+      username: 'Guest'
+    }
+  })
+    .then((user) => {
+      if (user) {
+        req.session.user = guest
+        res.json({
+          message: "Guest Logged in",
+          user: req.session.user
+        })
+      } 
+      return
+    })
+})
+
+// logout users
+router.get('/logout', (req, res) => {
+  if (req.session) {
+    req.session.destroy()
+    res.json({
+      message: 'Succesfully logged out',
+      session: req.session
+    })
+  } else { 
+    res.json({ message: "User not logged in"})
+  }
 })
 module.exports = router;
