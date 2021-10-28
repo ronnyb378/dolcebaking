@@ -1,23 +1,28 @@
 import React from 'react'
-import { Container, Form, Row, Col, Button } from 'react-bootstrap'
+import { Container, Form, Row, Col, Button, FloatingLabel } from 'react-bootstrap'
 
 export default function Login() {
     return (
         <div>
-            <Container className="pt-4 login-form">
+            <Container className="pt-4 login-form" fluid>
+                <h2>Log in </h2>
                 <Row className="justify-content-center">
                     <Col >
                         {/* <h2>Login</h2> */}
                         <Form>
-                            <Form.Group className="mb-3" controlId="formGroupEmail">
-                                <Form.Label>Email address</Form.Label>
-                                <Form.Control size="lg" type="email" placeholder="Enter email" />
-                            </Form.Group>
-                            <Form.Group className="mb-3" controlId="formGroupPassword">
-                                <Form.Label>Password</Form.Label>
+                            <FloatingLabel
+                                controlId="floatingInput"
+                                label="Email address"
+                                className="mb-3"
+                            >
+                                <Form.Control size="lg" type="email" placeholder="name@example.com" />
+                            </FloatingLabel>
+                            <FloatingLabel controlId="floatingPassword" label="Password">
                                 <Form.Control size="lg" type="password" placeholder="Password" />
-                            </Form.Group>
+                            </FloatingLabel>
+                            <Button size="lg" type="submit">Sign in</Button>
                         </Form>
+                        <Button className="accountBtn" size="lg">Create an Account</Button>
                     </Col>
                     {/* <Col>
                         <Form>

@@ -121,8 +121,23 @@ h6 {
 }
 
 .login-form {
-  text-align: left;
   min-height: 100%;
   min-height: 100vh; 
-}
+  background-color: $mint;
 
+  .col {
+    -ms-flex: 0 0 500px;
+    flex: 0 0 500px;
+    .btn {
+      width: 100% !important;
+      margin-top: 1em;
+      background-color: $grey;
+      border-color: $grey;
+    }
+  }
+  .accountBtn {
+    background-color: transparent !important;
+    color: $grey;
+  }
+
+}
