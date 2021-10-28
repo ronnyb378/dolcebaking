@@ -98,10 +98,13 @@ router.post('/login', async (req, res) => {
   //login
   req.session.user = user
 
+  // remove any data that does not need to be returned
+  const { email, username, ...userData } = user.dataValues;
+
   // respond with success
   res.json({
     success: 'Successfully logged in',
-    user: req.session
+    user: {email, username}
   })
 })
 
@@ -126,14 +129,14 @@ router.get('/login/guest', async (req, res) => {
 
 // logout users
 router.get('/logout', (req, res) => {
-  if (req.session) {
+  if (!req.session.user) {
+    res.json({ message: "User not logged in"})
+  } else { 
     req.session.destroy()
     res.json({
       message: 'Succesfully logged out',
       session: req.session
     })
-  } else { 
-    res.json({ message: "User not logged in"})
   }
 })
 module.exports = router;
