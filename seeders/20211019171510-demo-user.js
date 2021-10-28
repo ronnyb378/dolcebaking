@@ -9,11 +9,11 @@ module.exports = {
      */
     await queryInterface.bulkInsert('Users', [{
       firstName: 'Guest',
-      lastName: 'Account',
-      email:'example@ex.com',
-      username:'guest',
-      phoneNumber: '9',
-      password: 'f',
+      lastName: 'guestLogin',
+      email:'',
+      username:'Guest',
+      phoneNumber: '123',
+      password: '',
       createdAt: new Date(),
       updatedAt: new Date()
     }], {});

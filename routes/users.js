@@ -110,20 +110,20 @@ router.post('/login', async (req, res) => {
 
 // guest users
 router.get('/login/guest', async (req, res) => {
-  const guest = db.User.findOne({
+  // res.json({message: 'I work'})
+  db.User.findOne({
     where: {
-      username: 'Guest'
+      username: "Guest"
     }
   })
     .then((user) => {
       if (user) {
-        req.session.user = guest
-        res.json({
-          message: "Guest Logged in",
+        req.session.user = user
+        res.status(400).json({
           user: req.session.user
         })
-      } 
-      return
+        return
+      }
     })
 })
 
