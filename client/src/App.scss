@@ -84,6 +84,12 @@ h6 {
   font-size: 1.1em;
 }
 
+h2 {
+  font-family: 'Anton', sans-serif;
+  font-size: 3em;
+  color: $grey;
+}
+
 .brandHeader {
   img {
     height: 1.8em;
@@ -120,3 +126,51 @@ h6 {
   }
 }
 
+.login-form {
+  min-height: 100%;
+  min-height: 100vh; 
+  background-color: $mint;
+
+  .col {
+    -ms-flex: 0 0 500px;
+    flex: 0 0 500px;
+    .btn {
+      width: 100% !important;
+      margin-top: 1em;
+      background-color: $grey;
+      border-color: $grey;
+    }
+    
+  }
+
+  .guestBtn {
+    margin-top: 2em !important;
+    background-color: transparent !important;
+    color: $grey;
+  }
+
+  .accountBtn {
+    background-color: transparent !important;
+    color: $grey;
+
+  }
+
+  .form-check {
+    text-align: left !important;
+    margin-top: 1em;
+  }
+
+}
+
+.signUpForm {
+  text-align: left;
+  p {
+    text-decoration: underline !important;
+    text-align: center;
+    
+  }
+  p:hover {
+    color: $pink;
+    cursor: pointer;
+  }
+}
