@@ -10,6 +10,7 @@ store.sync()
 
 var indexRouter = require('./routes/index');
 var usersRouter = require('./routes/users');
+var orderRouter = require('./routes/orders');
 
 var app = express();
 
@@ -33,5 +34,6 @@ app.use(express.static(path.join(__dirname, 'public')));
 
 app.use('/', indexRouter);
 app.use('/api/v1/users', usersRouter);
+app.use('/api/v1/orders', orderRouter);
 
 module.exports = app;
