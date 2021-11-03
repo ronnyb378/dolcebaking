@@ -39,30 +39,9 @@ export default function Home() {
     return (
         <div>
             <Container className="pt-2 pb-4 menu" fluid>
-
                 <h2>Menu</h2>
                 <Row xs={1} md={2} lg={2} xl={4} className="g-4">
-                    {menuItems.map((item) => {
-                        <Col>
-                            <Card className="bg-dark text-white">
-                                <Card.Img src={poundCake} alt="Card image" />
-                                <Card.ImgOverlay>
-                                    <Card.Title>Pound Cake</Card.Title>
-                                    <Card.Text>
-                                        <Button variant="primary" onClick={() => setModalShow(true)}>
-                                            Launch vertically centered modal
-                                        </Button>
-
-                                        <ItemPopUp
-                                            show={modalShow}
-                                            onHide={() => setModalShow(false)}
-                                        />
-                                    </Card.Text>
-                                </Card.ImgOverlay>
-                            </Card>
-                        </Col>
-                    })}
-                    <Col>
+                    {/* <Col>
                         <Card className="bg-dark text-white">
                             <Card.Img src={poundCake} alt="Card image" />
                             <Card.ImgOverlay>
@@ -112,9 +91,27 @@ export default function Home() {
                                 </Card.Text>
                             </Card.ImgOverlay>
                         </Card>
-                    </Col>
+                    </Col> */}
+                    {menuItems.map((items) => {
+                        return <Col>
+                                    <Card className="bg-dark text-white">
+                                        <Card.Img src={items.image} alt="Card image" />
+                                        <Card.ImgOverlay>
+                                            <Card.Title>{items.name}</Card.Title>
+                                            <Card.Text>
+                                                <Button variant="primary" onClick={() => setModalShow(true)}>
+                                                    Launch vertically centered modal
+                                                </Button>
+                                                <ItemPopUp
+                                                    show={modalShow}
+                                                    onHide={() => setModalShow(false)}
+                                                />
+                                            </Card.Text>
+                                        </Card.ImgOverlay>
+                                    </Card>
+                                </Col>
+                    })}
                 </Row>
-
             </Container>
         </div>
     )
