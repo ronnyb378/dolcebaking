@@ -1,8 +1,9 @@
 var express = require('express');
+const db = require('../models');
 var router = express.Router();
 
 
-router.get('/neworder', function (req, res, next) {
+router.post('/neworder', async function (req, res, next) {
     const newOrder = {
         // need to store the following in one order
         // the menu item, quantity, flavor is applicable
@@ -30,10 +31,25 @@ router.get('/neworder', function (req, res, next) {
             }
         }
     }
-    res.json({
-        Order: newOrder
-    }) 
-    return
+
+    const user = await db.User.findByPk(req.session.user.id) 
+    try {
+        const order = await user.createOrder({
+            orderId: 'test',
+            cartArray: 'test',
+            firstName: req.session.user.firstName,
+            lastName: req.session.user.lastName,
+            email: req.session.user.email
+        })
+        res.json(order)
+    } catch (e) {
+        res.status(400).json({ error: e })
+        console.error(e)
+    }
+    // res.json({
+    //     Order: newOrder
+    // }) 
+    
 });
 
 module.exports = router;
