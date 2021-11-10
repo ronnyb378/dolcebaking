@@ -95,16 +95,16 @@ router.post('/login', async (req, res) => {
     })
     return
   }
-  //login
-  req.session.user = user
-
+  
   // remove any data that does not need to be returned
-  const { email, username, ...userData } = user.dataValues;
+  const { password, createdAt, updatedAt, date, ...userData } = user.dataValues;
+  //login
+  req.session.user = userData
 
   // respond with success
   res.json({
     success: 'Successfully logged in',
-    user: {email, username}
+    user: req.session.user
   })
 })
 
