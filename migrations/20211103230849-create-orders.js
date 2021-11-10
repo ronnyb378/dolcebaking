@@ -14,6 +14,10 @@ module.exports = {
       cartArray: {
         type: Sequelize.STRING
       },
+      UserId: {
+        allowNull:false,
+        type: Sequelize.STRING
+      },
       firstName: {
         type: Sequelize.STRING,
         refecences: {
