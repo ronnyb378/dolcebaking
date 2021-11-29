@@ -1,8 +1,9 @@
 import React from 'react'
-import { Modal, Button } from 'react-bootstrap'
+import { Modal, Button, Form } from 'react-bootstrap'
 import { Counter } from '../features/counter/Counter';
 
 export default function ItemPopUp(props) {
+
     return (
         <div>
             <Modal
@@ -13,12 +14,11 @@ export default function ItemPopUp(props) {
             >
                 <Modal.Header closeButton>
                     <Modal.Title id="contained-modal-title-vcenter">
-                        Menu Item
+                        {props.data}
                     </Modal.Title>
                 </Modal.Header>
                 <Modal.Body>
-                    <h4>Centered Modal</h4>
-                    <Counter />
+                    {/* <Counter /> */}
                 </Modal.Body>
                 <Modal.Footer>
                     <Button onClick={props.onHide}>Close</Button>
