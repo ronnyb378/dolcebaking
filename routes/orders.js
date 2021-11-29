@@ -1,7 +1,7 @@
 var express = require('express');
 const db = require('../models');
 var router = express.Router();
-
+const orderid = require('order-id')('mysecret');
 
 router.post('/neworder', async function (req, res, next) {
     const newOrder = {
@@ -31,36 +31,19 @@ router.post('/neworder', async function (req, res, next) {
             }
         }
     }
-
-    // const user = await db.User.findByPk(req.session.user.id) 
-    // try {
-    //     const order = await user.createOrder({
-    //         orderId: 'test',
-    //         cartArray: 'test',
-    //         firstName: req.session.user.firstName,
-    //         lastName: req.session.user.lastName,
-    //         email: req.session.user.email
-    //     })
-    //     res.json(order)
-    // } catch (e) {
-    //     res.status(400).json({ error: e })
-    //     console.error(e)
-    // }
+    
+    const id = orderid.generate();
     db.Order.create({
-        orderId: 'test',
-        cartArray: 'test',
+        orderId: id,
+        cartArray: 'cart order goes here',
         firstName: req.session.user.firstName,
         lastName: req.session.user.lastName,
         email: req.session.user.email,
-        UserId: 56
+        UserId: 56,
     })
-        .then((order) => {
-            res.json({order: order})
-        })
-    // res.json({
-    //     Order: newOrder
-    // }) 
-
+    .then((order) => {
+        res.json({ order: order })
+    })
 });
 
 module.exports = router;
