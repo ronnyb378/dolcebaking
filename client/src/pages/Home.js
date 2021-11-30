@@ -5,14 +5,25 @@ import { Container, Card, Row, Col, Button } from 'react-bootstrap'
 // import empanadas from '../images/empanadas.jpg'
 // import cake from '../images/flower_cake.jpg'
 import ItemPopUp from '../components/ItemPopUp'
-import { useSelector } from 'react-redux'
+import { useDispatch, useSelector } from 'react-redux'
+import { actionItemDetail } from '../redux/actions/itemDetail'
 
 
 export default function Home() {
+    const dispatch = useDispatch()
+
     const [modalShow, setModalShow] = useState(false)
-    const [item, setItem] = useState('')
     const items = useSelector(state => state.products)
 
+    const getItem = (id) => {
+        const product = items.find(item => item.id === id);
+        return product
+    }
+
+    const handleDetail = (id) => {
+        const product = getItem(id);
+        dispatch(actionItemDetail(product))
+    }
 
 
     return (
@@ -21,19 +32,15 @@ export default function Home() {
                 <h2>Menu</h2>
                 <Row xs={1} md={2} lg={2} xl={4} className="g-4 justify-content-center">
                     {items.map((item) => {
-                        return <Col>
+                        return <Col key={item.id}>
                             <Card className="bg-dark text-white">
                                 <Card.Img src={item.image} alt="Card image" />
                                 <Card.ImgOverlay>
                                     <Card.Title>{item.category}</Card.Title>
                                     <Card.Text>
-                                        <Button variant="primary" onClick={() => { setModalShow(true); setItem(item.name)}}>
+                                        <Button variant="primary" onClick={() => { setModalShow(true); handleDetail(item.id)}}>
                                             Order
                                         </Button>
-                                        <ItemPopUp
-                                            show={modalShow}
-                                            onHide={() => setModalShow(false)}
-                                        />
                                     </Card.Text>
                                 </Card.ImgOverlay>
                             </Card>
@@ -44,7 +51,6 @@ export default function Home() {
             <ItemPopUp
                 show={modalShow}
                 onHide={() => setModalShow(false)}
-                data={item}
             />
         </div>
     )

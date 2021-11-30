@@ -1,11 +1,12 @@
 import React from 'react'
-import { Modal, Button, Form } from 'react-bootstrap'
-import { Counter } from '../features/counter/Counter';
+import { Modal, Button } from 'react-bootstrap'
+import { useSelector } from 'react-redux'
+// import { Counter } from '../features/counter/Counter';
 
 export default function ItemPopUp(props) {
+    const clickedItem = useSelector(state => state.itemDetail)
 
     return (
-        <div>
             <Modal
                 {...props}
                 size="lg"
@@ -14,7 +15,7 @@ export default function ItemPopUp(props) {
             >
                 <Modal.Header closeButton>
                     <Modal.Title id="contained-modal-title-vcenter">
-                        {props.data}
+                        {clickedItem.name}
                     </Modal.Title>
                 </Modal.Header>
                 <Modal.Body>
@@ -24,6 +25,5 @@ export default function ItemPopUp(props) {
                     <Button onClick={props.onHide}>Close</Button>
                 </Modal.Footer>
             </Modal>
-        </div>
     )
 }

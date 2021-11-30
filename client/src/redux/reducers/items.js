@@ -1,12 +1,12 @@
 import { menuItems } from '../../menuItems'
 
-const defaultState = {
-    products: menuItems
-}
+// const defaultState = {
+//     products: menuItems
+// }
 
-export function items(state=defaultState, action) {
+export function items(state=menuItems, action) {
     switch (action.type) {
-        case "UPDATE_ITEMS":
+        case "MODIFY_ITEMS":
             return action.items
         default:
             return state
