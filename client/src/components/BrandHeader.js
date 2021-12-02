@@ -1,5 +1,5 @@
 import React from 'react'
-import { Container } from 'react-bootstrap'
+import { Container, Image } from 'react-bootstrap'
 import bakeTool from '../images/dolce_baking_tool.png'
 
 export default function BrandHeader() {

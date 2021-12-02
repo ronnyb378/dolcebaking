@@ -5,7 +5,7 @@ import cart from '../images/dolce_cart.png'
 export default function NavBar() {
     return (
         <div>
-            <Navbar collapseOnSelect expand="lg" bg="dark" variant="dark">
+            <Navbar collapseOnSelect expand="lg">
                 <Container className="mx-1" fluid>
                     <Navbar.Brand href="/">🍰 Dolce Desserts</Navbar.Brand>
                     <Navbar.Toggle aria-controls="responsive-navbar-nav" />

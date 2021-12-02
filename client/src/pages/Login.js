@@ -82,7 +82,7 @@ export default function Login() {
                     {login === true ? (
                         <Col>
                             <h2>Sign Up</h2>
-                            <Form className="signUpForm" onSubmit={handleSignupSubmit}>
+                            <Form className="signUpForm pt-4" onSubmit={handleSignupSubmit}>
                                 <Row className="mb-3">
                                     <Form.Group as={Col} controlId="firstName">
                                         <Form.Label>First Name</Form.Label>
@@ -131,7 +131,7 @@ export default function Login() {
 
                         <Col >
                             <h2>Log in</h2>
-                            <Form onSubmit={handleLoginSubmit}>
+                            <Form className="pt-4" onSubmit={handleLoginSubmit}>
                                 <FloatingLabel
                                     controlId="floatingInput"
                                     label="Email address"
