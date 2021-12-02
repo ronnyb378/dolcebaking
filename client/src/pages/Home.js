@@ -1,9 +1,6 @@
 import React, { useState } from 'react'
 import { Container, Card, Row, Col, Button } from 'react-bootstrap'
-// import poundCake from '../images/pound_cake.jpg'
-// import halloStraws from '../images/halloween_strawberries.jpg'
-// import empanadas from '../images/empanadas.jpg'
-// import cake from '../images/flower_cake.jpg'
+
 import ItemPopUp from '../components/ItemPopUp'
 import { useDispatch, useSelector } from 'react-redux'
 import { actionItemDetail } from '../redux/actions/itemDetail'
