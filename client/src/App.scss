@@ -3,6 +3,7 @@ $pink: #E86A92;
 $yellow: #F7EFBE;
 $white: #F7F7F9;
 $mint:#6FB379;
+$menuItemFont: 'M PLUS 1 Code', sans-serif;
 
 
 
@@ -154,8 +155,7 @@ h2 {
   }
   .card-text {
     color: $grey;
-    font-family: 'Anton', sans-serif;
-    font-family: 'M PLUS 1 Code', sans-serif;
+    font-family: $menuItemFont;
     font-size: 1.5em;
     
   }
@@ -164,6 +164,19 @@ h2 {
     font-family: 'M PLUS 1 Code', sans-serif;
     background-color: $pink;
     border-color: $pink;
+  }
+}
+
+.modal-content {
+  // .modal-header {
+  //   text-align: center !important;
+  // }
+  .modal-title {
+    font-family: $menuItemFont;
+    
+  }
+  .img-fluid {
+    height: 26vw;
   }
 }
 
