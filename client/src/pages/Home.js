@@ -9,8 +9,8 @@ import AboutUs from '../components/AboutUs'
 export default function Home() {
     const dispatch = useDispatch()
 
-    const [modalShow, setModalShow] = useState(false)
     const items = useSelector(state => state.products)
+    const [modalShow, setModalShow] = useState(false)
 
     const getItem = (id) => {
         const product = items.find(item => item.id === id);
