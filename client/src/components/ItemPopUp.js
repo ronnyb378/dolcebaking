@@ -1,55 +1,56 @@
-import React, { useState } from 'react'
+import React, { useEffect, useState } from 'react'
 import { Modal, Button, Image, Form, Row, Col } from 'react-bootstrap'
 import { useSelector, useDispatch } from 'react-redux'
 import { actionUpdateCart } from '../redux/actions/cart'
-import { actionUpdateItems } from '../redux/actions/items'
+import { actionItemDetail } from '../redux/actions/itemDetail'
+
 // import { Counter } from '../features/counter/Counter';
 
 export default function ItemPopUp(props) {
     const dispatch = useDispatch()
+    const { data } = props
+    const [ detailObj, setDetailObj ] = useState(null)
+
+    useEffect(() => {
+        if (data) {
+            const newDetailObj = data;
+            setDetailObj(newDetailObj)
+        }
+    }, [data])
+
     const clickedItem = useSelector(state => state.itemDetail)
-    const items = useSelector(state => state.products)
-    const [count, setCount] = useState(0)
 
-    function updateCount(e, num) {
-        e.preventDefault()
-        setCount(Math.max(0, count + num))
-    }
+    const items = useSelector(state => state.products.categories)
 
-    // may want to export getItem function from 
-    // Home.js later for reusability 
+
+
     const getItem = (id) => {
-        const product = items.find(item => item.id === id);
+        const product = props.data.products.find(item => item.id == id);
+        console.log(product)
         return product
     }
 
-    const addToCart = id => {
-        let tempProducts = [...items];
-        const index = tempProducts.indexOf(getItem(id));
-        const product = tempProducts[index];
-        product.inCart = true;
-        product.count = 1;
-        const price = product.price;
-        product.total = price;
-
-        dispatch(actionUpdateItems(tempProducts))
-        dispatch(actionUpdateCart(product))
-
-
-    }
 
     const handleAddToCart = id => {
         let tempProducts = [...items];
         const index = tempProducts.indexOf(getItem(id));
-        const product = tempProducts[index];
-        product.inCart = true;
+        // const product = tempProducts[index];
+        // product.inCart = true;
         // product.count += 1;
-        const price = product.price;
-        product.total = price;
+        // const price = product.price;
+        // product.total = price;
+
+        const product = getItem(id)
         dispatch(actionUpdateCart(product))
     }
 
+    const handleRadioButton = id => {
+        console.log(id)
+        const product = getItem(id)
+        dispatch(actionItemDetail(product))
+    }
 
+    if (detailObj) {
     return (
         <Modal
             {...props}
@@ -60,55 +61,43 @@ export default function ItemPopUp(props) {
         >
             <Modal.Header closeButton>
                 <Modal.Title id="contained-modal-title-vcenter">
-                    {clickedItem.name}
+                    {/* {clickedItem.name} */}
+                    {props.data.name}
                 </Modal.Title>
             </Modal.Header>
             <Modal.Body>
                 {/* <Counter /> */}
                 <Row>
                     <Col>
-                        <Image src={clickedItem.image} fluid rounded />
+                        {/* <Image src={clickedItem.image} fluid rounded /> */}
+                        <Image src={props.data.image} fluid rounded />
                     </Col>
                     <Col className="d-flex align-items-center">
-                        <Form >
-                            {clickedItem.id === 3 ? (
-                            <div className="pb-2"><h6 className="pb-1"><b>Flavor</b></h6>
-                            <Form.Check
-                                inline
-                                type="radio"
-                                name="group1"
-                                id={`default-radio`}
-                                label={`pineapple`}
-                            /><Form.Check
-                            inline
-                            type="radio"
-                            name="group1"
-                            id={`default-radio`}
-                            label={`strawberry`}
-                            />
-                            <Form.Check
-                            inline
-                            type="radio"
-                            name="group1"
-                            id={`default-radio`}
-                            label={`cajeta`}
-                            /></div>) : (
-                                null
-                            ) }
-                            <h6 className="pb-1"><b>Quantity</b></h6>
-                            <div className="quantity d-flex">
-                                <Button variant="flat" onClick={(e) => updateCount(e,-1)}>-</Button>
-                                <span>{count}</span>
-                                <Button variant="flat" onClick={(e) => updateCount(e, 1)}>+</Button>
-                            </div>
+                        {/* Trying new things */}
+                        <Form onChange={(e) => handleRadioButton(e.target.value)}>
+                            {
+                            (props.data.products.length > 1) ? (
+                                props.data.products.map((data) => {
+                                return <Form.Check
+                                        key={data.id}
+                                        value={data.id}
+                                        inline 
+                                        type="radio"
+                                        name="group1"
+                                        id={`default-radio`}
+                                        label={`${data.name}`}
+                                        />
+                            })
+                            ) : (null)
+                                } 
                         </Form>
                     </Col>
                 </Row>
             </Modal.Body>
             <Modal.Footer>
                 <Button onClick={props.onHide}>Back To Products</Button>
-                <Button onClick={() => handleAddToCart(clickedItem.id)}>Add To Cart</Button>
+                <Button className="cart-btn" onClick={() => handleAddToCart(clickedItem.id)}>Add To Cart</Button>
             </Modal.Footer>
         </Modal>
-    )
+    )} else { return null }
 }
