@@ -168,14 +168,14 @@ h2 {
 }
 
 .modal-content {
+  font-family: $menuItemFont;
 
   .col {
     max-height: 275px;
-    border-style: solid;
+    // border-style: solid;
   }
 
   .modal-title {
-    font-family: $menuItemFont;
     font-size: 1.8em;
   }
   .img-fluid {
@@ -186,14 +186,25 @@ h2 {
     // border-style: solid;
     span {
       width: 100%;
-      // text-align: center;
-      // display: inline-block;
-      // vertical-align: middle;
-      // line-height: normal;
+
     }
     .btn {
       width: 100%;
       background-color: $pink;
+    }
+  }
+  .modal-footer {
+    .btn {
+      flex-grow: 1;
+      flex-basis: 0;
+      font-weight: bold; 
+      background-color: grey;
+      border-color: grey;
+
+    }
+    .btn.cart-btn {
+      background-color: $pink;
+      border-color: $pink;
     }
   }
 }
