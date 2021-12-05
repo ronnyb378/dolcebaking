@@ -38,11 +38,23 @@ export default function ItemPopUp(props) {
 
     }
 
+    const handleAddToCart = id => {
+        let tempProducts = [...items];
+        const index = tempProducts.indexOf(getItem(id));
+        const product = tempProducts[index];
+        product.inCart = true;
+        // product.count += 1;
+        const price = product.price;
+        product.total = price;
+        dispatch(actionUpdateCart(product))
+    }
+
 
     return (
         <Modal
             {...props}
-            size="lg"
+            // size="lg"
+            dialogClassName="modal-50w"
             aria-labelledby="contained-modal-title-vcenter"
             centered
         >
@@ -55,12 +67,13 @@ export default function ItemPopUp(props) {
                 {/* <Counter /> */}
                 <Row>
                     <Col>
-                        <Image src={clickedItem.image} fluid />
+                        <Image src={clickedItem.image} fluid rounded />
                     </Col>
-                    <Col >
-                        <Form>
-                            <h6 className="pb-1"><b>Flavor</b></h6>
-                            {clickedItem.id === 3 ? (<div className="pb-2"><Form.Check
+                    <Col className="d-flex align-items-center">
+                        <Form >
+                            {clickedItem.id === 3 ? (
+                            <div className="pb-2"><h6 className="pb-1"><b>Flavor</b></h6>
+                            <Form.Check
                                 inline
                                 type="radio"
                                 name="group1"
@@ -83,16 +96,18 @@ export default function ItemPopUp(props) {
                                 null
                             ) }
                             <h6 className="pb-1"><b>Quantity</b></h6>
-                            <button onClick={(e) => updateCount(e,-1)}>-</button>
-                            <span>{count}</span>
-                            <button onClick={(e) => updateCount(e, 1)}>+</button>
+                            <div className="quantity d-flex">
+                                <Button variant="flat" onClick={(e) => updateCount(e,-1)}>-</Button>
+                                <span>{count}</span>
+                                <Button variant="flat" onClick={(e) => updateCount(e, 1)}>+</Button>
+                            </div>
                         </Form>
                     </Col>
                 </Row>
             </Modal.Body>
             <Modal.Footer>
-                <Button onClick={props.onHide}>Back To Treats</Button>
-                <Button onClick={props.onHide}>Add To Cart</Button>
+                <Button onClick={props.onHide}>Back To Products</Button>
+                <Button onClick={() => handleAddToCart(clickedItem.id)}>Add To Cart</Button>
             </Modal.Footer>
         </Modal>
     )

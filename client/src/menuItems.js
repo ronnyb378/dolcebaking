@@ -1,8 +1,4 @@
-// const poundCakeImg =  require('./images/pound_cake.jpg');
-// const strawberriesImg = require('./images/halloween_strawberries.jpg');
-// const empanadasImg = require('./images/empanadas.jpg')
 
-// import poundCakeImg from './images/pound_cake.jpg'
 
 export const menuItems = [
     {
@@ -13,7 +9,7 @@ export const menuItems = [
         image: '/images/pound_cake.jpg',
         price: 10,
         inCart: false,
-        count: 0,
+        // count: 0,
         total: 0
     },
     {
@@ -24,7 +20,7 @@ export const menuItems = [
         image: '/images/halloween_strawberries.jpg',
         price: 12,
         inCart: false,
-        count: 0,
+        // count: 0,
         total: 0
     },
     {
@@ -35,13 +31,8 @@ export const menuItems = [
         image: '/images/empanadas.jpg',
         price: 10,
         inCart: false,
-        count: 0,
+        // count: 0,
         total: 0
     }
 ]
 
-// export default menuItems
-
-// export const detailItem = {
-
-// }
