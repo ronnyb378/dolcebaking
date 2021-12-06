@@ -48,10 +48,10 @@ router.post('/signup', function (req, res, next) {
           db.User.create({
             username: req.body.username,
             email: req.body.email,
+            password: hash,
             firstName: req.body.first_name,
             lastName: req.body.last_name,
             phoneNumber: req.body.phone_number,
-            password: hash,
             date: dateCreated
           })
             .then((user) => {

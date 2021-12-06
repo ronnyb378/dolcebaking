@@ -5,9 +5,6 @@ $white: #F7F7F9;
 $mint:#6FB379;
 $menuItemFont: 'M PLUS 1 Code', sans-serif;
 
-
-
-
 .App {
   text-align: center;
 }
@@ -292,4 +289,20 @@ opacity: .60;
 .img-hover-zoom:hover img {
   transform: scale(1.1);
   opacity: 0.9;
+}
+
+.cart-overview {
+  display: flex;
+  // overflow: hidden;
+  .cart-info {
+    width: 100%;
+    float: left;
+    background-color: gray;
+  }
+  
+  .cart-total {
+    background-color: lightgreen;
+    width: 280px;
+    // overflow: hidden;
+  }
 }
