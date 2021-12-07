@@ -1,6 +1,7 @@
 import React from 'react'
 import { Navbar, Container, Nav } from 'react-bootstrap'
 import cart from '../images/dolce_cart.png'
+import { Link } from 'react-router-dom'
 
 export default function NavBar() {
     return (
@@ -16,9 +17,12 @@ export default function NavBar() {
                         </Nav>
                         <Nav>
                             <Nav.Link href="/login">Login</Nav.Link>
-                            <Nav.Link eventKey={2} href="/cart">
+                            {/* <Nav.Link eventKey={2} href="/cart">
                                 <img src={cart} alt="shopping cart"/>
-                            </Nav.Link>
+                            </Nav.Link> */}
+                            <Link to={"/cart"}>
+                                <img src={cart} alt="shopping cart"/>
+                            </Link>
                         </Nav>
                     </Navbar.Collapse>
                 </Container>
