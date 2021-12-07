@@ -5,6 +5,7 @@ import { cart } from './reducers/cart'
 import { cartSubTotal } from './reducers/cartSubTotal'
 import { cartTax } from './reducers/cartTax'
 import { cartTotal } from './reducers/cartTotal'
+import { cartValues } from './reducers/cartValues'
 
 const rootReducer = combineReducers({
     products: items,
@@ -13,6 +14,7 @@ const rootReducer = combineReducers({
     cartSubTotal,
     cartTax,
     cartTotal,
+    cartValues,
 })
 
 export const store = createStore(

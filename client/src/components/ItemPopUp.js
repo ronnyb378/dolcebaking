@@ -3,6 +3,7 @@ import { Modal, Button, Image, Form, Row, Col } from 'react-bootstrap'
 import { useSelector, useDispatch } from 'react-redux'
 import { actionUpdateCart } from '../redux/actions/cart'
 import { actionItemDetail } from '../redux/actions/itemDetail'
+import { actionUpdateCartValues } from '../redux/actions/cartValues'
 
 // import { Counter } from '../features/counter/Counter';
 
@@ -19,33 +20,51 @@ export default function ItemPopUp(props) {
     }, [data])
 
     const clickedItem = useSelector(state => state.itemDetail)
-
-    const items = useSelector(state => state.products.categories)
+    // const items = useSelector(state => state.products.categories)
+    const cart = useSelector(state => state.cart)
 
 
 
     const getItem = (id) => {
-        const product = props.data.products.find(item => item.id == id);
-        console.log(product)
+        const product = props.data.products.find(item => item.id === parseInt(id));
         return product
+    }
+
+    const addTotals = () => {
+        let subTotal = 0;
+        cart.cartItems.map(item => (subTotal += item.total))
+        const tempTax = subTotal * .0625
+        const tax = parseFloat(tempTax.toFixed(2));
+        const total = subTotal + tax
+        let totalsObj = {
+            cartSubTotal: subTotal,
+            cartTax: tax,
+            cartTotal: total
+        }
+        dispatch(actionUpdateCartValues(totalsObj))
+        console.log(totalsObj)
     }
 
 
     const handleAddToCart = id => {
-        let tempProducts = [...items];
-        const index = tempProducts.indexOf(getItem(id));
+        // let tempProducts = [...items];
+        // const index = tempProducts.indexOf(getItem(id));
         // const product = tempProducts[index];
         // product.inCart = true;
         // product.count += 1;
         // const price = product.price;
         // product.total = price;
 
-        const product = getItem(id)
+        const tempProduct = getItem(id)
+        let product = {...tempProduct}
+        const price = product.price;
+        product.total = price
+
         dispatch(actionUpdateCart(product))
+        addTotals()
     }
 
     const handleRadioButton = id => {
-        console.log(id)
         const product = getItem(id)
         dispatch(actionItemDetail(product))
     }
@@ -61,15 +80,12 @@ export default function ItemPopUp(props) {
         >
             <Modal.Header closeButton>
                 <Modal.Title id="contained-modal-title-vcenter">
-                    {/* {clickedItem.name} */}
                     {props.data.name}
                 </Modal.Title>
             </Modal.Header>
             <Modal.Body>
-                {/* <Counter /> */}
                 <Row>
                     <Col>
-                        {/* <Image src={clickedItem.image} fluid rounded /> */}
                         <Image src={props.data.image} fluid rounded />
                     </Col>
                     <Col className="d-flex align-items-center">
