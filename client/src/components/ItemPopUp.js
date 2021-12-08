@@ -30,20 +30,6 @@ export default function ItemPopUp(props) {
         return product
     }
 
-    const addTotals = () => {
-        let subTotal = 0;
-        cart.cartItems.map(item => (subTotal += item.total))
-        const tempTax = subTotal * .0625
-        const tax = parseFloat(tempTax.toFixed(2));
-        const total = subTotal + tax
-        let totalsObj = {
-            cartSubTotal: subTotal,
-            cartTax: tax,
-            cartTotal: total
-        }
-        dispatch(actionUpdateCartValues(totalsObj))
-        console.log(totalsObj)
-    }
 
 
     const handleAddToCart = id => {
@@ -61,7 +47,6 @@ export default function ItemPopUp(props) {
         product.total = price
 
         dispatch(actionUpdateCart(product))
-        addTotals()
     }
 
     const handleRadioButton = id => {

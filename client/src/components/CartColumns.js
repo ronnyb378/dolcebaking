@@ -4,7 +4,7 @@ import { Col, Container, Row } from 'react-bootstrap'
 export default function CartColumns() {
 
     return (
-        <Container fluid cartName="text-center">
+        <Container fluid className="text-center">
             <Row>
                 <Col>
                     <p>Items</p>

@@ -2,7 +2,6 @@ export const existingCartItem = ({
     prevCartItems,
     nextCartItem
 }) => {
-    // console.log(prevCartItems)
     return prevCartItems.find(
         (cartItem) => cartItem.id === nextCartItem.id
     )
@@ -26,7 +25,6 @@ export const handleAddToCart = ({
         );
     }
 
-    // console.log(prevCartItems)
 
     return [
         ...prevCartItems,
