@@ -291,18 +291,66 @@ opacity: .60;
   opacity: 0.9;
 }
 
-.cart-overview {
-  display: flex;
-  // overflow: hidden;
-  .cart-info {
-    width: 100%;
-    float: left;
-    background-color: gray;
-  }
+// .cart-overview {
+//   display: flex;
+//   // overflow: hidden;
+//   .cart-info {
+//     width: 100%;
+//     float: left;
+//     background-color: gray;
+//   }
   
-  .cart-total {
-    background-color: chartreuse;
-    width: 280px;
-    // overflow: hidden;
+//   .cart-total {
+//     background-color: chartreuse;
+//     width: 280px;
+//     // overflow: hidden;
+//   }
+// }
+
+.cart-total {
+  // .btn {
+  //   width: 100%;
+  // }
+}
+
+.cart-columns {
+  text-transform: uppercase;
+}
+
+.cart-items {
+  .btn {
+    background-color: transparent;
+    border-color: $pink;
+    border-width: 2px;
+    color: $pink;
+
+  }
+  .cart-count {
+    cursor: default;
+    margin: 0px 2px 0px 2px;
+  }
+  img {
+    height: 36px;
+    cursor: pointer;
+  }
+
+}
+
+.cart-total {
+  .btn {
+    background-color: transparent;
+    border-color: $grey;
+    color: $grey;
+
+  }
+  h5 {
+    font-family: $menuItemFont;
+    font-weight: bold;
   }
 }
+
+.together {
+  white-space: nowrap;
+}
+
+

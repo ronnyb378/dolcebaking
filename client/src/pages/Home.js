@@ -4,7 +4,7 @@ import ItemPopUp from '../components/ItemPopUp'
 import { useDispatch, useSelector } from 'react-redux'
 import { actionItemDetail } from '../redux/actions/itemDetail'
 import AboutUs from '../components/AboutUs'
-
+import BrandHeader from '../components/BrandHeader'
 
 export default function Home() {
     const dispatch = useDispatch()
@@ -12,11 +12,6 @@ export default function Home() {
     const items = useSelector(state => state.products.categories)
     const [modalShow, setModalShow] = useState(false)
     const [tempItem, setTempItem ] = useState('')
-
-    // const getItem = (id) => {
-    //     const product = items.find(item => item.id === id);
-    //     return product
-    // }
 
 
     const handleDetail = (object) => {
@@ -26,6 +21,7 @@ export default function Home() {
 
     return (
         <div>
+            <BrandHeader />
             <Container className="pt-4 pb-4 menu" fluid>
                 <h2>Our Treats</h2>
                 <Row xs={1} md={2} lg={2} xl={4} className="pt-4 g-4 justify-content-center">

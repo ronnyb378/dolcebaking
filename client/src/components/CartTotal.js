@@ -33,18 +33,19 @@ export default function CartTotal({value}) {
 
 
     return (
-        <Container className="cart-total">
-            <h2>Cart Total</h2>
-            <Row>
-                <Col>
+        <Container className="cart-total ">
+            {/* <h6>Cart Total</h6> */}
+            <Row >
+                <Col >
                     <Link to="/">
                         <Button onClick={() => dispatch(actionClearCart())}>
                             Clear Cart
                         </Button>
                     </Link>
-                    <h2>Subtotal: ${cartValues.cartSubTotal}</h2>
-                    <h2>Tax: ${cartValues.cartTax}</h2>
-                    <h2>Grand Total: ${cartValues.cartTotal}</h2>
+                    <h5>Subtotal: ${cartValues.cartSubTotal}</h5>
+                    <h5>Tax: ${cartValues.cartTax}</h5>
+                    <h5>Grand Total: ${cartValues.cartTotal}</h5>
+                    <Button>Checkout</Button>
                 </Col>
             </Row>
         </Container>
