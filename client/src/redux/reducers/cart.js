@@ -1,4 +1,4 @@
-import { handleAddToCart } from "./cart.utils"
+import { handleAddToCart, handleDecrement } from "./cart.utils"
 
 export function cart(state={cartItems: []}, action) {
     switch (action.type) {
@@ -17,7 +17,14 @@ export function cart(state={cartItems: []}, action) {
         case "REMOVE_ITEM":
             return {
                 cartItems: state.cartItems.filter(item => item.id !== action.item.id)
-            }       
+            }  
+        case "DECREMENT_ITEM"  :
+            return {
+                ...state,
+                cartItems: handleDecrement({prevCartItems: state.cartItems,
+                nextCartItem: action.item
+                })
+            }   
         default:
             return state
     }

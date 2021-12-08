@@ -17,3 +17,10 @@ export function actionRemoveItem(item) {
         item: item
     }
 }
+
+export function actionDecrementItem(item) {
+    return {
+        type: "DECREMENT_ITEM",
+        item: item
+    }
+}

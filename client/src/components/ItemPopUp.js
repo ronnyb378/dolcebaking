@@ -3,7 +3,6 @@ import { Modal, Button, Image, Form, Row, Col } from 'react-bootstrap'
 import { useSelector, useDispatch } from 'react-redux'
 import { actionUpdateCart } from '../redux/actions/cart'
 import { actionItemDetail } from '../redux/actions/itemDetail'
-import { actionUpdateCartValues } from '../redux/actions/cartValues'
 
 // import { Counter } from '../features/counter/Counter';
 
@@ -21,7 +20,6 @@ export default function ItemPopUp(props) {
 
     const clickedItem = useSelector(state => state.itemDetail)
     // const items = useSelector(state => state.products.categories)
-    const cart = useSelector(state => state.cart)
 
 
 
