@@ -1,5 +1,6 @@
 import React, { useState } from 'react'
 import { Container, Form, Row, Col, Button, FloatingLabel } from 'react-bootstrap'
+import BrandHeader from '../components/BrandHeader';
 
 export default function Login() {
 
@@ -77,6 +78,7 @@ export default function Login() {
 
     return (
         <div>
+            <BrandHeader />
             <Container className="pt-4 login-form" fluid>
                 <Row className="justify-content-center">
                     {login === true ? (

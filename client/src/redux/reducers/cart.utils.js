@@ -1,8 +1,8 @@
+
 export const existingCartItem = ({
     prevCartItems,
     nextCartItem
 }) => {
-    // console.log(prevCartItems)
     return prevCartItems.find(
         (cartItem) => cartItem.id === nextCartItem.id
     )
@@ -26,7 +26,6 @@ export const handleAddToCart = ({
         );
     }
 
-    // console.log(prevCartItems)
 
     return [
         ...prevCartItems,
@@ -35,4 +34,22 @@ export const handleAddToCart = ({
             count: quantity
         }
     ]
+}
+
+export const handleDecrement = ({
+    prevCartItems,
+    nextCartItem
+}) => {
+    const quantity = 1
+
+    prevCartItems.map((cartItem) => {
+        if (cartItem.id === nextCartItem.id) {
+            cartItem.count -= quantity;
+            cartItem.total = cartItem.count * cartItem.price;
+            return cartItem
+        } else { return cartItem }
+    })
+    return [
+        ...prevCartItems
+    ]   
 }

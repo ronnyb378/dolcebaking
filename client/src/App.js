@@ -9,7 +9,6 @@ import Home from './pages/Home';
 import Login from './pages/Login';
 import Cart from './pages/Cart';
 import NavBar from './components/NavBar';
-import BrandHeader from './components/BrandHeader';
 import Footer from './components/Footer';
 
 function App() {
@@ -62,7 +61,6 @@ function App() {
       </header> */}
     <Router>
       <NavBar />
-      <BrandHeader />
       <Switch>
         <Route exact path="/">
           <Home />
