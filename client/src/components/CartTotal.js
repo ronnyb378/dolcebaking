@@ -1,13 +1,15 @@
-import React, { useEffect} from 'react'
+import React, { useEffect } from 'react'
 import { Container, Row, Col, Button } from 'react-bootstrap'
 import { Link } from 'react-router-dom'
-import { useDispatch } from 'react-redux'
+import { useDispatch, useSelector } from 'react-redux'
 import { actionUpdateCartValues } from '../redux/actions/cartValues'
 import { actionClearCart } from '../redux/actions/cart'
 
-export default function CartTotal({value}) {
+export default function CartTotal({ value }) {
     const dispatch = useDispatch()
-    const {cartValues, cart} = value
+    const cartData = useSelector(state => state)
+    // console.log(cartData)
+    const { cartValues, cart } = value
 
     const addTotals = () => {
         let subTotal = 0;
@@ -26,10 +28,28 @@ export default function CartTotal({value}) {
     useEffect(() => {
         if (cart) {
             const newDetailObj = addTotals();
-            console.log(newDetailObj)
+            // console.log(newDetailObj)
             dispatch(actionUpdateCartValues(newDetailObj))
         }
     }, [cart])
+
+    const handleTotalClick = (e) => {
+        e.preventDefault()
+        // console.log(cartData)
+        fetch('/api/v1/orders/neworder', {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json'
+            },
+            body: JSON.stringify({
+                value: cartData
+            })
+        })
+        // .then(res => res.json())
+        // .then(data => {
+        //     console.log(data.order)
+        // })
+    }
 
 
     return (
@@ -42,10 +62,10 @@ export default function CartTotal({value}) {
                             Clear Cart
                         </Button>
                     </Link>
-                    <h5>Subtotal: ${cartValues.cartSubTotal}</h5>
+                    <h5>Subtotal: ${cartValues.cartSubTotal} </h5>
                     <h5>Tax: ${cartValues.cartTax}</h5>
                     <h5>Grand Total: ${cartValues.cartTotal}</h5>
-                    <Button>Checkout</Button>
+                    <Button onClick={(e) => handleTotalClick(e)}>Checkout</Button>
                 </Col>
             </Row>
         </Container>

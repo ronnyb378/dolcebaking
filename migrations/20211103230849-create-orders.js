@@ -11,8 +11,20 @@ module.exports = {
       orderId: {
         type: Sequelize.STRING
       },
-      cartArray: {
-        type: Sequelize.STRING
+      // cartArray: {
+      //   type: Sequelize.STRING
+      // },
+      products: {
+        type: Sequelize.JSON
+      },
+      itemDetail: {
+        type: Sequelize.JSON
+      },
+      cart: {
+        type: Sequelize.JSON
+      },
+      cartValues: {
+        type: Sequelize.JSON
       },
       UserId: {
         allowNull:false,
