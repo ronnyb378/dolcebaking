@@ -32,7 +32,7 @@ export default function CartItem({item, value}) {
     return (
         <Row className="pb-2 cart-items align-items-center">
             <Col className="col-10 mx-auto col-md-2">
-                <Image src={image} style={{ width: "6rem", height: "6rem"}} fluid/>
+                <Image src={image} alt={`${name}`} style={{ width: "6rem", height: "6rem"}} fluid/>
             </Col>
             <Col className="col-10 mx-auto col-md-2">
                 {name}
@@ -46,7 +46,7 @@ export default function CartItem({item, value}) {
             <Button onClick={() => increment(id)}>+</Button>
             </Col>
             <Col className="col-10 mx-auto col-md-2">
-                <img src={trash} alt="remove item"onClick={() => dispatch(actionRemoveItem(item))} />
+                <img src={trash} alt="remove item" className="trash-image" onClick={() => dispatch(actionRemoveItem(item))} />
             </Col>
             <Col className="col-10 mx-auto col-md-2">
                 ${total}

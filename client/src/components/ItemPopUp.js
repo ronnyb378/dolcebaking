@@ -30,7 +30,7 @@ export default function ItemPopUp(props) {
 
 
 
-    const handleAddToCart = id => {
+    const handleAddToCart = (e, id) => {
         // let tempProducts = [...items];
         // const index = tempProducts.indexOf(getItem(id));
         // const product = tempProducts[index];
@@ -38,7 +38,7 @@ export default function ItemPopUp(props) {
         // product.count += 1;
         // const price = product.price;
         // product.total = price;
-
+        e.preventDefault();
         const tempProduct = getItem(id)
         let product = {...tempProduct}
         const price = product.price;
@@ -71,13 +71,15 @@ export default function ItemPopUp(props) {
                     <Col>
                         <Image src={props.data.image} fluid rounded />
                     </Col>
-                    <Col className="d-flex align-items-center">
-                        {/* Trying new things */}
-                        <Form onChange={(e) => handleRadioButton(e.target.value)}>
+                    <Col className="d-flex align-items-center item-column-right justify-content-center">
+                        <p>{props.data.description}</p>
+                        {/* form having id and button having form attribute not supported by IE11? */}
+                        <Form id="item-form" onSubmit={(e) => handleAddToCart(e, clickedItem.id)} onChange={(e) => handleRadioButton(e.target.value)}>
                             {
                             (props.data.products.length > 1) ? (
                                 props.data.products.map((data) => {
                                 return <Form.Check
+                                        required
                                         key={data.id}
                                         value={data.id}
                                         inline 
@@ -95,7 +97,7 @@ export default function ItemPopUp(props) {
             </Modal.Body>
             <Modal.Footer>
                 <Button onClick={props.onHide}>Back To Products</Button>
-                <Button className="cart-btn" onClick={() => handleAddToCart(clickedItem.id)}>Add To Cart</Button>
+                <Button form="item-form" className="cart-btn" type="submit" >Add To Cart</Button>
             </Modal.Footer>
         </Modal>
     )} else { return null }
