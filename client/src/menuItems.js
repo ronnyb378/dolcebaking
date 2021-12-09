@@ -7,6 +7,7 @@ export const menuItems = {
             category: "Pound Cake",
             name: "Pound Cake (6 count)",
             image: '/images/pound_cake.jpg',
+            description: 'Delicious warm pound cakes made with love',
             products: [
                 {
                     id: 4,
@@ -27,6 +28,7 @@ export const menuItems = {
             category: "Strawberries",
             name: "Strawberries (6 count)",
             image: '/images/halloween_strawberries.jpg',
+            description: 'Chocolate covered strawberries for your boo',
             products: [{
                 id: 5,
                 name: 'Strawberries (6 count)',
@@ -47,6 +49,7 @@ export const menuItems = {
             category: "Empanadas",
             name: "Empanadas (6 count)",
             image: "/images/empanadas.jpg",
+            description: 'Homemade empanadas much better than store bought',
             products: [
                 {
                     id: 6,

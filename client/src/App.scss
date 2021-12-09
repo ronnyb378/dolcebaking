@@ -154,8 +154,8 @@ h2 {
     color: $grey;
     font-family: $menuItemFont;
     font-size: 1.5em;
-    
   }
+
   .btn {
     font-family: 'Anton', sans-serif;
     font-family: 'M PLUS 1 Code', sans-serif;
@@ -190,6 +190,11 @@ h2 {
       background-color: $pink;
     }
   }
+
+  .item-column-right {
+    flex-direction: column;
+  }
+
   .modal-footer {
     .btn {
       flex-grow: 1;
@@ -329,7 +334,7 @@ opacity: .60;
     cursor: default;
     margin: 0px 2px 0px 2px;
   }
-  img {
+  .trash-image {
     height: 36px;
     cursor: pointer;
   }

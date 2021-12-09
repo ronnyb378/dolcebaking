@@ -8,21 +8,16 @@ export default function NavBar() {
         <div>
             <Navbar collapseOnSelect expand="lg">
                 <Container className="mx-1" fluid>
-                    <Navbar.Brand href="/">🍰 Dolce Desserts</Navbar.Brand>
+                    <Navbar.Brand as={Link} to={"/"}>🍰 Dolce Desserts</Navbar.Brand>
                     <Navbar.Toggle aria-controls="responsive-navbar-nav" />
                     <Navbar.Collapse id="responsive-navbar-nav">
                         <Nav className="me-auto">
-                            {/* <Nav.Link href="#features">Features</Nav.Link>
-                            <Nav.Link href="#pricing">Pricing</Nav.Link> */}
                         </Nav>
                         <Nav>
-                            <Nav.Link href="/login">Login</Nav.Link>
-                            {/* <Nav.Link eventKey={2} href="/cart">
+                            <Nav.Link as={Link} to={"/login"}>Login</Nav.Link>
+                            <Nav.Link as={Link} to={"/cart"} eventKey={2} href="/cart">
                                 <img src={cart} alt="shopping cart"/>
-                            </Nav.Link> */}
-                            <Link to={"/cart"}>
-                                <img src={cart} alt="shopping cart"/>
-                            </Link>
+                            </Nav.Link>
                         </Nav>
                     </Navbar.Collapse>
                 </Container>
