@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react'
+import React, { useEffect, useState, useRef } from 'react'
 import { Modal, Button, Image, Form, Row, Col } from 'react-bootstrap'
 import { useSelector, useDispatch } from 'react-redux'
 import { actionUpdateCart } from '../redux/actions/cart'
@@ -7,17 +7,21 @@ import { actionItemDetail } from '../redux/actions/itemDetail'
 // import { Counter } from '../features/counter/Counter';
 
 export default function ItemPopUp(props) {
+    const ref = useRef()
     const dispatch = useDispatch()
     const { data } = props
     const [detailObj, setDetailObj] = useState(null)
     const [error, setError ] = useState('')
 
+
     useEffect(() => {
+
         if (data) {
             const newDetailObj = data;
             setDetailObj(newDetailObj)
-            console.log('use effect ran')
         }
+
+
     }, [data])
 
     const clickedItem = useSelector(state => state.itemDetail)
@@ -33,6 +37,10 @@ export default function ItemPopUp(props) {
     const validation = (arr) => {
         let i = 0;
         let formValid = false;
+
+        if (arr.length === 1) {
+            return true
+        }
 
         while (i < arr.length && !formValid) {
             if (arr[i].checked) formValid = true;
@@ -72,10 +80,18 @@ export default function ItemPopUp(props) {
         dispatch(actionItemDetail(product))
     }
 
+    const closeModal = () => {
+        props.onHide();
+        console.log('closeModal function')
+        setError('')
+    }
+
 
     if (detailObj) {
         return (
             <Modal
+                ref={ref}
+                onExited={() => setError('')}
                 {...props}
                 dialogClassName="modal-50w"
                 aria-labelledby="contained-modal-title-vcenter"
@@ -117,7 +133,7 @@ export default function ItemPopUp(props) {
                     </Row>
                 </Modal.Body>
                 <Modal.Footer>
-                    <Button onClick={props.onHide}>Back To Products</Button>
+                    <Button onClick={() => closeModal()}>Back To Products</Button>
                     <Button form="item-form" className="cart-btn" type="submit" >Add To Cart</Button>
                 </Modal.Footer>
             </Modal>

@@ -18,6 +18,7 @@ export default function Home() {
         dispatch(actionItemDetail(object))
     }
 
+    const hideModal = () => setModalShow(false)
 
     return (
         <div>
@@ -47,7 +48,8 @@ export default function Home() {
             </Container>
             <ItemPopUp
                 show={modalShow}
-                onHide={() => setModalShow(false)}
+                // onHide={() => setModalShow(false)}
+                onHide={() => setModalShow(hideModal)}
                 data={tempItem}
             />
             <AboutUs />
