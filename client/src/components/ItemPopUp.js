@@ -10,13 +10,13 @@ export default function ItemPopUp(props) {
     const dispatch = useDispatch()
     const { data } = props
     const [detailObj, setDetailObj] = useState(null)
-    const [ clicked, setClicked ] = useState(false)
-    const [ error, setError ] = useState("")
+    const [error, setError ] = useState('')
 
     useEffect(() => {
         if (data) {
             const newDetailObj = data;
             setDetailObj(newDetailObj)
+            console.log('use effect ran')
         }
     }, [data])
 
@@ -30,54 +30,53 @@ export default function ItemPopUp(props) {
         return product
     }
 
-    const validate = () => {
-        let errorMessage = "";
+    const validation = (arr) => {
+        let i = 0;
+        let formValid = false;
 
-        if (!clicked) {
-            errorMessage = "Please choose a flavor"
+        while (i < arr.length && !formValid) {
+            if (arr[i].checked) formValid = true;
+            i++;
         }
 
-        if (errorMessage) {
-            setError(errorMessage);
-            return false;
+        if (!formValid) {
+            setError('Please choose a flavor')
+            return false
+        } else if (formValid) {
+            return true
         }
-        return true;
     }
+
+
 
 
     const handleAddToCart = (e, id) => {
-        // let tempProducts = [...items];
-        // const index = tempProducts.indexOf(getItem(id));
-        // const product = tempProducts[index];
-        // product.inCart = true;
-        // product.count += 1;
-        // const price = product.price;
-        // product.total = price;
 
+        // console.log(e.target[1].checked)
+        // console.log(typeof(e.target))
         e.preventDefault();
-        const isValid = validate()
+        let isValid = validation([...e.target])
+
         if (isValid) {
-            const tempProduct = getItem(id)
-            let product = { ...tempProduct }
-            const price = product.price;
-            product.total = price    
-            dispatch(actionUpdateCart(product))
-            setError('')
+        const tempProduct = getItem(id)
+        let product = { ...tempProduct }
+        const price = product.price;
+        product.total = price    
+        dispatch(actionUpdateCart(product))
+        setError('')
         }
-    
     }
 
-    const handleRadioButton = id => {
+    const handleRadioButton = (e, id) => {
         const product = getItem(id)
         dispatch(actionItemDetail(product))
-        setClicked(true)
     }
+
 
     if (detailObj) {
         return (
             <Modal
                 {...props}
-                // size="lg"
                 dialogClassName="modal-50w"
                 aria-labelledby="contained-modal-title-vcenter"
                 centered
@@ -93,9 +92,9 @@ export default function ItemPopUp(props) {
                             <Image src={props.data.image} fluid rounded />
                         </Col>
                         <Col className="d-flex align-items-center item-column-right">
-                            <i>{props.data.description}</i>
+                            <h5>{props.data.description}</h5>
                             {/* form having id and button having form attribute not supported by IE11? */}
-                            <Form noValidate id="item-form" onSubmit={(e) => handleAddToCart(e, clickedItem.id)} onChange={(e) => handleRadioButton(e.target.value)}>
+                            <Form noValidate id="item-form" onSubmit={(e) => handleAddToCart(e, clickedItem.id)} onChange={(e) => handleRadioButton(e, e.target.value)}>
                                 {props.data.products.length > 1 && <h5>Flavors</h5>} { error && <p>{error}</p>}
                                 {(props.data.products.length > 1) ? (
                                     props.data.products.map(data =>
@@ -104,6 +103,7 @@ export default function ItemPopUp(props) {
                                             key={data.id}
                                             value={data.id}
                                             inline
+                                            className="radio-btns"
                                             type="radio"
                                             name="group1"
                                             id={`default-radio`}

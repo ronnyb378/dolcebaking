@@ -24,7 +24,7 @@ export default function Home() {
             <BrandHeader />
             <Container className="pt-4 pb-4 menu" fluid>
                 <h2>Our Treats</h2>
-                <Row xs={1} md={2} lg={2} xl={4} className="pt-4 g-4 justify-content-center">
+                <Row xs={1} md={3} lg={3} xl={4} className="pt-4 g-4 justify-content-center">
                     {items.map((item) => {
                         return <Col key={item.id} onClick={() => {
                             setModalShow(true); setTempItem(item); handleDetail(item.products[0])}}>
