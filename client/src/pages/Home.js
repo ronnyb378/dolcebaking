@@ -11,7 +11,8 @@ export default function Home() {
 
     const items = useSelector(state => state.products.categories)
     const [modalShow, setModalShow] = useState(false)
-    const [tempItem, setTempItem ] = useState('')
+    const [tempItem, setTempItem ] = useState(null)
+
 
 
     const handleDetail = (object) => {
@@ -19,6 +20,8 @@ export default function Home() {
     }
 
     const hideModal = () => setModalShow(false)
+
+    // moving new useEffect
 
     return (
         <div>
@@ -46,12 +49,13 @@ export default function Home() {
                     })}
                 </Row>
             </Container>
+            {tempItem && 
             <ItemPopUp
                 show={modalShow}
-                // onHide={() => setModalShow(false)}
                 onHide={() => setModalShow(hideModal)}
                 data={tempItem}
             />
+            }
             <AboutUs />
         </div>
     )

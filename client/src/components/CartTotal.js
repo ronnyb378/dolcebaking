@@ -9,7 +9,9 @@ export default function CartTotal({value}) {
     const dispatch = useDispatch()
     const {cartValues, cart} = value
 
-    const addTotals = () => {
+
+    useEffect(() => {
+
         let subTotal = 0;
         cart.cartItems.map(item => (subTotal += item.total))
         const tempTax = subTotal * .0625
@@ -20,21 +22,13 @@ export default function CartTotal({value}) {
             cartTax: tax,
             cartTotal: total
         }
-        return totalsObj
-    }
+        dispatch(actionUpdateCartValues(totalsObj))
 
-    useEffect(() => {
-        if (cart) {
-            const newDetailObj = addTotals();
-            console.log(newDetailObj)
-            dispatch(actionUpdateCartValues(newDetailObj))
-        }
-    }, [cart])
+    }, [cart.cartItems, dispatch])
 
 
     return (
         <Container className="cart-total ">
-            {/* <h6>Cart Total</h6> */}
             <Row >
                 <Col >
                     <Link to="/">
