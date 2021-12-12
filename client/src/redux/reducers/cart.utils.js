@@ -16,14 +16,25 @@ export const handleAddToCart = ({
     const cartItemExists = existingCartItem({ prevCartItems, nextCartItem });
 
     if (cartItemExists) {
-        return prevCartItems.map((cartItem) => 
-            cartItem.id === nextCartItem.id 
-            ? 
-            {
-                ...cartItem,
-                count: cartItem.count + quantity
-            } : cartItem
-        );
+        // return prevCartItems.map((cartItem) => 
+        //     cartItem.id === nextCartItem.id 
+        //     ? 
+        //     {
+        //         ...cartItem,
+        //         count: cartItem.count + quantity,
+        //     } : cartItem
+        // );
+
+        return prevCartItems.map((cartItem) => {
+        if (cartItem.id === nextCartItem.id) {
+            cartItem.count += quantity;
+            cartItem.total = cartItem.count * cartItem.price
+            return cartItem
+        }
+        else { 
+            return cartItem
+        }
+        })
     }
 
 
@@ -31,7 +42,7 @@ export const handleAddToCart = ({
         ...prevCartItems,
         {
             ...nextCartItem,
-            count: quantity
+            count: quantity,
         }
     ]
 }

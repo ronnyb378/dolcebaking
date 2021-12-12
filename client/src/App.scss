@@ -174,6 +174,7 @@ h2 {
 
   .modal-title {
     font-size: 1.8em;
+    font-weight: bold;
   }
   .img-fluid {
     // height: 26vw;
@@ -191,8 +192,22 @@ h2 {
     }
   }
 
+
   .item-column-right {
     flex-direction: column;
+    justify-content: space-around;
+    
+
+  }
+
+  h5 {
+    font-weight: 500;
+  }
+
+  p {
+    color: red;
+    font-family:Arial, Helvetica, sans-serif;
+    margin-bottom: 0;
   }
 
   .modal-footer {
