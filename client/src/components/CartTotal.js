@@ -48,20 +48,22 @@ export default function CartTotal({ value }) {
 
 
     return (
-        <Container className="cart-total ">
-            <Row >
-                <Col >
+        // <Container className="cart-total">
+            // <Row className="justify-content-center">
+                <Col className="d-flex new">
                     <Link to="/">
-                        <Button onClick={() => dispatch(actionClearCart())}>
+                        <Button className="clear-cart-btn"onClick={() => dispatch(actionClearCart())}>
                             Clear Cart
                         </Button>
                     </Link>
-                    <h5>Subtotal: ${cartValues.cartSubTotal} </h5>
-                    <h5>Tax: ${cartValues.cartTax}</h5>
-                    <h5>Grand Total: ${cartValues.cartTotal}</h5>
-                    <Button onClick={(e) => handleTotalClick(e)}>Checkout</Button>
+                    <div className="pt-4">
+                        <h5>Subtotal: <strong>${cartValues.cartSubTotal}</strong> </h5>
+                        <h5>Tax: <strong>${cartValues.cartTax}</strong></h5>
+                        <h5>Grand Total: <strong>${cartValues.cartTotal}</strong></h5>
+                        <Button onClick={(e) => handleTotalClick(e)}>Checkout</Button>
+                    </div>
                 </Col>
-            </Row>
-        </Container>
+            // </Row>
+        // </Container>
     )
 }

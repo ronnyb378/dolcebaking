@@ -1,5 +1,5 @@
 import React from 'react'
-import { Col, Image, Row, Button } from 'react-bootstrap';
+import { Col, Image, Row, Button, ButtonGroup } from 'react-bootstrap';
 import { useDispatch } from 'react-redux';
 import { actionDecrementItem, actionRemoveItem, actionUpdateCart } from '../redux/actions/cart';
 import trash from '../images/trash_icon.png'
@@ -39,10 +39,12 @@ export default function CartItem({item, value}) {
             <Col className="col-10 mx-auto col-md-2">
                 ${price}
             </Col>
-            <Col className="col-10 mx-auto col-md-2 together">
-            <Button onClick={() => decrement(item)}>-</Button>
-            <Button className="cart-count">{count}</Button>
-            <Button onClick={() => increment(item)}>+</Button>
+            <Col className="col-10 mx-auto col-md-2 increment-column">
+                <ButtonGroup >
+                <Button onClick={() => decrement(item)}>-</Button>
+                <Button className="cart-count">{count}</Button>
+                <Button onClick={() => increment(item)}>+</Button>
+                </ButtonGroup>
             </Col>
             <Col className="col-10 mx-auto col-md-2">
                 <img src={trash} alt="remove item" className="trash-image" onClick={() => dispatch(actionRemoveItem(item))} />
