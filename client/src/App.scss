@@ -430,9 +430,13 @@ opacity: .60;
 }
 
 
-// .together {
-//   white-space: nowrap;
+.checkout-form {
+  .checkout-col {
+    -ms-flex: 0 0 500px;
+    flex: 0 0 500px;
+  }
+}
 
-// }
+
 
 

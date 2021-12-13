@@ -10,6 +10,7 @@ import Login from './pages/Login';
 import Cart from './pages/Cart';
 import NavBar from './components/NavBar';
 import Footer from './components/Footer';
+import Checkout from './pages/Checkout';
 
 function App() {
   return (
@@ -68,8 +69,11 @@ function App() {
         <Route path="/login">
           <Login />
         </Route>
-        <Route path="/cart">
+        <Route exact path="/cart">
           <Cart />
+        </Route>
+        <Route path="/cart/checkout">
+          <Checkout />
         </Route>
       </Switch>
       <Footer />
