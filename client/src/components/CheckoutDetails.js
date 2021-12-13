@@ -1,11 +1,67 @@
 import { CardElement, useElements, useStripe } from '@stripe/react-stripe-js'
-import React from 'react'
-import { Container, Form, Row, Col } from 'react-bootstrap'
+import React, { useState} from 'react'
+import { Container, Form, Row, Col, Button } from 'react-bootstrap'
+
+const initialContactInfo = {
+    name: '',
+    email: '',
+    number: ''
+}
+
+const initialBillingInfo = {
+    line1: '',
+    line2: '',
+    city: '',
+    state: '',
+    postal_code: '',
+}
 
 export default function CheckoutDetails() {
     const stripe = useStripe()
     const elements = useElements()
 
+    const [ contactInfo, setContactInfo ] = useState({...initialContactInfo})
+    const [ billingInfo, setBillingInfo ] = useState({...initialBillingInfo})
+    const [ nameOnCard, setNameOnCard ] = useState('')
+
+    const handleContact = (e) => {
+        const { name, value } = e.target;
+        setContactInfo({
+            ...contactInfo,
+            [name]: value
+        })
+    }
+
+    const handleBilling = e => {
+        const { name, value } = e.target;
+        setBillingInfo({
+            ...billingInfo,
+            [name]: value
+        })
+    }
+
+    const handleFormSubmit = async e => {
+        e.preventDefault();
+        // something
+
+        if (
+            !contactInfo.name || !contactInfo.email || !contactInfo.number ||
+            !billingInfo.line1 || !billingInfo.city || !contactInfo.state ||
+            !contactInfo.postal_code || !nameOnCard
+        ) {
+            return
+        }
+    }
+
+    const configCardElement = {
+        iconStyle: 'solid',
+        style: {
+            base: {
+                fontSize: '16px'
+            }
+        },
+        hidePostalCode: true
+    };
 
     return (
         <div>
@@ -13,47 +69,67 @@ export default function CheckoutDetails() {
             <Container className="pt-4 checkout-form">
                 <Row className="justify-content-center">
                     <Col className="checkout-col">
-                    <Form>
+                    <Form onSubmit={handleFormSubmit}>
                         <h4>Contact Information</h4>
                         <Form.Floating className="mb-2">
                             <Form.Control
+                                required
                                 id="floatingNameCustom"
                                 type="text"
                                 placeholder="Ronny Barahona"
+                                name="name"
+                                value={contactInfo.name}
+                                onChange={(e) => handleContact(e)}
                             />
                             <label htmlFor="floatingNameCustom">Name</label>
                         </Form.Floating>
                         <Form.Floating className="mb-2">
                             <Form.Control
+                                required
                                 id="floatingEmailCustom"
                                 type="email"
                                 placeholder="google@google.com"
+                                name="email"
+                                value={contactInfo.email}
+                                onChange={(e) => handleContact(e)}
                             />
                             <label htmlFor="floatingEmailCustom">Email</label>
                         </Form.Floating>
                         <Form.Floating className="mb-2">
                             <Form.Control
+                                required
                                 id="floatingNumCustom"
                                 type="tel"
                                 placeholder="1234567890"
                                 pattern="[0-9]{3}-[0-9]{2}-[0-9]{3}"
+                                name="number"
+                                value={contactInfo.number}
+                                onChange={(e) => handleContact(e)}
                             />
                             <label htmlFor="floatingNumCustom">Number</label>
                         </Form.Floating>
                         <h4>Billing information</h4>
                         <Form.Floating className="mb-2">
                             <Form.Control
+                                required
                                 id="floatingCardNameCustom"
                                 type="text"
                                 placeholder="Ronny Barahona"
+                                name="nameOnCard"
+                                value={nameOnCard}
+                                onChange={(e) => setNameOnCard(e.target.value)}
                             />
                             <label htmlFor="floatingCardNameCustom">Name</label>
                         </Form.Floating>
                         <Form.Floating className="mb-2">
                             <Form.Control
+                                required
                                 id="floatingAddressCustom"
                                 type="text"
                                 placeholder="1234 Address Ln"
+                                name="line1"
+                                value={billingInfo.line1}
+                                onChange={(e) => handleBilling(e)}
                             />
                             <label htmlFor="floatingAddressCustom">Address 1</label>
                         </Form.Floating>
@@ -62,6 +138,9 @@ export default function CheckoutDetails() {
                                 id="floatingAddress2Custom"
                                 type="text"
                                 placeholder="Studio, Floor"
+                                name="line2"
+                                value={billingInfo.line2}
+                                onChange={(e) => handleBilling(e)}
                             />
                             <label htmlFor="floatingAddress2Custom">Address 2</label>
                         </Form.Floating>
@@ -69,9 +148,13 @@ export default function CheckoutDetails() {
                             <Form.Group as={Col} controlId="formGridCity">
                                 <Form.Floating className="mb-2">
                                     <Form.Control
+                                        required
                                         id="floatingCityCustom"
                                         type="text"
                                         placeholder="Houston"
+                                        name="city"
+                                        value={billingInfo.city}
+                                        onChange={(e) => handleBilling(e)}
                                     />
                                     <label htmlFor="floatingCityCustom">City</label>
                                 </Form.Floating>
@@ -80,9 +163,13 @@ export default function CheckoutDetails() {
                             <Form.Group as={Col} controlId="formGridState">
                                 <Form.Floating className="mb-2">
                                     <Form.Control
+                                        required
                                         id="floatingStateCustom"
                                         type="text"
                                         placeholder="Texas"
+                                        name="state"
+                                        value={billingInfo.state}
+                                        onChange={(e) => handleBilling(e)}
                                     />
                                     <label htmlFor="floatingStateCustom">State</label>
                                 </Form.Floating>
@@ -91,16 +178,21 @@ export default function CheckoutDetails() {
                             <Form.Group as={Col} controlId="formGridZip">
                                 <Form.Floating className="mb-2">
                                     <Form.Control
+                                        required
                                         id="floatingZipCustom"
                                         type="text"
                                         placeholder="000000"
+                                        name="postal_code"
+                                        value={billingInfo.postal_code}
+                                        onChange={(e) => handleBilling(e)}
                                     />
                                     <label htmlFor="floatingZipCustom">Zip</label>
                                 </Form.Floating>
                             </Form.Group>
                         </Row>
                         <h4>Card Details</h4>
-                        <CardElement />
+                        <CardElement options={configCardElement}/>
+                        <Button type="submit">Pay Now</Button>
                     </Form>
                 </Col>
                 </Row>
