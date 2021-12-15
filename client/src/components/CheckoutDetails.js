@@ -68,39 +68,47 @@ export default function CheckoutDetails() {
                 }
             })
         })
-        .then(res => res.json())
-        .then(({clientSecret}) => {            
-            stripe.createPaymentMethod({
-                type: "card",
-                card: elements.getElement(CardElement),
-                billing_details: {
-                    name: nameOnCard,
-                    address: {
-                        ...billingInfo
+            .then(res => res.json())
+            .then(({ clientSecret }) => {
+                stripe.createPaymentMethod({
+                    type: "card",
+                    card: elements.getElement(CardElement),
+                    billing_details: {
+                        name: nameOnCard,
+                        address: {
+                            ...billingInfo
+                        }
                     }
-                }
-            })
-            .then(({ paymentMethod }) => {
-                console.log('hello 2')
-                stripe.confirmCardPayment(clientSecret, {
-                    payment_method: paymentMethod.id
                 })
-                    .then(({ paymentIntent }) => {
-                        console.log(paymentIntent)
+                    .then(({ paymentMethod }) => {
+                        console.log('hello 2')
+                        stripe.confirmCardPayment(clientSecret, {
+                            payment_method: paymentMethod.id
+                        })
+                            .then(({ paymentIntent }) => {
+                                console.log(paymentIntent)
+                            })
                     })
             })
-        })
     }
 
     const configCardElement = {
         iconStyle: 'solid',
         style: {
             base: {
-                fontSize: '16px'
+                iconColor: '#E86A92',
+                fontSize: '16px',
+                backgroundColor: '#fff',
+                fontFamily: 'Roboto, Open Sans, Segoe UI, sans-serif',
+                fontSmoothing: 'antialiased',
+                '::placeholder': {
+                    color: 'gray',
+                },
             }
         },
         hidePostalCode: true
     };
+
 
     return (
         <div>
@@ -229,8 +237,10 @@ export default function CheckoutDetails() {
                                 </Form.Group>
                             </Row>
                             <h4>Card Details</h4>
-                            <CardElement options={configCardElement} />
-                            <Button type="submit">Pay Now</Button>
+                            <div className="cardInputWrapper mb-4">
+                                <CardElement options={configCardElement} />
+                            </div>
+                            <Button type="submit">Pay ${cartValues.cartTotal}</Button>
                         </Form>
                     </Col>
                 </Row>

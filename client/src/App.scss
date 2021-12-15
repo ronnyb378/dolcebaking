@@ -431,9 +431,27 @@ opacity: .60;
 
 
 .checkout-form {
+  input:placeholder-shown + label {
+    color: gray;
+  }
+
   .checkout-col {
     -ms-flex: 0 0 500px;
     flex: 0 0 500px;
+  }
+  .cardInputWrapper {
+    border: 1px solid #D3D3D3;
+    border-radius: 8px;
+    padding: 20px 4px;
+    background-color: #fff;
+  }
+  .btn {
+    width: 100%;
+    background-color: $pink;
+    border-color: $pink;
+    font-weight: bold; 
+    // font-family: $menuItemFont;
+    font-size: 20px;
   }
 }
 
