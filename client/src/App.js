@@ -1,4 +1,4 @@
-import { BrowserRouter as Router, Route, Switch } from 'react-router-dom'
+import { BrowserRouter as Router, Route, Switch, Redirect } from 'react-router-dom'
 import React from 'react';
 // import logo from './logo.svg';
 // import { Counter } from './features/counter/Counter';
@@ -74,6 +74,9 @@ function App() {
         </Route>
         <Route path="/cart/checkout">
           <Checkout />
+        </Route>
+        <Route path="*">
+          <Redirect to="/"/>
         </Route>
       </Switch>
       <Footer />

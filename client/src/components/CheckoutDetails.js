@@ -1,8 +1,9 @@
 import { CardElement, useElements, useStripe } from '@stripe/react-stripe-js'
-import React, { useState } from 'react'
+import React, { useState, useEffect } from 'react'
 import { Container, Form, Row, Col, Button } from 'react-bootstrap'
 import { useSelector, useDispatch } from 'react-redux'
 import { actionClearCart } from '../redux/actions/cart'
+import { useHistory } from 'react-router'
 
 const initialContactInfo = {
     name: '',
@@ -22,6 +23,7 @@ export default function CheckoutDetails() {
     const cartValues = useSelector(state => state.cartValues)
     const cartData = useSelector(state => state)
     const dispatch = useDispatch()
+    const history = useHistory()
 
     const stripe = useStripe()
     const elements = useElements()
@@ -31,6 +33,13 @@ export default function CheckoutDetails() {
     const [contactInfo, setContactInfo] = useState({ ...initialContactInfo })
     const [billingInfo, setBillingInfo] = useState({ ...initialBillingInfo })
     const [nameOnCard, setNameOnCard] = useState('')
+
+    useEffect(() => {
+        console.log('useEffect ran on checkout')
+        if (cartData.cart.cartItems.length < 1 && orderSuccess === false) {
+            history.push('/')
+        }
+    }, [orderSuccess])
 
     const handleContact = (e) => {
         const { name, value } = e.target;
@@ -136,10 +145,10 @@ export default function CheckoutDetails() {
     if (!orderSuccess) {
         return (
             <div>
-                <h2>Check Out Page</h2>
+                <h2 className="pt-4">Checkout</h2>
                 <Container className="pt-4 checkout-form">
                     <Row className="justify-content-center">
-                        <Col className="checkout-col">
+                        <Col className="checkout-col pb-2">
                             <Form onSubmit={handleFormSubmit}>
                                 <h4>Contact Information</h4>
                                 <Form.Floating className="mb-2">
