@@ -35,7 +35,6 @@ export default function CheckoutDetails() {
     const [nameOnCard, setNameOnCard] = useState('')
 
     useEffect(() => {
-        console.log('useEffect ran on checkout')
         if (cartData.cart.cartItems.length < 1 && orderSuccess === false) {
             history.push('/')
         }

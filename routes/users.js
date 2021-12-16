@@ -1,7 +1,8 @@
 var express = require('express');
 var router = express.Router();
 const db = require('../models')
-const bcrypt = require('bcrypt')
+const bcrypt = require('bcrypt');
+const checkAuth = require('../checkAuth');
 
 // users signup
 router.post('/signup', function (req, res, next) {
@@ -108,7 +109,7 @@ router.post('/login', async (req, res) => {
   })
 })
 
-router.get('/current', async (req, res) => {
+router.get('/current', checkAuth, async (req, res) => {
   const user = await db.User.findByPk(req.session.user.id)
   if(!user) {
     res
@@ -116,6 +117,7 @@ router.get('/current', async (req, res) => {
       .json({
         error: 'Not logged in'
       })
+    return
   }
   const { password, ...userData } = user.dataValues;
 

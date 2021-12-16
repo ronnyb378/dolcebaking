@@ -3,9 +3,11 @@ import { Container, Form, Row, Col, Button, FloatingLabel } from 'react-bootstra
 import BrandHeader from '../components/BrandHeader';
 import { useDispatch } from 'react-redux';
 import { actionLoggedIn } from '../redux/actions/user';
+import { useHistory } from 'react-router-dom';
 
 export default function Login() {
     const dispatch = useDispatch()
+    const history = useHistory()
     // form state
     const [login, setLogin] = useState(false)
 
@@ -39,7 +41,7 @@ export default function Login() {
             if (data.error) {
                 console.log(data.error)
             } else {
-                console.log(data.success)
+                history.push('/')
                 dispatch(actionLoggedIn(data.user))
             }
         })

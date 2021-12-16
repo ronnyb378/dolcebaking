@@ -11,7 +11,8 @@ import Cart from './pages/Cart';
 import NavBar from './components/NavBar';
 import Footer from './components/Footer';
 import Checkout from './pages/Checkout';
-import { actionLoggedIn } from './redux/actions/user';
+import { actionLoggedIn, actionLoggedOut } from './redux/actions/user';
+import ProtectedRoute from './components/ProtectedRoute';
 
 function App() {
   const dispatch = useDispatch()
@@ -20,7 +21,11 @@ function App() {
     fetch('/api/v1/users/current')
     .then(res => res.json())
     .then(data => {
-      dispatch(actionLoggedIn(data))
+      if (!data.error) {
+        dispatch(actionLoggedIn(data))
+      } else {
+        dispatch(actionLoggedOut())
+      }
     })
   }, [dispatch])
 
@@ -84,9 +89,9 @@ function App() {
         <Route exact path="/cart">
           <Cart />
         </Route>
-        <Route path="/cart/checkout">
+        <ProtectedRoute path="/cart/checkout">
           <Checkout />
-        </Route>
+        </ProtectedRoute>
         <Route path="*">
           <Redirect to="/"/>
         </Route>

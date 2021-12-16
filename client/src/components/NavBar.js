@@ -1,11 +1,12 @@
 import React from 'react'
 import { Navbar, Container, Nav } from 'react-bootstrap'
 import cart from '../images/dolce_cart.png'
-import { Link, useHistory } from 'react-router-dom'
-import { useSelector } from 'react-redux'
+import { Link } from 'react-router-dom'
+import { useSelector, useDispatch } from 'react-redux'
+import { actionLoggedOut } from '../redux/actions/user'
 
 export default function NavBar() {
-    const history = useHistory()
+    const dispatch = useDispatch()
 
     const { user, checked } = useSelector(state => state.user)
 
@@ -14,13 +15,13 @@ export default function NavBar() {
         fetch('/api/v1/users/logout')
         .then(res => res.json())
         .then(data => {
-            console.log(data)
+            dispatch(actionLoggedOut())
         })
     }   
 
     return (
         <div>
-            <Navbar collapseOnSelect expand="lg">
+            <Navbar collapseOnSelect expand="sm">
                 <Container className="mx-1" fluid>
                     <Navbar.Brand as={Link} to={"/"}>🍰 Dolce Desserts</Navbar.Brand>
                     <Navbar.Toggle aria-controls="responsive-navbar-nav" />

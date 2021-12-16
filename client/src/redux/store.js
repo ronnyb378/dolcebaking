@@ -4,6 +4,7 @@ import { itemDetail } from './reducers/itemDetail'
 import { cart } from './reducers/cart'
 import { cartValues } from './reducers/cartValues'
 import { user } from './reducers/user'
+import { status } from './reducers/status'
 
 const rootReducer = combineReducers({
     products: items,
@@ -11,6 +12,7 @@ const rootReducer = combineReducers({
     cart,
     cartValues,
     user,
+    status,
 })
 
 export const store = createStore(
