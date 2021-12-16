@@ -32,7 +32,7 @@ export default function CartTotal({ value }) {
 
     const handleTotalClick = (e) => {
         e.preventDefault()
-        // console.log(cartData)
+        console.log(cartData)
         fetch('/api/v1/orders/neworder', {
             method: 'POST',
             headers: {
@@ -42,10 +42,10 @@ export default function CartTotal({ value }) {
                 value: cartData
             })
         })
-        // .then(res => res.json())
-        // .then(data => {
-        //     console.log(data.order)
-        // })
+        .then(res => res.json())
+        .then(data => {
+            console.log(data.order)
+        })
     }
 
 
