@@ -108,6 +108,20 @@ router.post('/login', async (req, res) => {
   })
 })
 
+router.get('/current', async (req, res) => {
+  const user = await db.User.findByPk(req.session.user.id)
+  if(!user) {
+    res
+      .status(401)
+      .json({
+        error: 'Not logged in'
+      })
+  }
+  const { password, ...userData } = user.dataValues;
+
+  res.json(userData)
+})
+
 // guest users
 router.get('/login/guest', async (req, res) => {
   // res.json({message: 'I work'})

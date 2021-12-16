@@ -3,12 +3,14 @@ import { items } from './reducers/items'
 import { itemDetail } from './reducers/itemDetail'
 import { cart } from './reducers/cart'
 import { cartValues } from './reducers/cartValues'
+import { user } from './reducers/user'
 
 const rootReducer = combineReducers({
     products: items,
     itemDetail,
     cart,
     cartValues,
+    user,
 })
 
 export const store = createStore(

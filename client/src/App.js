@@ -1,8 +1,8 @@
 import { BrowserRouter as Router, Route, Switch, Redirect } from 'react-router-dom'
-import React from 'react';
+import React, { useEffect } from 'react';
 // import logo from './logo.svg';
 // import { Counter } from './features/counter/Counter';
-
+import { useDispatch } from 'react-redux';
 import 'bootstrap/dist/css/bootstrap.min.css';
 import './App.scss';
 import Home from './pages/Home';
@@ -11,8 +11,20 @@ import Cart from './pages/Cart';
 import NavBar from './components/NavBar';
 import Footer from './components/Footer';
 import Checkout from './pages/Checkout';
+import { actionLoggedIn } from './redux/actions/user';
 
 function App() {
+  const dispatch = useDispatch()
+
+  useEffect(() => {
+    fetch('/api/v1/users/current')
+    .then(res => res.json())
+    .then(data => {
+      dispatch(actionLoggedIn(data))
+    })
+  }, [dispatch])
+
+
   return (
     <div className="App">
       {/* <header className="App-header">

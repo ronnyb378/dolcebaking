@@ -14,14 +14,12 @@ export default function Home() {
     const [tempItem, setTempItem ] = useState(null)
 
 
-
     const handleDetail = (object) => {
         dispatch(actionItemDetail(object))
     }
 
     const hideModal = () => setModalShow(false)
 
-    // moving new useEffect
 
     return (
         <div>
