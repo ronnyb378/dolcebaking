@@ -1,50 +1,61 @@
-import React, { useEffect, useState } from 'react'
+import React, { useState } from 'react'
 import { Modal, Button, Image, Form, Row, Col } from 'react-bootstrap'
 import { useSelector, useDispatch } from 'react-redux'
 import { actionUpdateCart } from '../redux/actions/cart'
 import { actionItemDetail } from '../redux/actions/itemDetail'
 
-// import { Counter } from '../features/counter/Counter';
 
 export default function ItemPopUp(props) {
     const dispatch = useDispatch()
-    const { data } = props
-    const [ detailObj, setDetailObj ] = useState(null)
-
-    useEffect(() => {
-        if (data) {
-            const newDetailObj = data;
-            setDetailObj(newDetailObj)
-        }
-    }, [data])
-
+    const { data: { name, description, image, products } } = props
     const clickedItem = useSelector(state => state.itemDetail)
-    // const items = useSelector(state => state.products.categories)
-
-
+    const [error, setError ] = useState('')
 
     const getItem = (id) => {
-        const product = props.data.products.find(item => item.id === parseInt(id));
+        const product = products.find(item => item.id === parseInt(id));
         return product
     }
 
 
+    // check if any flavor is chosen
+    const validation = (inputArray) => {
+        let i = 0;
+        let formValid = false;
 
-    const handleAddToCart = (e, id) => {
-        // let tempProducts = [...items];
-        // const index = tempProducts.indexOf(getItem(id));
-        // const product = tempProducts[index];
-        // product.inCart = true;
-        // product.count += 1;
-        // const price = product.price;
-        // product.total = price;
+        if (inputArray.length === 1) {
+            return true
+        }
+
+        while (i < inputArray.length && !formValid) {
+            if (inputArray[i].checked) formValid = true;
+            i++;
+        }
+
+        if (!formValid) {
+            setError('Please choose a flavor')
+            return false
+        } else if (formValid) {
+            return true
+        }
+    }
+
+
+
+
+    const handleAddToCart = (e, product) => {
+
         e.preventDefault();
-        const tempProduct = getItem(id)
-        let product = {...tempProduct}
-        const price = product.price;
-        product.total = price
+        let isValid = validation([...e.target])
 
-        dispatch(actionUpdateCart(product))
+        if (isValid) {
+        let copyProduct = {...product}
+
+        const price = copyProduct.price;
+        copyProduct.total = price  
+    
+        dispatch(actionUpdateCart(copyProduct))
+        setError('')
+        }
     }
 
     const handleRadioButton = id => {
@@ -52,53 +63,57 @@ export default function ItemPopUp(props) {
         dispatch(actionItemDetail(product))
     }
 
-    if (detailObj) {
+    const closeModal = () => {
+        props.onHide();
+        setError('')
+    }
+
     return (
         <Modal
+            onExited={() => setError('')}
             {...props}
-            // size="lg"
             dialogClassName="modal-50w"
             aria-labelledby="contained-modal-title-vcenter"
             centered
         >
             <Modal.Header closeButton>
                 <Modal.Title id="contained-modal-title-vcenter">
-                    {props.data.name}
+                    {name}
                 </Modal.Title>
             </Modal.Header>
             <Modal.Body>
                 <Row>
                     <Col>
-                        <Image src={props.data.image} fluid rounded />
+                        <Image src={image} fluid rounded />
                     </Col>
-                    <Col className="d-flex align-items-center item-column-right justify-content-center">
-                        <p>{props.data.description}</p>
+                    <Col className="d-flex align-items-center item-column-right">
+                        <h5>{description}</h5>
                         {/* form having id and button having form attribute not supported by IE11? */}
-                        <Form id="item-form" onSubmit={(e) => handleAddToCart(e, clickedItem.id)} onChange={(e) => handleRadioButton(e.target.value)}>
-                            {
-                            (props.data.products.length > 1) ? (
-                                props.data.products.map((data) => {
-                                return <Form.Check
+                        <Form noValidate id="item-form" onSubmit={(e) => handleAddToCart(e, clickedItem)} onChange={(e) => handleRadioButton(e.target.value)}>
+                            {products.length > 1 && <h5>Flavors</h5>} { error && <p>{error}</p>}
+                            {(products.length > 1) ? (
+                                products.map(data =>
+                                    <Form.Check
                                         required
                                         key={data.id}
                                         value={data.id}
-                                        inline 
+                                        inline
                                         type="radio"
                                         name="group1"
                                         id={`default-radio`}
                                         label={`${data.name}`}
-                                        />
-                            })
+                                    />
+                                )
                             ) : (null)
-                                } 
+                            }
                         </Form>
                     </Col>
                 </Row>
             </Modal.Body>
             <Modal.Footer>
-                <Button onClick={props.onHide}>Back To Products</Button>
+                <Button onClick={() => closeModal()}>Back To Products</Button>
                 <Button form="item-form" className="cart-btn" type="submit" >Add To Cart</Button>
             </Modal.Footer>
         </Modal>
-    )} else { return null }
+    )
 }

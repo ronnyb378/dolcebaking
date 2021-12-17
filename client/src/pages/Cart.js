@@ -12,21 +12,6 @@ export default function Cart() {
 
     return (
         <div>
-            {/* <div className="cart-overview">
-                {cart.cartItems.length > 0 ? (
-                    <React.Fragment>
-                        <div className="cart-info">
-                            <CartColumns />
-                            <CartList value={value} />
-                        </div>
-                        <CartTotal value={value}/>
-                    </React.Fragment>
-                ) : (
-                    <EmptyCart />
-                )}
-
-            </div> */}
-
             <Container fluid className="cart-parent pb-4">
                 {cart.cartItems.length > 0 ? (
                     <React.Fragment>

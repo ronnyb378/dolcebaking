@@ -5,10 +5,7 @@ import instagram from '../images/instagram.png'
 export default function Footer() {
     return (
         <div>
-            {/* <div className="container">
-                <img className="header-image" src={downtown} />
-            </div> */}
-            <footer className="footer">Dolce Desserts <a href="https://www.instagram.com/dol.ce.desserts/"><img src={instagram} alt="instagram logo" /></a>| example@example.com | 123-456-7890</footer>
+            <footer className="footer">Dolce Desserts&nbsp;&nbsp;<a href="https://www.instagram.com/dol.ce.desserts/"><img src={instagram} alt="instagram logo" /></a><span>&nbsp;&nbsp;example@example.com</span></footer>
         </div>
     )
 }

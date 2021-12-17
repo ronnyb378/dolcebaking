@@ -10,6 +10,8 @@ import Login from './pages/Login';
 import Cart from './pages/Cart';
 import NavBar from './components/NavBar';
 import Footer from './components/Footer';
+import Checkout from './pages/Checkout';
+import Profile from './pages/Profile';
 
 function App() {
   return (
@@ -68,8 +70,14 @@ function App() {
         <Route path="/login">
           <Login />
         </Route>
-        <Route path="/cart">
+        <Route exact path="/cart">
           <Cart />
+        </Route>
+        <Route path="/cart/checkout">
+          <Checkout />
+        </Route>
+        <Route path="/profile">
+          <Profile/>
         </Route>
       </Switch>
       <Footer />

@@ -7,6 +7,7 @@ $menuItemFont: 'M PLUS 1 Code', sans-serif;
 
 .App {
   text-align: center;
+  padding-bottom: 60px; 
 }
 
 .App-logo {
@@ -62,7 +63,7 @@ $menuItemFont: 'M PLUS 1 Code', sans-serif;
 
 html, body {
   width: 100%;
-  height: 100%;
+  max-height: 100%;
   overflow-x: hidden;
   background-color: #F7F7F9;
 }
@@ -134,7 +135,7 @@ h2 {
   background-color: $white;
 
   min-height: 100%;
-  // min-height: 100vh; 
+
   .col {
     cursor: pointer;
   }
@@ -162,25 +163,29 @@ h2 {
     background-color: $pink;
     border-color: $pink;
   }
+  .btn:hover {
+    background-color: pink;
+    color: $pink;
+  }
 }
 
 .modal-content {
   font-family: $menuItemFont;
 
   .col {
-    max-height: 275px;
-    // border-style: solid;
+    display: flex;
+    max-height: 100%;
+    align-items: center;
   }
 
   .modal-title {
     font-size: 1.8em;
+    font-weight: bold;
   }
   .img-fluid {
-    // height: 26vw;
     max-height: 100%;
   }
   .quantity {
-    // border-style: solid;
     span {
       width: 100%;
 
@@ -191,11 +196,26 @@ h2 {
     }
   }
 
+
   .item-column-right {
     flex-direction: column;
+    justify-content: space-around;
+    
+
+  }
+
+  h5 {
+    font-weight: 500;
+  }
+
+  p {
+    color: red;
+    font-family:Arial, Helvetica, sans-serif;
+    margin-bottom: 0;
   }
 
   .modal-footer {
+
     .btn {
       flex-grow: 1;
       flex-basis: 0;
@@ -209,6 +229,11 @@ h2 {
       border-color: $pink;
     }
   }
+}
+
+#root {
+  position: relative;
+  min-height: 100vh;
 }
 
 
@@ -229,6 +254,14 @@ opacity: .60;
   padding: 20px;
   color: $grey;
   border-top: 1px dotted $grey;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  // below added
+  position: absolute;
+  bottom: 0;
+  width: 100%;
+  height: 60px;
   img {
     height: 26px;
   }
@@ -323,16 +356,38 @@ opacity: .60;
 }
 
 .cart-items {
+
+
+  .increment-column {
+    display: flex;
+    text-align: center;
+    justify-content: center;
+    .btn-group {
+      max-width: 100%;
+      max-width: 140px;
+      .btn:not(.cart-count):hover {
+        background-color: $pink;
+        color: $white;
+      }
+    }
+
+  }
+
+
   .btn {
     background-color: transparent;
     border-color: $pink;
-    border-width: 2px;
     color: $pink;
 
   }
+  .btn:focus, .btn:active {
+    outline: none !important;
+    box-shadow: none;
+  }
+
   .cart-count {
     cursor: default;
-    margin: 0px 2px 0px 2px;
+    font-weight: bold;
   }
   .trash-image {
     height: 36px;
@@ -342,6 +397,8 @@ opacity: .60;
 }
 
 .cart-total {
+  border-style: solid;
+  flex-direction: column;
   .btn {
     background-color: transparent;
     border-color: $grey;
@@ -354,8 +411,50 @@ opacity: .60;
   }
 }
 
-.together {
-  white-space: nowrap;
+.new {
+  flex-direction: column;
+
+  h5 {
+
+    strong {
+      display: block;
+    }
+
+  }
+  
+  .btn {
+    background-color: transparent;
+    border-color: $grey;
+    color: $grey;
+  }
 }
+
+
+.checkout-form {
+  input:placeholder-shown + label {
+    color: gray;
+  }
+
+  .checkout-col {
+    -ms-flex: 0 0 500px;
+    flex: 0 0 500px;
+  }
+  .cardInputWrapper {
+    border: 1px solid #D3D3D3;
+    border-radius: 8px;
+    padding: 20px 4px;
+    background-color: #fff;
+  }
+  .btn {
+    width: 100%;
+    background-color: $pink;
+    border-color: $pink;
+    font-weight: bold; 
+    // font-family: $menuItemFont;
+    font-size: 20px;
+  }
+}
+
+
 
 
