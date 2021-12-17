@@ -11,6 +11,7 @@ import Cart from './pages/Cart';
 import NavBar from './components/NavBar';
 import Footer from './components/Footer';
 import Checkout from './pages/Checkout';
+import Profile from './pages/Profile';
 
 function App() {
   return (
@@ -74,6 +75,9 @@ function App() {
         </Route>
         <Route path="/cart/checkout">
           <Checkout />
+        </Route>
+        <Route path="/profile">
+          <Profile/>
         </Route>
       </Switch>
       <Footer />

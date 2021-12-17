@@ -74,6 +74,15 @@ export default function Login() {
         e.preventDefault()
         setLogin(!login)
     }
+    
+    const handleGuestLogin = (e) => {
+        e.preventDefault()
+        fetch('/api/v1/users/login/guest')
+        .then(res=>res.json())
+        .then(data=> {
+            console.log(data)
+        })
+    }
 
 
     return (
@@ -153,7 +162,7 @@ export default function Login() {
                                     label="Keep me signed in"
                                 />
                                 <Button size="lg" type="submit">Sign in</Button>
-                                <Button className="guestBtn" size="lg">
+                                <Button className="guestBtn" size="lg" onClick={(e) => handleGuestLogin(e)}>
                                     Sign in as Guest
                                 </Button>
                                 <Button onClick={(e) => handleFormChange(e)} className="accountBtn" size="lg">Create an Account</Button>
