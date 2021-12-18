@@ -13,20 +13,23 @@ import Footer from './components/Footer';
 import Checkout from './pages/Checkout';
 import { actionLoggedIn, actionLoggedOut } from './redux/actions/user';
 import ProtectedRoute from './components/ProtectedRoute';
+import Profile from './pages/Profile';
+import Alerts from './components/Alerts';
+import ScrollToTop from './components/ScrollToTop';
 
 function App() {
   const dispatch = useDispatch()
 
   useEffect(() => {
     fetch('/api/v1/users/current')
-    .then(res => res.json())
-    .then(data => {
-      if (!data.error) {
-        dispatch(actionLoggedIn(data))
-      } else {
-        dispatch(actionLoggedOut())
-      }
-    })
+      .then(res => res.json())
+      .then(data => {
+        if (!data.error) {
+          dispatch(actionLoggedIn(data))
+        } else {
+          dispatch(actionLoggedOut())
+        }
+      })
   }, [dispatch])
 
 
@@ -77,27 +80,33 @@ function App() {
           </a>
         </span>
       </header> */}
-    <Router>
-      <NavBar />
-      <Switch>
-        <Route exact path="/">
-          <Home />
-        </Route>
-        <Route path="/login">
-          <Login />
-        </Route>
-        <Route exact path="/cart">
-          <Cart />
-        </Route>
-        <ProtectedRoute path="/cart/checkout">
-          <Checkout />
-        </ProtectedRoute>
-        <Route path="*">
+      <Router>
+        <ScrollToTop>
+          <NavBar />
+          <Alerts />
+          <Switch>
+            <Route exact path="/">
+              <Home />
+            </Route>
+            <Route path="/login">
+              <Login />
+            </Route>
+            <Route exact path="/cart">
+              <Cart />
+            </Route>
+            <ProtectedRoute path="/cart/checkout">
+              <Checkout />
+            </ProtectedRoute>
+            {/* <Route path="*">
           <Redirect to="/"/>
-        </Route>
-      </Switch>
-      <Footer />
-    </Router>
+        </Route> */}
+            <Route path="/profile">
+              <Profile />
+            </Route>
+          </Switch>
+          <Footer />
+        </ScrollToTop>
+      </Router>
     </div>
   );
 }

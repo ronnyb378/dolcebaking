@@ -1,20 +1,21 @@
 import React from 'react'
-import { Alert } from 'react-bootstrap'
 import { useSelector } from 'react-redux';
+import SingleAlert from './SingleAlert';
 
 export default function Alerts() {
     const status = useSelector(state => state.status)
-    let warnings = [];
+
+    let errors = []
 
     if (status.error) {
-        warnings.push(status.error)
+        errors.push({msg: status.error})
     }
 
     return (
         <div>
-            <Alert variant={warning}>
-                
-            </Alert>
+            {errors.map((error, index) => {
+                return <SingleAlert key={index} message={error.msg} />
+            })}
         </div>
     )
 }

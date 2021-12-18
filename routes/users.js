@@ -126,10 +126,9 @@ router.get('/current', checkAuth, async (req, res) => {
 
 // guest users
 router.get('/login/guest', async (req, res) => {
-  // res.json({message: 'I work'})
   db.User.findOne({
     where: {
-      username: "Guest"
+      id: "1"
     }
   })
     .then((user) => {
@@ -139,6 +138,8 @@ router.get('/login/guest', async (req, res) => {
           user: req.session.user
         })
         return
+      } else {
+        res.json({ message: 'something went wrong'})
       }
     })
 })

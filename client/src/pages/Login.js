@@ -4,6 +4,7 @@ import BrandHeader from '../components/BrandHeader';
 import { useDispatch } from 'react-redux';
 import { actionLoggedIn } from '../redux/actions/user';
 import { useHistory } from 'react-router-dom';
+import { actionClearAlerts } from '../redux/actions/status';
 
 export default function Login() {
     const dispatch = useDispatch()
@@ -43,6 +44,7 @@ export default function Login() {
             } else {
                 history.push('/')
                 dispatch(actionLoggedIn(data.user))
+                dispatch(actionClearAlerts())
             }
         })
     }
@@ -77,6 +79,15 @@ export default function Login() {
     const handleFormChange = (e) => {
         e.preventDefault()
         setLogin(!login)
+    }
+    
+    const handleGuestLogin = (e) => {
+        e.preventDefault()
+        fetch('/api/v1/users/login/guest')
+        .then(res=>res.json())
+        .then(data=> {
+            console.log(data)
+        })
     }
 
 
@@ -157,7 +168,7 @@ export default function Login() {
                                     label="Keep me signed in"
                                 />
                                 <Button size="lg" type="submit">Sign in</Button>
-                                <Button className="guestBtn" size="lg">
+                                <Button className="guestBtn" size="lg" onClick={(e) => handleGuestLogin(e)}>
                                     Sign in as Guest
                                 </Button>
                                 <Button onClick={(e) => handleFormChange(e)} className="accountBtn" size="lg">Create an Account</Button>

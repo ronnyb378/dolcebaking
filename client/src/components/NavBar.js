@@ -35,6 +35,7 @@ export default function NavBar() {
                             <Nav.Link as={Link} to={"/cart"} eventKey={2}>
                                 <img src={cart} alt="shopping cart"/>
                             </Nav.Link>
+                            <Nav.Link as={Link} to={"/profile"}>Profile</Nav.Link>
                         </Nav>
                     </Navbar.Collapse>
                 </Container>
