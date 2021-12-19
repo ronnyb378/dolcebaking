@@ -1,9 +1,14 @@
 import React, { useState } from 'react'
 import { Container, Form, Row, Col, Button, FloatingLabel } from 'react-bootstrap'
 import BrandHeader from '../components/BrandHeader';
+import { useDispatch } from 'react-redux';
+import { actionLoggedIn } from '../redux/actions/user';
+import { useHistory } from 'react-router-dom';
+import { actionClearAlerts } from '../redux/actions/status';
 
 export default function Login() {
-
+    const dispatch = useDispatch()
+    const history = useHistory()
     // form state
     const [login, setLogin] = useState(false)
 
@@ -22,7 +27,6 @@ export default function Login() {
 
     const handleLoginSubmit = (e) => {
         e.preventDefault()
-        console.log('fetch')
         fetch('/api/v1/users/login', {
             method: 'POST',
             headers: {
@@ -38,7 +42,9 @@ export default function Login() {
             if (data.error) {
                 console.log(data.error)
             } else {
-                console.log(data.success)
+                history.push('/')
+                dispatch(actionLoggedIn(data.user))
+                dispatch(actionClearAlerts())
             }
         })
     }
