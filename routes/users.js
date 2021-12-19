@@ -1,6 +1,7 @@
 var express = require('express');
 var router = express.Router();
 const db = require('../models')
+const jwt = require('jsonwebtoken')
 const bcrypt = require('bcrypt');
 const checkAuth = require('../checkAuth');
 
@@ -156,4 +157,53 @@ router.get('/logout', (req, res) => {
     })
   }
 })
+
+router.patch('/recovery', async (req, res) => {
+  const {email} = req.body;
+
+  await db.User.findOne({
+    where: {
+      email: email
+    }
+  })
+  .then((user) => {
+    if (!user) {
+      return res
+        .status(400)
+        .json({error: 'User with this email does not exist'})
+    }
+    const { password, ...userData } = user.dataValues;
+    const token = jwt.sign(userData, process.env.RESET_PASSWORD_KEY, {expiresIn: '20m'});
+    const data = {
+      from: 'noreply@hello.com',
+      to: email,
+      subject: 'Reset Password',
+      html: `
+        <h2>Please click link to reset your password</h2>
+        <p>${process.env.CLIENT_URL}/resetpassword/${token}</p>
+      `
+    };
+    // return user.update({resetLink: token}, (err, success) => {
+    //   if (err) {
+    //     return res.status(400).json({error: "Reset password link bad"})
+    //   } else {
+    //     console.log('****************************')
+    //     console.log(token)
+    //   }
+    // })
+    db.User.update({
+      resetLink: token
+    }, {
+      where: {
+        id: userData.id
+      }
+    }).then(data => {
+      db.User.sync()
+      res.json({success: 'awesome'})
+      console.log('changed')
+    })
+  })
+})
+
+
 module.exports = router;
