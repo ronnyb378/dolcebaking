@@ -36,6 +36,9 @@ module.exports = {
       updatedAt: {
         allowNull: false,
         type: Sequelize.DATE
+      },
+      resetLink: {
+        type: Sequelize.STRING
       }
     });
   },
