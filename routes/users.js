@@ -177,11 +177,11 @@ router.patch('/recovery', async (req, res) => {
     const token = jwt.sign(userData, process.env.RESET_PASSWORD_KEY, {expiresIn: '20m'});
 
     var transport = nodemailer.createTransport({
-      host: "smtp.mailtrap.io",
-      port: 2525,
+      host: process.env.MAIL_HOST,
+      port: process.env.MAIL_PORT,
       auth: {
-        user: "5f6872915bf864",
-        pass: "a79db1e7bce9ba"
+        user: process.env.MAIL_USER,
+        pass: process.env.MAIL_PASS
       },
       tls: {
         rejectUnauthorized: false
