@@ -6,15 +6,23 @@ export default function Alerts() {
     const status = useSelector(state => state.status)
 
     let errors = []
+    let successes = []
 
     if (status.error) {
         errors.push({msg: status.error})
+    }
+
+    if (status.success) {
+        successes.push({msg: status.success})
     }
 
     return (
         <div>
             {errors.map((error, index) => {
                 return <SingleAlert key={index} message={error.msg} />
+            })}
+            {successes.map((success, index) => {
+                return <SingleAlert key={index} message={success.msg} />
             })}
         </div>
     )

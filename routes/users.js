@@ -159,6 +159,8 @@ router.get('/logout', (req, res) => {
   }
 })
 
+
+// send token to user's email
 router.patch('/recovery', async (req, res) => {
   const {email} = req.body;
 
@@ -172,6 +174,11 @@ router.patch('/recovery', async (req, res) => {
       return res
         .status(400)
         .json({error: 'User with this email does not exist'})
+    }
+    if (user.resetLink !== null ) {
+      res
+      .status(400)
+      .json({error: "Email has already been sent to this user"})
     }
     const { password, ...userData } = user.dataValues;
     const token = jwt.sign(userData, process.env.RESET_PASSWORD_KEY, {expiresIn: '20m'});
@@ -187,14 +194,7 @@ router.patch('/recovery', async (req, res) => {
         rejectUnauthorized: false
       }
     });
-    // return user.update({resetLink: token}, (err, success) => {
-    //   if (err) {
-    //     return res.status(400).json({error: "Reset password link bad"})
-    //   } else {
-    //     console.log('****************************')
-    //     console.log(token)
-    //   }
-    // })
+
     var mailOptions = {
       from: 'youremail@gmail.com',
       to: `${email}`,
@@ -215,15 +215,21 @@ router.patch('/recovery', async (req, res) => {
         if (error) {
           res.json({error: error})
         } else { 
+          console.log("*************")
           console.log('Email sent: ' + info.response)
           db.User.sync()
-          res.json({success: 'awesome'})
+          res.json({success: `Email has been sent to ${email}` })
         }
       })
+    }).catch(function(err) {
+      if (err) {
+        res.status(400).json({error: "Something went wrong"})
+      }
     })
   })
 })
 
+// change password after email sent
 router.patch('/resetpassword', (req, res) => {
   const {resetLink, newPass } = req.body
   if(resetLink) {
@@ -243,7 +249,24 @@ router.patch('/resetpassword', (req, res) => {
             .status(400)
             .json({error: 'User with this token does not exist'})
         }
-        // change password
+        bcrypt.hash(newPass, 10)
+        .then((hash) => {
+        db.User.update({
+          password: hash,
+          resetLink: null
+        }, {
+          where: {
+            id: user.id
+          }
+        }).then(function() {
+          db.User.sync()
+          res.status(200).json({success: "Password successfully changed"})
+        })
+      })
+    }).catch(function (err) {
+        if (err) {
+          res.status(400).json({error: "Something went wrong"})
+        }
       })
       
     })
