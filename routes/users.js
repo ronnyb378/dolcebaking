@@ -4,6 +4,7 @@ const db = require('../models')
 const jwt = require('jsonwebtoken')
 const bcrypt = require('bcrypt');
 const checkAuth = require('../checkAuth');
+const nodemailer = require('nodemailer');
 
 // users signup
 router.post('/signup', function (req, res, next) {
@@ -174,15 +175,18 @@ router.patch('/recovery', async (req, res) => {
     }
     const { password, ...userData } = user.dataValues;
     const token = jwt.sign(userData, process.env.RESET_PASSWORD_KEY, {expiresIn: '20m'});
-    const data = {
-      from: 'noreply@hello.com',
-      to: email,
-      subject: 'Reset Password',
-      html: `
-        <h2>Please click link to reset your password</h2>
-        <p>${process.env.CLIENT_URL}/resetpassword/${token}</p>
-      `
-    };
+
+    var transport = nodemailer.createTransport({
+      host: "smtp.mailtrap.io",
+      port: 2525,
+      auth: {
+        user: "5f6872915bf864",
+        pass: "a79db1e7bce9ba"
+      },
+      tls: {
+        rejectUnauthorized: false
+      }
+    });
     // return user.update({resetLink: token}, (err, success) => {
     //   if (err) {
     //     return res.status(400).json({error: "Reset password link bad"})
@@ -191,6 +195,15 @@ router.patch('/recovery', async (req, res) => {
     //     console.log(token)
     //   }
     // })
+    var mailOptions = {
+      from: 'youremail@gmail.com',
+      to: `${email}`,
+      subject: 'Sending Email using Node.js',
+      html: `<h2>Please click on given link to reset your password</h2>
+              <p>${process.env.CLIENT_URL}/resetpassword/${token}</p>
+      `
+    };
+
     db.User.update({
       resetLink: token
     }, {
@@ -198,11 +211,43 @@ router.patch('/recovery', async (req, res) => {
         id: userData.id
       }
     }).then(data => {
-      db.User.sync()
-      res.json({success: 'awesome'})
-      console.log('changed')
+      transport.sendMail(mailOptions, function(error, info) {
+        if (error) {
+          res.json({error: error})
+        } else { 
+          console.log('Email sent: ' + info.response)
+          db.User.sync()
+          res.json({success: 'awesome'})
+        }
+      })
     })
   })
+})
+
+router.patch('/resetpassword', (req, res) => {
+  const {resetLink, newPass } = req.body
+  if(resetLink) {
+    jwt.verify(resetLink, process.env.RESET_PASSWORD_KEY, function (error, decodedData) {
+      if (error) {
+        return res.status(401).json({
+          error: "Incorrect or expired token"
+        })
+      }
+      db.User.findOne({
+        where: {
+          resetLink: resetLink
+        }
+      }).then(user => {
+        if (!user) {
+          return res
+            .status(400)
+            .json({error: 'User with this token does not exist'})
+        }
+        // change password
+      })
+      
+    })
+  }
 })
 
 
