@@ -69,6 +69,7 @@ export default function Login() {
         .then(res => res.json())
         .then(data => {
             if (data.success) {
+                history.push('/')
                 console.log(data.success)
             } else {
                 console.log(data.error)
@@ -87,6 +88,7 @@ export default function Login() {
         .then(res=>res.json())
         .then(data=> {
             console.log(data)
+            history.push('/')
         })
     }
 

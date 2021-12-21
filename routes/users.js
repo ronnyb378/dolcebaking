@@ -1,7 +1,7 @@
 var express = require('express');
 var router = express.Router();
 const db = require('../models')
-const jwt = require('jsonwebtoken')
+// const jwt = require('jsonwebtoken')
 const bcrypt = require('bcrypt');
 const checkAuth = require('../checkAuth');
 const nodemailer = require('nodemailer');
@@ -58,6 +58,7 @@ router.post('/signup', function (req, res, next) {
             date: dateCreated
           })
             .then((user) => {
+              req.session.user = user
               res.status(201).json({
                 success: user
               })

@@ -17,24 +17,17 @@ router.post('/neworder', async function (req, res, next) {
         itemDetail: value.itemDetail,
         cart: value.cart,
         cartValues: value.cartValues,
-        // firstName: req.session.user.firstName,
-        // lastName: req.session.user.lastName,
-        // email: req.session.user.email,
-        UserId: 56,
+        firstName: req.session.user.firstName,
+        lastName: req.session.user.lastName,
+        email: req.session.user.email,
+        UserId: req.session.user.id,
     })
     .then((order) => {
         res.json({ 
-            order
+            order,
+            user: req.session.user
         })
     })
-
-    // ! test
-    // console.log(value)
-    // res.json({
-    //     value
-    //     // orderId: id
-    // })
-    // console.log(req)
 });
 
 router.post("/payment", async function (req, res) {
@@ -63,6 +56,14 @@ router.post("/payment", async function (req, res) {
             success: false
         })
     }
+})
+
+// do a get route that will return all of the orders from the db in orders table
+router.get("/past-orders", async function(req, res) {
+    await db.Order.findAll({ 
+        UserId: req.session.user.id
+    })
+    .then((orders) => {res.json(orders)})
 })
 
 module.exports = router;
