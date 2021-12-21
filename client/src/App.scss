@@ -270,16 +270,25 @@ opacity: .60;
 .login-form {
   min-height: 100%;
   min-height: 100vh; 
-  background-color: $yellow;
+  background-color: white;
 
-  .col {
+
+  .form-col {
     -ms-flex: 0 0 500px;
     flex: 0 0 500px;
+    border-radius: 25px;
+    border: 2px solid purple;
+
     .btn {
       width: 100% !important;
       margin-top: 1em;
-      background-color: $grey;
-      border-color: $grey;
+      background-color: #9873AC;
+      border-color: #9873AC;
+    }
+    p {
+      text-decoration: underline !important;
+      text-align: center;
+      
     }
     
   }
@@ -293,6 +302,7 @@ opacity: .60;
   .accountBtn {
     background-color: transparent !important;
     color: $grey;
+    margin-bottom: 12px;
 
   }
 
