@@ -66,14 +66,15 @@ export default function Login() {
                 confirmed_password: signupConfirmPassword
             })
         })
-            .then(res => res.json())
-            .then(data => {
-                if (data.success) {
-                    console.log(data.success)
-                } else {
-                    console.log(data.error)
-                }
-            })
+        .then(res => res.json())
+        .then(data => {
+            if (data.success) {
+                history.push('/')
+                console.log(data.success)
+            } else {
+                console.log(data.error)
+            }
+        })
     }
 
     const handleFormChange = (e) => {
@@ -84,10 +85,11 @@ export default function Login() {
     const handleGuestLogin = (e) => {
         e.preventDefault()
         fetch('/api/v1/users/login/guest')
-            .then(res => res.json())
-            .then(data => {
-                console.log(data)
-            })
+        .then(res=>res.json())
+        .then(data=> {
+            console.log(data)
+            history.push('/')
+        })
     }
 
 
