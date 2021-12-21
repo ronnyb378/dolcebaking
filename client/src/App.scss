@@ -47,7 +47,8 @@ $menuItemFont: 'M PLUS 1 Code', sans-serif;
 }
 
 .navbar {
-  background-color:  #9873AC!important;
+  // background-color:  #9873AC!important;
+  background: #9873AC;
   .navbar-brand {
     font-family: 'Leckerli One', cursive;
     color: $white;
@@ -141,6 +142,12 @@ h2 {
 input:placeholder-shown + label {
   color: gray;
 }
+
+// input {
+//   -webkit-border-radius: 25px !important;
+//   -moz-border-radius: 25px !important;
+//    border-radius: 25px !important;
+// }
 
 .menu {
   background-color: $white;
@@ -288,6 +295,7 @@ opacity: .60;
   }
 }
 
+
 .login-container {
   min-height: 100%;
   min-height: 100vh; 
@@ -297,14 +305,36 @@ opacity: .60;
   .form-col {
     -ms-flex: 0 0 500px;
     flex: 0 0 500px;
-    // border-radius: 25px;
-    border: 2px solid purple;
+    box-shadow:
+  0 2.8px 2.2px rgba(0, 0, 0, 0.034),
+  0 6.7px 5.3px rgba(0, 0, 0, 0.048),
+  0 12.5px 10px rgba(0, 0, 0, 0.06),
+  0 22.3px 17.9px rgba(0, 0, 0, 0.072),
+  0 41.8px 33.4px rgba(0, 0, 0, 0.086),
+  0 100px 80px rgba(0, 0, 0, 0.12);
+
+  input {
+    -webkit-border-radius: 25px !important;
+    -moz-border-radius: 25px !important;
+     border-radius: 25px !important;
+  }
+
+    h4 {
+      font-family: 'Leckerli One', cursive;
+      font-size: 2em;
+      color: $pink;
+    }
 
     .btn {
       width: 100% !important;
       margin-top: 1em;
-      background-color: #9873AC;
-      border-color: #9873AC;
+      // background-color: #9873AC;
+      // border-color: #9873AC;
+      background-color: $pink;
+      border-color: $pink;
+      -webkit-border-radius: 25px !important;
+      -moz-border-radius: 25px !important;
+       border-radius: 25px !important;
     }
 
     .btn:hover {
@@ -486,6 +516,7 @@ opacity: .60;
   input:placeholder-shown + label {
     color: gray;
   }
+
 
   .checkout-col {
     -ms-flex: 0 0 500px;

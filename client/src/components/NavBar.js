@@ -1,12 +1,13 @@
 import React from 'react'
 import { Navbar, Container, Nav } from 'react-bootstrap'
 import cart from '../images/dolce_cart.png'
-import { Link } from 'react-router-dom'
+import { Link, useHistory } from 'react-router-dom'
 import { useSelector, useDispatch } from 'react-redux'
 import { actionLoggedOut } from '../redux/actions/user'
 
 export default function NavBar() {
     const dispatch = useDispatch()
+    const history = useHistory()
 
     const { user, checked } = useSelector(state => state.user)
 
@@ -16,6 +17,7 @@ export default function NavBar() {
         .then(res => res.json())
         .then(data => {
             dispatch(actionLoggedOut())
+            history.push('/login')
         })
     }   
 
@@ -35,7 +37,7 @@ export default function NavBar() {
                             { checked && user ? (
                             <Nav.Link as={Link} to={"/profile"}>Profile</Nav.Link>) : (null)}
                             { checked && user ? (
-                            <Nav.Link href="/logout" onClick={handleLogout}>Logout</Nav.Link>
+                            <Nav.Link href="#" onClick={handleLogout}>Logout</Nav.Link>
                             ) : (<Nav.Link as={Link} to={"/login"}>Login</Nav.Link>)}
                         </Nav>
                     </Navbar.Collapse>
