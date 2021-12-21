@@ -5,7 +5,7 @@ export default function PastOrders(props) {
     return (
         <Col>
             <Card>
-                One Order
+                { console.log(props) }
             </Card>
         </Col>
     )
