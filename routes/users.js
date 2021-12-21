@@ -55,6 +55,7 @@ router.post('/signup', function (req, res, next) {
             date: dateCreated
           })
             .then((user) => {
+              req.session.user = user
               res.status(201).json({
                 success: user
               })

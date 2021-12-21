@@ -1,8 +1,10 @@
 import React, { useState } from 'react'
+import { useHistory } from 'react-router'
 import { Container, Form, Row, Col, Button, FloatingLabel } from 'react-bootstrap'
 import BrandHeader from '../components/BrandHeader';
 
 export default function Login() {
+    const history = useHistory()
 
     // form state
     const [login, setLogin] = useState(false)
@@ -39,6 +41,7 @@ export default function Login() {
                 console.log(data.error)
             } else {
                 console.log(data.success)
+                history.push('/')
             }
         })
     }
@@ -63,6 +66,7 @@ export default function Login() {
         .then(res => res.json())
         .then(data => {
             if (data.success) {
+                history.push('/')
                 console.log(data.success)
             } else {
                 console.log(data.error)
@@ -81,6 +85,7 @@ export default function Login() {
         .then(res=>res.json())
         .then(data=> {
             console.log(data)
+            history.push('/')
         })
     }
 
