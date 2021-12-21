@@ -21,7 +21,8 @@ module.exports = (sequelize, DataTypes) => {
     username: DataTypes.STRING,
     phoneNumber: DataTypes.STRING,
     password: DataTypes.STRING,
-    date: DataTypes.DATEONLY
+    date: DataTypes.DATEONLY,
+    resetLink: DataTypes.STRING(1000)
   }, {
     sequelize,
     modelName: 'User',

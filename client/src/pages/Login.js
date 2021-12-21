@@ -3,7 +3,7 @@ import { Container, Form, Row, Col, Button, FloatingLabel } from 'react-bootstra
 import BrandHeader from '../components/BrandHeader';
 import { useDispatch } from 'react-redux';
 import { actionLoggedIn } from '../redux/actions/user';
-import { useHistory } from 'react-router-dom';
+import { Link, useHistory } from 'react-router-dom';
 import { actionClearAlerts } from '../redux/actions/status';
 
 export default function Login() {
@@ -168,6 +168,7 @@ export default function Login() {
                                     label="Keep me signed in"
                                 />
                                 <Button size="lg" type="submit">Sign in</Button>
+                                <Link to={"/recovery"}>Reset Password</Link>
                                 <Button className="guestBtn" size="lg" onClick={(e) => handleGuestLogin(e)}>
                                     Sign in as Guest
                                 </Button>

@@ -16,6 +16,8 @@ import ProtectedRoute from './components/ProtectedRoute';
 import Profile from './pages/Profile';
 import Alerts from './components/Alerts';
 import ScrollToTop from './components/ScrollToTop';
+import Recovery from './pages/Recovery';
+import ResetPass from './pages/ResetPass';
 
 function App() {
   const dispatch = useDispatch()
@@ -102,6 +104,12 @@ function App() {
         </Route> */}
             <Route path="/profile">
               <Profile />
+            </Route>
+            <Route path="/recovery">
+              <Recovery />
+            </Route>
+            <Route path="/resetpassword/:token">
+              <ResetPass />
             </Route>
           </Switch>
           <Footer />

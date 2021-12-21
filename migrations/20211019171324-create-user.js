@@ -38,7 +38,7 @@ module.exports = {
         type: Sequelize.DATE
       },
       resetLink: {
-        type: Sequelize.STRING
+        type: Sequelize.STRING(1000)
       }
     });
   },

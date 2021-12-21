@@ -4,6 +4,7 @@ const db = require('../models')
 const jwt = require('jsonwebtoken')
 const bcrypt = require('bcrypt');
 const checkAuth = require('../checkAuth');
+const nodemailer = require('nodemailer');
 
 // users signup
 router.post('/signup', function (req, res, next) {
@@ -158,6 +159,8 @@ router.get('/logout', (req, res) => {
   }
 })
 
+
+// send token to user's email
 router.patch('/recovery', async (req, res) => {
   const {email} = req.body;
 
@@ -172,25 +175,35 @@ router.patch('/recovery', async (req, res) => {
         .status(400)
         .json({error: 'User with this email does not exist'})
     }
+    if (user.resetLink !== null ) {
+      res
+      .status(400)
+      .json({error: "Email has already been sent to this user"})
+    }
     const { password, ...userData } = user.dataValues;
     const token = jwt.sign(userData, process.env.RESET_PASSWORD_KEY, {expiresIn: '20m'});
-    const data = {
-      from: 'noreply@hello.com',
-      to: email,
-      subject: 'Reset Password',
-      html: `
-        <h2>Please click link to reset your password</h2>
-        <p>${process.env.CLIENT_URL}/resetpassword/${token}</p>
+
+    var transport = nodemailer.createTransport({
+      host: process.env.MAIL_HOST,
+      port: process.env.MAIL_PORT,
+      auth: {
+        user: process.env.MAIL_USER,
+        pass: process.env.MAIL_PASS
+      },
+      tls: {
+        rejectUnauthorized: false
+      }
+    });
+
+    var mailOptions = {
+      from: 'youremail@gmail.com',
+      to: `${email}`,
+      subject: 'Sending Email using Node.js',
+      html: `<h2>Please click on given link to reset your password</h2>
+              <p>${process.env.CLIENT_URL}/resetpassword/${token}</p>
       `
     };
-    // return user.update({resetLink: token}, (err, success) => {
-    //   if (err) {
-    //     return res.status(400).json({error: "Reset password link bad"})
-    //   } else {
-    //     console.log('****************************')
-    //     console.log(token)
-    //   }
-    // })
+
     db.User.update({
       resetLink: token
     }, {
@@ -198,11 +211,66 @@ router.patch('/recovery', async (req, res) => {
         id: userData.id
       }
     }).then(data => {
-      db.User.sync()
-      res.json({success: 'awesome'})
-      console.log('changed')
+      transport.sendMail(mailOptions, function(error, info) {
+        if (error) {
+          res.json({error: error})
+        } else { 
+          console.log("*************")
+          console.log('Email sent: ' + info.response)
+          db.User.sync()
+          res.json({success: `Email has been sent to ${email}` })
+        }
+      })
+    }).catch(function(err) {
+      if (err) {
+        res.status(400).json({error: "Something went wrong"})
+      }
     })
   })
+})
+
+// change password after email sent
+router.patch('/resetpassword', (req, res) => {
+  const {resetLink, newPass } = req.body
+  if(resetLink) {
+    jwt.verify(resetLink, process.env.RESET_PASSWORD_KEY, function (error, decodedData) {
+      if (error) {
+        return res.status(401).json({
+          error: "Incorrect or expired token"
+        })
+      }
+      db.User.findOne({
+        where: {
+          resetLink: resetLink
+        }
+      }).then(user => {
+        if (!user) {
+          return res
+            .status(400)
+            .json({error: 'User with this token does not exist'})
+        }
+        bcrypt.hash(newPass, 10)
+        .then((hash) => {
+        db.User.update({
+          password: hash,
+          resetLink: null
+        }, {
+          where: {
+            id: user.id
+          }
+        }).then(function() {
+          db.User.sync()
+          res.status(200).json({success: "Password successfully changed"})
+        })
+      })
+    }).catch(function (err) {
+        if (err) {
+          res.status(400).json({error: "Something went wrong"})
+        }
+      })
+      
+    })
+  }
 })
 
 

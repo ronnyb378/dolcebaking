@@ -10,3 +10,10 @@ export function actionClearAlerts() {
         type: 'CLEAR_ALERTS',
     }
 }
+
+export function actionSetSuccess(text) {
+    return {
+        type: 'SET_SUCCESS',
+        text
+    }
+}
