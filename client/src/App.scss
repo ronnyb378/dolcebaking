@@ -52,6 +52,9 @@ $menuItemFont: 'M PLUS 1 Code', sans-serif;
     font-family: 'Leckerli One', cursive;
     color: $white;
   }
+  .navbar-brand:hover, .nav-link:hover {
+    color: $pink !important;
+  }
   .nav-link {
     color: $white !important;
   }
@@ -129,7 +132,15 @@ h2 {
   100% {opacity:1;}
 }
 
+.btn:focus, .btn:active {
+  outline: none !important;
+  box-shadow: none;
+}
 
+
+input:placeholder-shown + label {
+  color: gray;
+}
 
 .menu {
   background-color: $white;
@@ -164,8 +175,9 @@ h2 {
     border-color: $pink;
   }
   .btn:hover {
-    background-color: pink;
-    color: $pink;
+
+    background-color: #E75480;
+    border-color: #E75480;
   }
 }
 
@@ -222,11 +234,20 @@ h2 {
       font-weight: bold; 
       background-color: grey;
       border-color: grey;
-
     }
+
+    .btn:not(.cart-btn):hover {
+      background-color: #909090;
+      border-color: #909090;
+    }
+
     .btn.cart-btn {
       background-color: $pink;
       border-color: $pink;
+    }
+    .btn.cart-btn:hover {
+      background-color: #E75480;
+      border-color: #E75480;
     }
   }
 }
@@ -267,7 +288,7 @@ opacity: .60;
   }
 }
 
-.login-form {
+.login-container {
   min-height: 100%;
   min-height: 100vh; 
   background-color: white;
@@ -276,7 +297,7 @@ opacity: .60;
   .form-col {
     -ms-flex: 0 0 500px;
     flex: 0 0 500px;
-    border-radius: 25px;
+    // border-radius: 25px;
     border: 2px solid purple;
 
     .btn {
@@ -285,10 +306,26 @@ opacity: .60;
       background-color: #9873AC;
       border-color: #9873AC;
     }
+
+    .btn:hover {
+      background-color: $pink;
+      border-color: $pink;
+    }
     p {
       text-decoration: underline !important;
       text-align: center;
       
+    }
+    p:hover {
+      color: $pink;
+      cursor: pointer;
+    }
+
+    a {
+      color: $grey;
+    }
+    a:hover {
+      color: $pink;
     }
     
   }
@@ -315,15 +352,6 @@ opacity: .60;
 
 .signUpForm {
   text-align: left;
-  p {
-    text-decoration: underline !important;
-    text-align: center;
-    
-  }
-  p:hover {
-    color: $pink;
-    cursor: pointer;
-  }
 }
 
 .img-hover-zoom {
@@ -376,8 +404,8 @@ opacity: .60;
       max-width: 100%;
       max-width: 140px;
       .btn:not(.cart-count):hover {
-        background-color: $pink;
-        color: $white;
+        background-color: $pink !important;
+        color: $white !important;
       }
     }
 
@@ -390,10 +418,6 @@ opacity: .60;
     color: $pink;
 
   }
-  .btn:focus, .btn:active {
-    outline: none !important;
-    box-shadow: none;
-  }
 
   .cart-count {
     cursor: default;
@@ -402,6 +426,9 @@ opacity: .60;
   .trash-image {
     height: 36px;
     cursor: pointer;
+  }
+  .trash-image:hover {
+    transform: scale(1.09); 
   }
 
 }
@@ -431,11 +458,26 @@ opacity: .60;
     }
 
   }
-  
-  .btn {
+
+  .btn.clear-cart-btn {
     background-color: transparent;
     border-color: $grey;
     color: $grey;
+  }
+  
+  .btn.clear-cart-btn:hover {
+    background-color: gray;
+    border-color: gray;
+    color: $white;
+  }
+  .btn {
+    background-color: $pink;
+    border-color: $pink;
+    color: $white;
+  }
+  .btn:hover {
+    background-color: #9873AC;
+    border-color: #9873AC;
   }
 }
 

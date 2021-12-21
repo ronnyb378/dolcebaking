@@ -15,7 +15,7 @@ export default function ProtectedRoute(props) {
 
     if (!user) {
         history.push('/login')
-        dispatch(actionSetError({error: 'Please log in'}))
+        // dispatch(actionSetError({error: 'Please log in'}))
     }
     return <Route {...props} />
 }

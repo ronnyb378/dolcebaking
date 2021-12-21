@@ -88,6 +88,7 @@ export default function Login() {
         .then(res=>res.json())
         .then(data=> {
             console.log(data)
+            dispatch(actionLoggedIn(data.user))
             history.push('/')
         })
     }
@@ -96,7 +97,7 @@ export default function Login() {
     return (
         <div>
             {/* <BrandHeader /> */}
-            <Container className="pt-4 login-form" fluid>
+            <Container className="pt-4 login-container" fluid>
                 <Row className="justify-content-center">
                     {login === true ? (
                         <Col className="form-col">

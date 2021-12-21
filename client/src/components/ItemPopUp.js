@@ -9,12 +9,13 @@ export default function ItemPopUp(props) {
     const dispatch = useDispatch()
     const { data: { name, description, image, products } } = props
     const clickedItem = useSelector(state => state.itemDetail)
-    const [error, setError ] = useState('')
+    const [error, setError] = useState('')
 
     const getItem = (id) => {
         const product = products.find(item => item.id === parseInt(id));
         return product
     }
+
 
 
     // check if any flavor is chosen
@@ -48,13 +49,13 @@ export default function ItemPopUp(props) {
         let isValid = validation([...e.target])
 
         if (isValid) {
-        let copyProduct = {...product}
+            let copyProduct = { ...product }
 
-        const price = copyProduct.price;
-        copyProduct.total = price  
-    
-        dispatch(actionUpdateCart(copyProduct))
-        setError('')
+            const price = copyProduct.price;
+            copyProduct.total = price
+
+            dispatch(actionUpdateCart(copyProduct))
+            setError('')
         }
     }
 
@@ -90,7 +91,7 @@ export default function ItemPopUp(props) {
                         <h5>{description}</h5>
                         {/* form having id and button having form attribute not supported by IE11? */}
                         <Form noValidate id="item-form" onSubmit={(e) => handleAddToCart(e, clickedItem)} onChange={(e) => handleRadioButton(e.target.value)}>
-                            {products.length > 1 && <h5>Flavors</h5>} { error && <p>{error}</p>}
+                            {products.length > 1 && <h5>Flavors</h5>} {error && <p>{error}</p>}
                             {(products.length > 1) ? (
                                 products.map(data =>
                                     <Form.Check
@@ -113,6 +114,7 @@ export default function ItemPopUp(props) {
             <Modal.Footer>
                 <Button onClick={() => closeModal()}>Back To Products</Button>
                 <Button form="item-form" className="cart-btn" type="submit" >Add To Cart</Button>
+
             </Modal.Footer>
         </Modal>
     )

@@ -34,6 +34,11 @@ export default function CheckoutDetails() {
     const [billingInfo, setBillingInfo] = useState({ ...initialBillingInfo })
     const [nameOnCard, setNameOnCard] = useState('')
 
+    var formatter = new Intl.NumberFormat('en-US', {
+        style: 'currency',
+        currency: 'USD',
+    });
+
     useEffect(() => {
         if (cartData.cart.cartItems.length < 1 && orderSuccess === false) {
             history.push('/')
@@ -144,7 +149,7 @@ export default function CheckoutDetails() {
     if (!orderSuccess) {
         return (
             <div>
-                <h2 className="pt-4">Checkout</h2>
+                <h2 className="pt-4">Check Out</h2>
                 <Container className="pt-4 checkout-form">
                     <Row className="justify-content-center">
                         <Col className="checkout-col pb-2">
@@ -281,7 +286,7 @@ export default function CheckoutDetails() {
                                 <div className="cardInputWrapper mb-4">
                                     <CardElement options={configCardElement} />
                                 </div>
-                                <Button type="submit" disabled={isLoading}>{isLoading ? 'Processing...' : `Pay $${cartValues.cartTotal}`}</Button>
+                                <Button type="submit" disabled={isLoading}>{isLoading ? 'Processing...' : `Pay ${formatter.format(cartValues.cartTotal)}`}</Button>
                             </Form>
                         </Col>
                     </Row>

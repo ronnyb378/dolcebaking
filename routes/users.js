@@ -138,8 +138,9 @@ router.get('/login/guest', async (req, res) => {
     .then((user) => {
       if (user) {
         req.session.user = user
-        res.status(400).json({
-          user: req.session.user
+        res.status(200).json({
+          user: req.session.user,
+          success: "Logged in as guest"
         })
         return
       } else {
