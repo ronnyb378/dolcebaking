@@ -1,7 +1,9 @@
 var express = require('express');
 var router = express.Router();
 const db = require('../models')
-const bcrypt = require('bcrypt')
+const jwt = require('jsonwebtoken')
+const bcrypt = require('bcrypt');
+const checkAuth = require('../checkAuth');
 
 // users signup
 router.post('/signup', function (req, res, next) {
@@ -109,6 +111,21 @@ router.post('/login', async (req, res) => {
   })
 })
 
+router.get('/current', checkAuth, async (req, res) => {
+  const user = await db.User.findByPk(req.session.user.id)
+  if(!user) {
+    res
+      .status(401)
+      .json({
+        error: 'Not logged in'
+      })
+    return
+  }
+  const { password, ...userData } = user.dataValues;
+
+  res.json(userData)
+})
+
 // guest users
 router.get('/login/guest', async (req, res) => {
   db.User.findOne({
@@ -141,4 +158,53 @@ router.get('/logout', (req, res) => {
     })
   }
 })
+
+router.patch('/recovery', async (req, res) => {
+  const {email} = req.body;
+
+  await db.User.findOne({
+    where: {
+      email: email
+    }
+  })
+  .then((user) => {
+    if (!user) {
+      return res
+        .status(400)
+        .json({error: 'User with this email does not exist'})
+    }
+    const { password, ...userData } = user.dataValues;
+    const token = jwt.sign(userData, process.env.RESET_PASSWORD_KEY, {expiresIn: '20m'});
+    const data = {
+      from: 'noreply@hello.com',
+      to: email,
+      subject: 'Reset Password',
+      html: `
+        <h2>Please click link to reset your password</h2>
+        <p>${process.env.CLIENT_URL}/resetpassword/${token}</p>
+      `
+    };
+    // return user.update({resetLink: token}, (err, success) => {
+    //   if (err) {
+    //     return res.status(400).json({error: "Reset password link bad"})
+    //   } else {
+    //     console.log('****************************')
+    //     console.log(token)
+    //   }
+    // })
+    db.User.update({
+      resetLink: token
+    }, {
+      where: {
+        id: userData.id
+      }
+    }).then(data => {
+      db.User.sync()
+      res.json({success: 'awesome'})
+      console.log('changed')
+    })
+  })
+})
+
+
 module.exports = router;

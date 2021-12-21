@@ -1,8 +1,8 @@
-import { BrowserRouter as Router, Route, Switch } from 'react-router-dom'
-import React from 'react';
+import { BrowserRouter as Router, Route, Switch, Redirect } from 'react-router-dom'
+import React, { useEffect } from 'react';
 // import logo from './logo.svg';
 // import { Counter } from './features/counter/Counter';
-
+import { useDispatch } from 'react-redux';
 import 'bootstrap/dist/css/bootstrap.min.css';
 import './App.scss';
 import Home from './pages/Home';
@@ -11,9 +11,28 @@ import Cart from './pages/Cart';
 import NavBar from './components/NavBar';
 import Footer from './components/Footer';
 import Checkout from './pages/Checkout';
+import { actionLoggedIn, actionLoggedOut } from './redux/actions/user';
+import ProtectedRoute from './components/ProtectedRoute';
 import Profile from './pages/Profile';
+import Alerts from './components/Alerts';
+import ScrollToTop from './components/ScrollToTop';
 
 function App() {
+  const dispatch = useDispatch()
+
+  useEffect(() => {
+    fetch('/api/v1/users/current')
+      .then(res => res.json())
+      .then(data => {
+        if (!data.error) {
+          dispatch(actionLoggedIn(data))
+        } else {
+          dispatch(actionLoggedOut())
+        }
+      })
+  }, [dispatch])
+
+
   return (
     <div className="App">
       {/* <header className="App-header">
@@ -61,27 +80,33 @@ function App() {
           </a>
         </span>
       </header> */}
-    <Router>
-      <NavBar />
-      <Switch>
-        <Route exact path="/">
-          <Home />
-        </Route>
-        <Route path="/login">
-          <Login />
-        </Route>
-        <Route exact path="/cart">
-          <Cart />
-        </Route>
-        <Route path="/cart/checkout">
-          <Checkout />
-        </Route>
-        <Route path="/profile">
-          <Profile/>
-        </Route>
-      </Switch>
-      <Footer />
-    </Router>
+      <Router>
+        <ScrollToTop>
+          <NavBar />
+          <Alerts />
+          <Switch>
+            <Route exact path="/">
+              <Home />
+            </Route>
+            <Route path="/login">
+              <Login />
+            </Route>
+            <Route exact path="/cart">
+              <Cart />
+            </Route>
+            <ProtectedRoute path="/cart/checkout">
+              <Checkout />
+            </ProtectedRoute>
+            {/* <Route path="*">
+          <Redirect to="/"/>
+        </Route> */}
+            <Route path="/profile">
+              <Profile />
+            </Route>
+          </Switch>
+          <Footer />
+        </ScrollToTop>
+      </Router>
     </div>
   );
 }
