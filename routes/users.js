@@ -9,12 +9,13 @@ const nodemailer = require('nodemailer');
 // users signup
 router.post('/signup', function (req, res, next) {
   // check for username, email, and password fields (non sanitized, sanitization will be done with middleware using express-validator)
-  if (!req.body.username) {
-    res.status(400).json({
-      error: 'Include a username'
-    })
-    return
-  } else if (!req.body.email) {
+  // if (!req.body.username) {
+  //   res.status(400).json({
+  //     error: 'Include a username'
+  //   })
+  //   return
+  // }
+    if (!req.body.email) {
     res.status(400).json({
       error: 'Email is required'
     })
@@ -49,7 +50,7 @@ router.post('/signup', function (req, res, next) {
         .then((hash) => {
           dateCreated = new Date()
           db.User.create({
-            username: req.body.username,
+            // username: req.body.username,
             email: req.body.email,
             password: hash,
             firstName: req.body.first_name,

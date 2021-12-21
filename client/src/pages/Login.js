@@ -13,17 +13,17 @@ export default function Login() {
     const [login, setLogin] = useState(false)
 
     // login states
-    const [ loginUsername, setLoginUsername ] = useState('');
-    const [ loginPassword, setLoginPassword ] = useState('');
+    const [loginUsername, setLoginUsername] = useState('');
+    const [loginPassword, setLoginPassword] = useState('');
 
     // sign up states
-    const [ signupUsername, setSignupUsername ] = useState('');
-    const [ signupEmail, setSignupEmail ] = useState('');
-    const [ firstName, setFirstName ] = useState('');
-    const [ lastName, setLastName ] = useState('');
-    const [ phoneNumber, setPhoneNumber ] = useState('');
-    const [ signupPassword, setSignupPassword ] = useState('');
-    const [ signupConfirmPassword, setSignupConfirmPassword ] = useState('')
+    // const [ signupUsername, setSignupUsername ] = useState('');
+    const [signupEmail, setSignupEmail] = useState('');
+    const [firstName, setFirstName] = useState('');
+    const [lastName, setLastName] = useState('');
+    const [phoneNumber, setPhoneNumber] = useState('');
+    const [signupPassword, setSignupPassword] = useState('');
+    const [signupConfirmPassword, setSignupConfirmPassword] = useState('')
 
     const handleLoginSubmit = (e) => {
         e.preventDefault()
@@ -37,16 +37,16 @@ export default function Login() {
                 password: loginPassword,
             })
         })
-        .then(res => res.json())
-        .then(data => {
-            if (data.error) {
-                console.log(data.error)
-            } else {
-                history.push('/')
-                dispatch(actionLoggedIn(data.user))
-                dispatch(actionClearAlerts())
-            }
-        })
+            .then(res => res.json())
+            .then(data => {
+                if (data.error) {
+                    console.log(data.error)
+                } else {
+                    history.push('/')
+                    dispatch(actionLoggedIn(data.user))
+                    dispatch(actionClearAlerts())
+                }
+            })
     }
 
     const handleSignupSubmit = (e) => {
@@ -57,7 +57,7 @@ export default function Login() {
                 'Content-Type': 'application/json'
             },
             body: JSON.stringify({
-                username: signupUsername,
+                // username: signupUsername,
                 email: signupEmail,
                 first_name: firstName,
                 last_name: lastName,
@@ -81,7 +81,7 @@ export default function Login() {
         e.preventDefault()
         setLogin(!login)
     }
-    
+
     const handleGuestLogin = (e) => {
         e.preventDefault()
         fetch('/api/v1/users/login/guest')
@@ -95,51 +95,71 @@ export default function Login() {
 
     return (
         <div>
-            <BrandHeader />
+            {/* <BrandHeader /> */}
             <Container className="pt-4 login-form" fluid>
                 <Row className="justify-content-center">
                     {login === true ? (
-                        <Col>
-                            <h2>Sign Up</h2>
+                        <Col className="form-col">
+                            <h4 className="pt-2">Sign Up</h4>
                             <Form className="signUpForm pt-4" onSubmit={handleSignupSubmit}>
-                                <Row className="mb-3">
-                                    <Form.Group as={Col} controlId="firstName">
-                                        <Form.Label>First Name</Form.Label>
-                                        <Form.Control size="lg" placeholder="John"
-                                        value={firstName} onChange={(e) => setFirstName(e.target.value)} />
-                                    </Form.Group>
-                                    <Form.Group as={Col} controlId="lastName">
-                                        <Form.Label>Last Name</Form.Label>
-                                        <Form.Control size="lg" placeholder="Doe"
-                                        value={lastName} onChange={(e) => setLastName(e.target.value)}/>
-                                    </Form.Group>
+                                <Row>
+                                    <Col>
+                                        <FloatingLabel
+                                            controlId="floatingFirst"
+                                            label="First Name"
+                                            className="mb-4">
+                                            <Form.Control
+                                                size="lg"
+                                                type="text"
+                                                placeholder="John"
+                                                value={firstName}
+                                                onChange={(e) => setFirstName(e.target.value)} />
+                                        </FloatingLabel>
+                                    </Col>
+                                    <Col>
+                                        <FloatingLabel
+                                            controlId="FloatingLast"
+                                            label="Last Name"
+                                            className="mb-4">
+
+                                        <Form.Control
+                                            size="lg"
+                                            type="text"
+                                            placeholder="Doe"
+                                            value={lastName}
+                                            onChange={(e) => setLastName(e.target.value)} />
+                                        </FloatingLabel>
+                                    </Col>
                                 </Row>
-                                <Form.Group className="mb-3" controlId="signUpEmail">
-                                    <Form.Label>Email address</Form.Label>
+                                <FloatingLabel
+                                            controlId="FloatingEmail"
+                                            label="Email Address"
+                                            className="mb-4">
                                     <Form.Control size="lg" type="email" placeholder="example@example.com"
-                                    value={signupEmail} onChange={(e) => setSignupEmail(e.target.value)} />
-                                </Form.Group>
-                                <Form.Group as={Col} controlId="username">
-                                        <Form.Label>Username</Form.Label>
-                                        <Form.Control size="lg" placeholder="BunnieCakes123"
-                                        value={signupUsername} onChange={(e) => setSignupUsername(e.target.value)} />
-                                    </Form.Group>
-                                <Form.Group className="mb-3" controlId="number">
-                                    <Form.Label>Phone Number</Form.Label>
+                                        value={signupEmail} onChange={(e) => setSignupEmail(e.target.value)} />
+                                    </FloatingLabel>
+                                    <FloatingLabel
+                                            controlId="FloatingPhoneNumber"
+                                            label="Phone Number"
+                                            className="mb-4">
                                     <Form.Control size="lg" placeholder="(123)456-7890"
-                                    value={phoneNumber} onChange={(e) => setPhoneNumber(e.target.value)} />
-                                </Form.Group>
-                                <Form.Group className="mb-3" controlId="signUpPassword">
-                                    <Form.Label>Password</Form.Label>
+                                        value={phoneNumber} type="tel" pattern="\d*" onChange={(e) => setPhoneNumber(e.target.value)} />
+                                    </FloatingLabel>
+                                    <FloatingLabel
+                                            controlId="FloatingPassword"
+                                            label="Password"
+                                            className="mb-4">
                                     <Form.Control size="lg" type="password" placeholder="Password"
-                                    value={signupPassword} onChange={(e) => setSignupPassword(e.target.value)} />
-                                </Form.Group>
-                                <Form.Group className="mb-3" controlId="confirmPassword">
-                                    <Form.Label>Confirm Password</Form.Label>
+                                        value={signupPassword} onChange={(e) => setSignupPassword(e.target.value)} />
+                                    </FloatingLabel>
+                                    <FloatingLabel
+                                            controlId="FloatingConfirmPassword"
+                                            label="Confirm Password"
+                                            className="mb-4">
                                     <Form.Control size="lg" type="password" placeholder="Confirm Password"
-                                    value={signupConfirmPassword} onChange={(e) => setSignupConfirmPassword(e.target.value)} />
-                                </Form.Group>
-                                <Button variant="primary" type="submit" size="lg">
+                                        value={signupConfirmPassword} onChange={(e) => setSignupConfirmPassword(e.target.value)} />
+                                    </FloatingLabel>
+                                <Button variant="primary" type="submit" size="lg" className="mb-3">
                                     Create Account
                                 </Button>
                                 <p onClick={(e) => handleFormChange(e)}>Already have an account? Sign in here.</p>
@@ -148,33 +168,29 @@ export default function Login() {
 
                     ) : (
 
-                        <Col >
-                            <h2>Log in</h2>
+                        <Col className="form-col">
+                            <h4 className="pt-2">Log in</h4>
                             <Form className="pt-4" onSubmit={handleLoginSubmit}>
                                 <FloatingLabel
-                                    controlId="floatingInput"
+                                    controlId="floatingLoginEmail"
                                     label="Email address"
                                     className="mb-3"
                                 >
-                                    <Form.Control size="lg" type="email" placeholder="name@example.com" 
-                                    value={loginUsername}
-                                    onChange={e => setLoginUsername(e.target.value)}/>
+                                    <Form.Control size="lg" type="email" placeholder="name@example.com"
+                                        value={loginUsername}
+                                        onChange={e => setLoginUsername(e.target.value)} />
                                 </FloatingLabel>
-                                <FloatingLabel controlId="floatingPassword" label="Password">
-                                    <Form.Control size="lg" type="password" placeholder="Password" 
-                                    value={loginPassword} onChange={e => setLoginPassword(e.target.value)}
+                                <FloatingLabel controlId="floatingLoginPassword" label="Password" className="mb-3">
+                                    <Form.Control size="lg" type="password" placeholder="Password"
+                                        value={loginPassword} onChange={e => setLoginPassword(e.target.value)}
                                     />
                                 </FloatingLabel>
-                                <Form.Check
-                                    type="checkbox"
-                                    label="Keep me signed in"
-                                />
+                                <Link to={"/recovery"}>Forgot Password?</Link>
                                 <Button size="lg" type="submit">Sign in</Button>
-                                <Link to={"/recovery"}>Reset Password</Link>
-                                <Button className="guestBtn" size="lg" onClick={(e) => handleGuestLogin(e)}>
+                                <p className="guestBtn" onClick={(e) => handleGuestLogin(e)}>
                                     Sign in as Guest
-                                </Button>
-                                <Button onClick={(e) => handleFormChange(e)} className="accountBtn" size="lg">Create an Account</Button>
+                                </p>
+                                <p onClick={(e) => handleFormChange(e)} className="accountBtn" size="lg">Create an Account</p>
                             </Form>
                         </Col>
                     )}
