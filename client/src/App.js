@@ -18,6 +18,9 @@ import Alerts from './components/Alerts';
 import ScrollToTop from './components/ScrollToTop';
 import Recovery from './pages/Recovery';
 import ResetPass from './pages/ResetPass';
+import Admin from './pages/Admin';
+import ProtectedAdminRoute from './components/ProtectedAdminRoute';
+import AdminNav from './components/AdminNav';
 
 function App() {
   const dispatch = useDispatch()
@@ -84,6 +87,7 @@ function App() {
       </header> */}
       <Router>
         <ScrollToTop>
+          <AdminNav />
           <NavBar />
           <Alerts />
           <Switch>
@@ -102,6 +106,9 @@ function App() {
             <ProtectedRoute path="/profile">
               <Profile />
             </ProtectedRoute>
+            <ProtectedAdminRoute path="/admin">
+              <Admin />
+            </ProtectedAdminRoute>
             <Route path="/recovery">
               <Recovery />
             </Route>
