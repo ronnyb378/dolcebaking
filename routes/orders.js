@@ -66,4 +66,11 @@ router.get("/past-orders", async function(req, res) {
     .then((orders) => {res.json(orders)})
 })
 
+router.get("/all-orders", async function(req,res) {
+    await db.Order.findAll({
+        raw: true
+    })
+    .then((orders) => {res.json(orders)})
+})
+
 module.exports = router;
