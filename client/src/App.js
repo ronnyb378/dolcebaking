@@ -99,17 +99,17 @@ function App() {
             <ProtectedRoute path="/cart/checkout">
               <Checkout />
             </ProtectedRoute>
-            {/* <Route path="*">
-          <Redirect to="/"/>
-        </Route> */}
-            <Route path="/profile">
+            <ProtectedRoute path="/profile">
               <Profile />
-            </Route>
+            </ProtectedRoute>
             <Route path="/recovery">
               <Recovery />
             </Route>
             <Route path="/resetpassword/:token">
               <ResetPass />
+            </Route>
+            <Route path="*">
+              <Redirect to="/" />
             </Route>
           </Switch>
           <Footer />

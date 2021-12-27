@@ -19,10 +19,10 @@ export default function Alerts() {
     return (
         <div>
             {errors.map((error, index) => {
-                return <SingleAlert key={index} message={error.msg} />
+                return <SingleAlert key={index} message={error.msg} fluid />
             })}
             {successes.map((success, index) => {
-                return <SingleAlert key={index} message={success.msg} />
+                return <SingleAlert key={index} message={success.msg} fluid />
             })}
         </div>
     )

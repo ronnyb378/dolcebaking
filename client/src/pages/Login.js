@@ -4,7 +4,8 @@ import BrandHeader from '../components/BrandHeader';
 import { useDispatch } from 'react-redux';
 import { actionLoggedIn } from '../redux/actions/user';
 import { Link, useHistory } from 'react-router-dom';
-import { actionClearAlerts } from '../redux/actions/status';
+import { actionClearAlerts, actionSetError } from '../redux/actions/status';
+import Alerts from '../components/Alerts';
 
 export default function Login() {
     const dispatch = useDispatch()
@@ -69,10 +70,11 @@ export default function Login() {
         .then(res => res.json())
         .then(data => {
             if (data.success) {
-                history.push('/')
+                // history.push('/')
+                setLogin(!login)
                 console.log(data.success)
             } else {
-                console.log(data.error)
+                dispatch(actionSetError(data))
             }
         })
     }
@@ -88,6 +90,7 @@ export default function Login() {
         .then(res=>res.json())
         .then(data=> {
             console.log(data)
+            dispatch(actionLoggedIn(data.user))
             history.push('/')
         })
     }
@@ -95,8 +98,8 @@ export default function Login() {
 
     return (
         <div>
-            {/* <BrandHeader /> */}
-            <Container className="pt-4 login-form" fluid>
+
+            <Container className="pt-4 login-container" fluid>
                 <Row className="justify-content-center">
                     {login === true ? (
                         <Col className="form-col">
@@ -186,7 +189,7 @@ export default function Login() {
                                     />
                                 </FloatingLabel>
                                 <Link to={"/recovery"}>Forgot Password?</Link>
-                                <Button size="lg" type="submit">Sign in</Button>
+                                <Button size="lg"  type="submit">Sign in</Button>
                                 <p className="guestBtn" onClick={(e) => handleGuestLogin(e)}>
                                     Sign in as Guest
                                 </p>
