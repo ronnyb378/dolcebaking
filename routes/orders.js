@@ -68,8 +68,12 @@ router.get("/past-orders", async function(req, res) {
 
 router.get("/all-orders", async function(req,res) {
     await db.Order.findAll({
-        raw: true
-    })
+        // raw: true
+        attributes:
+            ['createdAt', 'email', 'firstName', 'lastName', 'cartValues', 'cart', 'orderId'],
+        order: [['id', 'DESC']]
+    
+        })
     .then((orders) => {res.json(orders)})
 })
 

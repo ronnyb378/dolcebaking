@@ -548,6 +548,15 @@ opacity: .60;
   }
 }
 
+.accordion-button {
+  align-items: flex-start;
+}
 
-
-
+.accordion {
+  .row {
+    text-align: left;
+  }
+  .row:first-child {
+    text-align: center;
+  }
+}
