@@ -15,9 +15,34 @@ const rootReducer = combineReducers({
     status,
 })
 
+const saveToSessionStorage = (globalState) => {
+    try {
+        const serializedState = JSON.stringify(globalState);
+        sessionStorage.setItem('state', serializedState);
+    }
+    catch (e) {
+        console.log(e)
+    }
+}
+
+const loadFromSessionStorage = () => {
+    const serializedState = sessionStorage.getItem('state');
+    if (serializedState == null) {
+        return undefined;
+    } else {
+        return JSON.parse(serializedState);
+    }
+}
+
+const persistedState = loadFromSessionStorage()
+
 export const store = createStore(
-    rootReducer,
+    rootReducer, persistedState,
     window.__REDUX_DEVTOOLS_EXTENSION__ && window.__REDUX_DEVTOOLS_EXTENSION__()
     )
+
+store.subscribe(() => {
+    saveToSessionStorage(store.getState())
+})
 
 // export default store

@@ -65,6 +65,14 @@ $menuItemFont: 'M PLUS 1 Code', sans-serif;
 
 }
 
+.admin-nav {
+  background: white;
+  height: 2em;
+  .nav-link {
+    color: black !important;
+  }
+}
+
 html, body {
   width: 100%;
   max-height: 100%;
@@ -258,6 +266,8 @@ input:placeholder-shown + label {
     }
   }
 }
+
+
 
 #root {
   position: relative;
@@ -538,6 +548,15 @@ opacity: .60;
   }
 }
 
+.accordion-button {
+  align-items: flex-start;
+}
 
-
-
+.accordion {
+  .row {
+    text-align: left;
+  }
+  .row:first-child {
+    text-align: center;
+  }
+}
