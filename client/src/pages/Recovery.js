@@ -27,11 +27,11 @@ export default function Recovery() {
     }
 
     return (
-        <Container>
-            <h2>Email Password</h2>
-            <Row>
-                <Col>
-                    <Form onSubmit={handleSubmit}>
+        <Container className="pt-4">
+            <Row className="justify-content-center">
+                <Col className="recovery-form">
+                <h4>Email Password</h4>
+                    <Form className="py-2"onSubmit={handleSubmit}>
                         <FloatingLabel
                             controlId="floatingInput"
                             label="Email address"

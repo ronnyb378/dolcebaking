@@ -34,11 +34,11 @@ export default function ResetPass() {
     }
 
     return (
-        <Container>
-            <h2>Enter new password</h2>
-            <Row>
-                <Col>
-                    <Form onSubmit={handleSubmit}>
+        <Container className="pt-4">
+            <Row className="justify-content-center">
+                <Col className="recovery-form">
+                <h4>Enter new password!</h4>
+                    <Form className="py-2" onSubmit={handleSubmit}>
                         <FloatingLabel
                             controlId="floatingInput"
                             label="Password"

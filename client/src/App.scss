@@ -560,3 +560,19 @@ opacity: .60;
     text-align: center;
   }
 }
+
+
+.recovery-form {
+  -ms-flex: 0 0 500px;
+  flex: 0 0 500px;
+  border-style: dotted;
+  .btn {
+    width: 100%;
+      background-color: $pink;
+      border-color: $pink;
+  }
+  .btn:hover {
+    background-color: #E75480;
+    border-color: #E75480;
+  }
+}
