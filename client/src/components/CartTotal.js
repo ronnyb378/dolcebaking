@@ -65,8 +65,8 @@ export default function CartTotal({ value }) {
                 <h5>Subtotal: <strong>{formatter.format(cartSubTotal)}</strong> </h5>
                 <h5>Tax: <strong>{formatter.format(cartTax)}</strong></h5>
                 <h5>Grand Total: <strong>{formatter.format(cartTotal)}</strong></h5>
-                {/* <Button onClick={(e) => handleTotalClick(e)}>Checkout</Button> */}
-                <Button size="lg" onClick={() => history.push('/cart/checkout')}>Check Out</Button>
+                <Button onClick={(e) => handleTotalClick(e)}>Checkout</Button>
+                {/* <Button size="lg" onClick={() => history.push('/cart/checkout')}>Check Out</Button> */}
             </div>
         </Col>
     )
