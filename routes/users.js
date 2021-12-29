@@ -179,9 +179,9 @@ router.patch('/recovery', async (req, res) => {
         .json({error: 'User with this email does not exist'})
     }
     if (user.resetLink !== null ) {
-      res
+      return res
       .status(400)
-      .json({error: "Email has already been sent to this user"})
+      .json({error: `An email has already been sent to ${email}`})
     }
     const { password, ...userData } = user.dataValues;
     const token = jwt.sign(userData, process.env.RESET_PASSWORD_KEY, {expiresIn: '20m'});
@@ -221,7 +221,7 @@ router.patch('/recovery', async (req, res) => {
           console.log("*************")
           console.log('Email sent: ' + info.response)
           db.User.sync()
-          res.json({success: `Email has been sent to ${email}` })
+          res.json({success: `An email has been sent to ${email}.` })
         }
       })
     }).catch(function(err) {

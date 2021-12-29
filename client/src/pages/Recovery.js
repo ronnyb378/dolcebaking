@@ -1,12 +1,18 @@
-
-import React from 'react'
-import { useState } from 'react'
+import { useDispatch } from 'react-redux'
+import React, { useState } from 'react'
+import { actionSetError, actionSetSuccess } from '../redux/actions/status'
+import { useHistory } from 'react-router-dom'
 import { Container, Form, Row, Col, FloatingLabel, Button } from 'react-bootstrap'
 
 export default function Recovery() {
     const [ email, setEmail ] = useState('')
+    const [ isLoading, setLoading ] = useState(false)
+    const dispatch = useDispatch()
+    const history = useHistory()
+
 
     const handleSubmit = (e) => {
+        setLoading(true)
         e.preventDefault();
         fetch('/api/v1/users/recovery', {
             method: 'PATCH',
@@ -19,18 +25,21 @@ export default function Recovery() {
         }).then(res => res.json())
         .then(data => {
             if (data.error) {
-                console.log(data.error)
+                dispatch(actionSetError(data))
+                setLoading(false)
             } else {
-                console.log(data.success)
+                history.push('/login')
+                dispatch(actionSetSuccess(data))
+                
             }
         })
     }
 
     return (
-        <Container className="pt-4">
+        <Container className="pt-2">
             <Row className="justify-content-center">
                 <Col className="recovery-form">
-                <h4>Email Password</h4>
+                <h4 className="pt-2">Password Recovery</h4>
                     <Form className="py-2"onSubmit={handleSubmit}>
                         <FloatingLabel
                             controlId="floatingInput"
@@ -38,11 +47,12 @@ export default function Recovery() {
                             className="mb-3"
                         >
                             <Form.Control size="lg" type="email" placeholder="name@example.com"
+                                disabled={isLoading}
                                 value={email}
                                 required
                                 onChange={e => setEmail(e.target.value)} />
                         </FloatingLabel>
-                        <Button type="submit">Email Password</Button>
+                        <Button disabled={isLoading}type="submit">Send Email</Button>
                     </Form>
                 </Col>
             </Row>

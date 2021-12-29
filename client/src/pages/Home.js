@@ -5,6 +5,7 @@ import { useDispatch, useSelector } from 'react-redux'
 import { actionItemDetail } from '../redux/actions/itemDetail'
 import AboutUs from '../components/AboutUs'
 import BrandHeader from '../components/BrandHeader'
+import { actionClearAlerts } from '../redux/actions/status'
 
 export default function Home() {
     const dispatch = useDispatch()

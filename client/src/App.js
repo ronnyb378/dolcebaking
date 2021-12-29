@@ -21,6 +21,7 @@ import ResetPass from './pages/ResetPass';
 import Admin from './pages/Admin';
 import ProtectedAdminRoute from './components/ProtectedAdminRoute';
 import AdminNav from './components/AdminNav';
+import { Container } from 'react-bootstrap';
 
 function App() {
   const dispatch = useDispatch()
@@ -89,7 +90,9 @@ function App() {
         <ScrollToTop>
           <AdminNav />
           <NavBar />
-          <Alerts />
+          <Container style={{ height: "4em", padding: "0"}} fluid>
+            <Alerts />
+          </Container>
           <Switch>
             <Route exact path="/">
               <Home />
