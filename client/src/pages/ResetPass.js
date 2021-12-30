@@ -26,8 +26,12 @@ export default function ResetPass() {
         }).then(res => res.json())
         .then(data => {
             if (data.error) {
+                console.log(data.error)
                 dispatch(actionSetError(data))
                 setLoading(false)
+                if (data.error.includes('expire')) {
+                    history.push('/recovery')
+                }
             } else {
                 console.log(data.success)
                 dispatch(actionSetSuccess(data))
