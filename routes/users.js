@@ -8,26 +8,17 @@ const nodemailer = require('nodemailer');
 
 // users signup
 router.post('/signup', function (req, res, next) {
-  // check for username, email, and password fields (non sanitized, sanitization will be done with middleware using express-validator)
-  // if (!req.body.username) {
-  //   res.status(400).json({
-  //     error: 'Include a username'
-  //   })
-  //   return
-  // }
-  if (!req.body.email) {
-    res.status(400).json({
-      error: 'Email is required'
-    })
+  const paswd = /^(?=.*\d)(?=.*[a-z])(?=.*[A-Z])(?=.*[^a-zA-Z0-9])(?!.*\s).{8,15}$/
+
+  if (!req.body.email || !req.body.first_name || !req.body.last_name || !req.body.phone_number || !req.body.password || !req.body.confirmed_password ) {
+    res.status(400).json({error: "All fields are required!"})
     return
-  } else if (!req.body.password) {
-    res.status(400).json({
-      error: 'Password is required'
-    })
+  } else if (!req.body.password.match(paswd)) {
+    res.status(400).json({error: "Password must be 8-15 characters long, contain at least one lowercase letter, one uppercase letter, one numeric digit, and one special character"})
     return
   } else if (req.body.password != req.body.confirmed_password) {
     res.status(400).json({
-      error: 'Password does not match'
+      error: 'Passwords do not match'
     })
     return
   }
