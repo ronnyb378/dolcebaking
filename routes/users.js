@@ -8,26 +8,17 @@ const nodemailer = require('nodemailer');
 
 // users signup
 router.post('/signup', function (req, res, next) {
-  // check for username, email, and password fields (non sanitized, sanitization will be done with middleware using express-validator)
-  // if (!req.body.username) {
-  //   res.status(400).json({
-  //     error: 'Include a username'
-  //   })
-  //   return
-  // }
-    if (!req.body.email) {
-    res.status(400).json({
-      error: 'Email is required'
-    })
+  const paswd = /^(?=.*\d)(?=.*[a-z])(?=.*[A-Z])(?=.*[^a-zA-Z0-9])(?!.*\s).{8,15}$/
+
+  if (!req.body.email || !req.body.first_name || !req.body.last_name || !req.body.phone_number || !req.body.password || !req.body.confirmed_password ) {
+    res.status(400).json({error: "All fields are required!"})
     return
-  } else if (!req.body.password) {
-    res.status(400).json({
-      error: 'Password is required'
-    })
+  } else if (!req.body.password.match(paswd)) {
+    res.status(400).json({error: "Password must be 8-15 characters long, contain at least one lowercase letter, one uppercase letter, one numeric digit, and one special character"})
     return
   } else if (req.body.password != req.body.confirmed_password) {
     res.status(400).json({
-      error: 'Password does not match'
+      error: 'Passwords do not match'
     })
     return
   }
@@ -59,7 +50,7 @@ router.post('/signup', function (req, res, next) {
             date: dateCreated
           })
             .then((user) => {
-              req.session.user = user
+              // req.session.user = user
               res.status(201).json({
                 success: user
               })
@@ -100,7 +91,7 @@ router.post('/login', async (req, res) => {
     })
     return
   }
-  
+
   // remove any data that does not need to be returned
   const { password, createdAt, updatedAt, date, ...userData } = user.dataValues;
   //login
@@ -115,7 +106,7 @@ router.post('/login', async (req, res) => {
 
 router.get('/current', checkAuth, async (req, res) => {
   const user = await db.User.findByPk(req.session.user.id)
-  if(!user) {
+  if (!user) {
     res
       .status(401)
       .json({
@@ -144,7 +135,7 @@ router.get('/login/guest', async (req, res) => {
         })
         return
       } else {
-        res.json({ message: 'something went wrong'})
+        res.json({ message: 'something went wrong' })
       }
     })
 })
@@ -152,8 +143,8 @@ router.get('/login/guest', async (req, res) => {
 // logout users
 router.get('/logout', (req, res) => {
   if (!req.session.user) {
-    res.json({ message: "User not logged in"})
-  } else { 
+    res.json({ message: "User not logged in" })
+  } else {
     req.session.destroy()
     res.json({
       message: 'Succesfully logged out',
@@ -165,114 +156,139 @@ router.get('/logout', (req, res) => {
 
 // send token to user's email
 router.patch('/recovery', async (req, res) => {
-  const {email} = req.body;
+  const { email } = req.body;
 
   await db.User.findOne({
     where: {
       email: email
     }
   })
-  .then((user) => {
-    if (!user) {
-      return res
-        .status(400)
-        .json({error: 'User with this email does not exist'})
-    }
-    if (user.resetLink !== null ) {
-      res
-      .status(400)
-      .json({error: "Email has already been sent to this user"})
-    }
-    const { password, ...userData } = user.dataValues;
-    const token = jwt.sign(userData, process.env.RESET_PASSWORD_KEY, {expiresIn: '20m'});
-
-    var transport = nodemailer.createTransport({
-      host: process.env.MAIL_HOST,
-      port: process.env.MAIL_PORT,
-      auth: {
-        user: process.env.MAIL_USER,
-        pass: process.env.MAIL_PASS
-      },
-      tls: {
-        rejectUnauthorized: false
+    .then((user) => {
+      if (!user) {
+        return res
+          .status(400)
+          .json({ error: 'User with this email does not exist' })
       }
-    });
+      if (user.resetLink !== null) {
+        return res
+          .status(400)
+          .json({ error: `An email has already been sent to ${email}` })
+      }
+      const { password, ...userData } = user.dataValues;
+      const token = jwt.sign(userData, process.env.RESET_PASSWORD_KEY, { expiresIn: '30m' });
 
-    var mailOptions = {
-      from: 'youremail@gmail.com',
-      to: `${email}`,
-      subject: 'Sending Email using Node.js',
-      html: `<h2>Please click on given link to reset your password</h2>
+      var transport = nodemailer.createTransport({
+        host: process.env.MAIL_HOST,
+        port: process.env.MAIL_PORT,
+        auth: {
+          user: process.env.MAIL_USER,
+          pass: process.env.MAIL_PASS
+        },
+        tls: {
+          rejectUnauthorized: false
+        }
+      });
+
+      var mailOptions = {
+        from: 'youremail@gmail.com',
+        to: `${email}`,
+        subject: 'Sending Email using Node.js',
+        html: `<h2>Please click on given link to reset your password</h2>
               <p>${process.env.CLIENT_URL}/resetpassword/${token}</p>
       `
-    };
+      };
 
-    db.User.update({
-      resetLink: token
-    }, {
-      where: {
-        id: userData.id
-      }
-    }).then(data => {
-      transport.sendMail(mailOptions, function(error, info) {
-        if (error) {
-          res.json({error: error})
-        } else { 
-          console.log("*************")
-          console.log('Email sent: ' + info.response)
-          db.User.sync()
-          res.json({success: `Email has been sent to ${email}` })
+      db.User.update({
+        resetLink: token
+      }, {
+        where: {
+          id: userData.id
+        }
+      }).then(data => {
+        transport.sendMail(mailOptions, function (error, info) {
+          if (error) {
+            res.json({ error: error })
+          } else {
+            console.log("*************")
+            console.log('Email sent: ' + info.response)
+            db.User.sync()
+            res.json({ success: `An email has been sent to ${email}.` })
+          }
+        })
+      }).catch(function (err) {
+        if (err) {
+          res.status(400).json({ error: "Something went wrong" })
         }
       })
-    }).catch(function(err) {
-      if (err) {
-        res.status(400).json({error: "Something went wrong"})
-      }
     })
-  })
 })
 
 // change password after email sent
-router.patch('/resetpassword', (req, res) => {
-  const {resetLink, newPass } = req.body
-  if(resetLink) {
-    jwt.verify(resetLink, process.env.RESET_PASSWORD_KEY, function (error, decodedData) {
-      if (error) {
-        return res.status(401).json({
-          error: "Incorrect or expired token"
-        })
-      }
-      db.User.findOne({
-        where: {
-          resetLink: resetLink
-        }
-      }).then(user => {
-        if (!user) {
-          return res
-            .status(400)
-            .json({error: 'User with this token does not exist'})
-        }
-        bcrypt.hash(newPass, 10)
-        .then((hash) => {
-        db.User.update({
-          password: hash,
-          resetLink: null
-        }, {
-          where: {
-            id: user.id
+router.patch('/resetpassword', async (req, res) => {
+  const { resetLink, newPass } = req.body
+  if (resetLink) {
+    try {
+      jwt.verify(resetLink, process.env.RESET_PASSWORD_KEY, function (error, decodedData) {
+        if (error) {
+          console.log("*******", error.name)
+          let response;
+          switch (error.name) {
+            case ("TokenExpiredError"):
+              db.User.update({
+                resetLink: null
+              }, {
+                where: {
+                  resetLink: resetLink
+                }
+              }).then(function () {
+                db.User.sync();
+                response = res.status(401).json({error: "This token has expired. Please have new token resent to your email."})
+              })
+              break;
+            case ("JsonWebTokenError"):
+              response = res.status(401).json({error: "Invalid token"})
+              break;
+            default:
+              response = res.status(400).json({error: "Invalid token"})
           }
-        }).then(function() {
-          db.User.sync()
-          res.status(200).json({success: "Password successfully changed"})
+          return response
+        } 
+        db.User.findOne({
+          where: {
+            resetLink: resetLink
+          }
+        }).then(user => {
+          if (!user) {
+            return res
+              .status(400)
+              .json({ error: 'User with this token does not exist' })
+          }
+          bcrypt.hash(newPass, 10)
+            .then((hash) => {
+              db.User.update({
+                password: hash,
+                resetLink: null
+              }, {
+                where: {
+                  id: user.id
+                }
+              }).then(function () {
+                db.User.sync()
+                res.status(200).json({ success: "Password successfully changed" })
+              })
+            })
+        }).catch(function (err) {
+          if (err) {
+            res.status(400).json({ error: "Something went wrong" })
+          }
         })
+
       })
-    }).catch(function (err) {
-        if (err) {
-          res.status(400).json({error: "Something went wrong"})
-        }
-      })
-      
-    })
+    } catch (error) {
+      if (error) {
+        res.status(400).json({ error: "Something went wrong" })
+      }
+    }
   }
 })
 

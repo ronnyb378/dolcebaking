@@ -4,6 +4,7 @@ import cart from '../images/dolce_cart.png'
 import { Link, useHistory } from 'react-router-dom'
 import { useSelector, useDispatch } from 'react-redux'
 import { actionLoggedOut } from '../redux/actions/user'
+import { actionClearAlerts } from '../redux/actions/status'
 
 export default function NavBar() {
     const dispatch = useDispatch()
@@ -23,9 +24,9 @@ export default function NavBar() {
 
     return (
         <div>
-            <Navbar collapseOnSelect expand="sm">
+            <Navbar collapseOnSelect expand="sm" variant="dark">
                 <Container className="mx-1" fluid>
-                    <Navbar.Brand as={Link} to={"/"}>🍰 Dolce Desserts</Navbar.Brand>
+                    <Navbar.Brand as={Link} to={"/"} onClick={dispatch(actionClearAlerts())}>🍰 Dolce Desserts</Navbar.Brand>
                     <Navbar.Toggle aria-controls="responsive-navbar-nav" />
                     <Navbar.Collapse id="responsive-navbar-nav">
                         <Nav className="me-auto">

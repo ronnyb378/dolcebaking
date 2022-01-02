@@ -6,7 +6,8 @@ import { actionClearCart } from '../redux/actions/cart'
 import { useHistory } from 'react-router'
 
 const initialContactInfo = {
-    name: '',
+    firstName: '',
+    lastName: '',
     email: '',
     number: ''
 }
@@ -28,8 +29,8 @@ export default function CheckoutDetails() {
     const stripe = useStripe()
     const elements = useElements()
 
-    const [ orderSuccess, setOrderSuccess ] = useState(false)
-    const [ isLoading, setLoading ] = useState(false)
+    const [orderSuccess, setOrderSuccess] = useState(false)
+    const [isLoading, setLoading] = useState(false)
     const [contactInfo, setContactInfo] = useState({ ...initialContactInfo })
     const [billingInfo, setBillingInfo] = useState({ ...initialBillingInfo })
     const [nameOnCard, setNameOnCard] = useState('')
@@ -65,10 +66,11 @@ export default function CheckoutDetails() {
         e.preventDefault();
         setLoading(true)
         if (
-            !contactInfo.name || !contactInfo.email || !contactInfo.number ||
+            !contactInfo.firstName || !contactInfo.lastName || !contactInfo.email || !contactInfo.number ||
             !billingInfo.line1 || !billingInfo.city || !billingInfo.state ||
             !billingInfo.postal_code || !nameOnCard
         ) {
+            setLoading(false)
             return
         }
         fetch('/api/v1/orders/payment', {
@@ -112,14 +114,17 @@ export default function CheckoutDetails() {
                                             'Content-Type': 'application/json'
                                         },
                                         body: JSON.stringify({
-                                            value: cartData
+                                            value: cartData,
+                                            firstName: contactInfo.firstName,
+                                            lastName: contactInfo.lastName,
+                                            email: contactInfo.email
                                         })
                                     }).then(res => res.json())
-                                    .then(data => {
-                                        console.log(data)
-                                        dispatch(actionClearCart())
-                                        setOrderSuccess(true)
-                                    })
+                                        .then(data => {
+                                            console.log(data)
+                                            dispatch(actionClearCart())
+                                            setOrderSuccess(true)
+                                        })
                                 } else {
                                     setLoading(false)
                                 }
@@ -149,25 +154,44 @@ export default function CheckoutDetails() {
     if (!orderSuccess) {
         return (
             <div>
-                <h2 className="pt-4">Check Out</h2>
+                <h2>Check Out</h2>
                 <Container className="pt-4 checkout-form">
                     <Row className="justify-content-center">
                         <Col className="checkout-col pb-2">
                             <Form onSubmit={handleFormSubmit}>
                                 <h4>Contact Information</h4>
-                                <Form.Floating className="mb-2">
-                                    <Form.Control
-                                        disabled={isLoading}
-                                        required
-                                        id="floatingNameCustom"
-                                        type="text"
-                                        placeholder="Ronny Barahona"
-                                        name="name"
-                                        value={contactInfo.name}
-                                        onChange={(e) => handleContact(e)}
-                                    />
-                                    <label htmlFor="floatingNameCustom">Name</label>
-                                </Form.Floating>
+                                <Row>
+                                    <Col>
+                                        <Form.Floating className="mb-2">
+                                            <Form.Control
+                                                disabled={isLoading}
+                                                required
+                                                id="floatingNameCustom"
+                                                type="text"
+                                                placeholder="Ronny"
+                                                name="firstName"
+                                                value={contactInfo.firstName}
+                                                onChange={(e) => handleContact(e)}
+                                            />
+                                            <label htmlFor="floatingNameCustom">First Name</label>
+                                        </Form.Floating>
+                                    </Col>
+                                    <Col>
+                                        <Form.Floating className="mb-2">
+                                            <Form.Control
+                                                disabled={isLoading}
+                                                required
+                                                id="floatingNameCustom"
+                                                type="text"
+                                                placeholder="Barahona"
+                                                name="lastName"
+                                                value={contactInfo.lastName}
+                                                onChange={(e) => handleContact(e)}
+                                            />
+                                            <label htmlFor="floatingNameCustom">Last Name</label>
+                                        </Form.Floating>
+                                    </Col>
+                                </Row>
                                 <Form.Floating className="mb-2">
                                     <Form.Control
                                         disabled={isLoading}
@@ -249,7 +273,7 @@ export default function CheckoutDetails() {
                                             <label htmlFor="floatingCityCustom">City</label>
                                         </Form.Floating>
                                     </Form.Group>
-    
+
                                     <Form.Group as={Col}>
                                         <Form.Floating className="mb-2">
                                             <Form.Control
@@ -265,7 +289,7 @@ export default function CheckoutDetails() {
                                             <label htmlFor="floatingStateCustom">State</label>
                                         </Form.Floating>
                                     </Form.Group>
-    
+
                                     <Form.Group as={Col}>
                                         <Form.Floating className="mb-2">
                                             <Form.Control
@@ -296,5 +320,5 @@ export default function CheckoutDetails() {
     } else {
         return (<><h2>Thank you for your order!</h2></>)
     }
-    
+
 }

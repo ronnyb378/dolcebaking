@@ -3,8 +3,8 @@ import { Row, Col } from 'react-bootstrap'
 
 export default function EmptyCart() {
     return (
-            <Row className="py-4">
-                <Col>
+            <Row>
+                <Col className="pb-4">
                     <h2>Your Cart Is Currently Empty 😢</h2>
                 </Col>
             </Row>
