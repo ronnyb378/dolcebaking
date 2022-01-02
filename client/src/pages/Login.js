@@ -80,6 +80,7 @@ export default function Login() {
     }
 
     const handleFormChange = (e) => {
+        dispatch(actionClearAlerts())
         e.preventDefault()
         setLogin(!login)
     }
@@ -91,6 +92,7 @@ export default function Login() {
         .then(data=> {
             console.log(data)
             dispatch(actionLoggedIn(data.user))
+            dispatch(actionClearAlerts())
             history.push('/')
         })
     }
@@ -188,7 +190,8 @@ export default function Login() {
                                         value={loginPassword} onChange={e => setLoginPassword(e.target.value)}
                                     />
                                 </FloatingLabel>
-                                <Link to={"/recovery"}>Forgot Password?</Link>
+                                {/* <Link to={"/recovery"}>Forgot Password?</Link> */}
+                                <p onClick={() => {dispatch(actionClearAlerts()); history.push('/recovery')}}>Forgot Password?</p>
                                 <Button size="lg"  type="submit">Sign in</Button>
                                 <p className="guestBtn" onClick={(e) => handleGuestLogin(e)}>
                                     Sign in as Guest

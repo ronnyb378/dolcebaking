@@ -17,13 +17,13 @@ export default function Alerts() {
     }
 
     return (
-        <div>
+        <React.Fragment>
             {errors.map((error, index) => {
-                return <SingleAlert key={index} message={error.msg} fluid />
+                return <SingleAlert variant={"warning"} key={index} message={error.msg} fluid />
             })}
             {successes.map((success, index) => {
-                return <SingleAlert key={index} message={success.msg} fluid />
+                return <SingleAlert variant={"info"} key={index} message={success.msg} fluid />
             })}
-        </div>
+        </React.Fragment>
     )
 }

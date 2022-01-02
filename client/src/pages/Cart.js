@@ -15,7 +15,7 @@ export default function Cart() {
             <Container fluid className="cart-parent pb-4">
                 {cart.cartItems.length > 0 ? (
                     <React.Fragment>
-                        <h2 className="py-4">Your Cart</h2>
+                        <h2 className="pb-4">Your Cart</h2>
                         <Row>
                             <Col>
                                 <CartColumns />
