@@ -90,7 +90,7 @@ function App() {
         <ScrollToTop>
           <AdminNav />
           <NavBar />
-          <Container style={{ height: "4em", padding: "0"}} fluid>
+          <Container style={{ minHeight: "4em", maxHeight: "fit-content",padding: "0"}} fluid>
             <Alerts />
           </Container>
           <Switch>

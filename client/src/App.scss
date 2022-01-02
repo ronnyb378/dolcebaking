@@ -399,7 +399,15 @@ opacity: .60;
 
 .signUpForm {
   text-align: left;
+
+  .passwordHelpText {
+    width: 100%;
+    text-align: justify;
+    padding-bottom: 5px;
+  }
 }
+
+
 
 .img-hover-zoom {
   overflow: hidden; 
@@ -414,21 +422,7 @@ opacity: .60;
   opacity: 0.9;
 }
 
-// .cart-overview {
-//   display: flex;
-//   // overflow: hidden;
-//   .cart-info {
-//     width: 100%;
-//     float: left;
-//     background-color: gray;
-//   }
-  
-//   .cart-total {
-//     background-color: chartreuse;
-//     width: 280px;
-//     // overflow: hidden;
-//   }
-// }
+
 
 .cart-total {
   // .btn {

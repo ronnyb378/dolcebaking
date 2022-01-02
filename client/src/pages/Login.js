@@ -1,4 +1,4 @@
-import React, { useState } from 'react'
+import React, { useState, useEffect } from 'react'
 import { Container, Form, Row, Col, Button, FloatingLabel } from 'react-bootstrap'
 import BrandHeader from '../components/BrandHeader';
 import { useDispatch } from 'react-redux';
@@ -26,6 +26,19 @@ export default function Login() {
     const [signupPassword, setSignupPassword] = useState('');
     const [signupConfirmPassword, setSignupConfirmPassword] = useState('')
 
+    const [ textColor, setTextColor ] = useState('crimson')
+
+    // between 8 to 15 characters which contain at least one lowercase letter, one uppercase letter, one numeric digit, and one special character
+    const paswd = /^(?=.*\d)(?=.*[a-z])(?=.*[A-Z])(?=.*[^a-zA-Z0-9])(?!.*\s).{8,15}$/
+
+    useEffect(() => {
+        if (signupPassword.match(paswd)) {
+            setTextColor('forestgreen')
+        } else {
+            setTextColor('crimson')
+        }
+    }, [signupPassword])
+
     const handleLoginSubmit = (e) => {
         e.preventDefault()
         fetch('/api/v1/users/login', {
@@ -50,6 +63,8 @@ export default function Login() {
             })
     }
 
+
+
     const handleSignupSubmit = (e) => {
         e.preventDefault()
         fetch('/api/v1/users/signup', {
@@ -67,16 +82,23 @@ export default function Login() {
                 confirmed_password: signupConfirmPassword
             })
         })
-        .then(res => res.json())
-        .then(data => {
-            if (data.success) {
-                // history.push('/')
-                setLogin(!login)
-                console.log(data.success)
-            } else {
-                dispatch(actionSetError(data))
-            }
-        })
+            .then(res => res.json())
+            .then(data => {
+                if (data.success) {
+                    // history.push('/')
+                    setLogin(!login)
+                    setFirstName('');
+                    setLastName('');
+                    setSignupEmail('');
+                    setPhoneNumber('');
+                    setSignupPassword('');
+                    setSignupConfirmPassword('');
+                    console.log(data.success)
+                    dispatch(actionClearAlerts())
+                } else {
+                    dispatch(actionSetError(data))
+                }
+            })
     }
 
     const handleFormChange = (e) => {
@@ -88,13 +110,13 @@ export default function Login() {
     const handleGuestLogin = (e) => {
         e.preventDefault()
         fetch('/api/v1/users/login/guest')
-        .then(res=>res.json())
-        .then(data=> {
-            console.log(data)
-            dispatch(actionLoggedIn(data.user))
-            dispatch(actionClearAlerts())
-            history.push('/')
-        })
+            .then(res => res.json())
+            .then(data => {
+                console.log(data)
+                dispatch(actionLoggedIn(data.user))
+                dispatch(actionClearAlerts())
+                history.push('/')
+            })
     }
 
 
@@ -127,47 +149,54 @@ export default function Login() {
                                             label="Last Name"
                                             className="mb-4">
 
-                                        <Form.Control
-                                            size="lg"
-                                            type="text"
-                                            placeholder="Doe"
-                                            value={lastName}
-                                            onChange={(e) => setLastName(e.target.value)} />
+                                            <Form.Control
+                                                size="lg"
+                                                type="text"
+                                                placeholder="Doe"
+                                                value={lastName}
+                                                onChange={(e) => setLastName(e.target.value)} />
                                         </FloatingLabel>
                                     </Col>
                                 </Row>
                                 <FloatingLabel
-                                            controlId="FloatingEmail"
-                                            label="Email Address"
-                                            className="mb-4">
+                                    controlId="FloatingEmail"
+                                    label="Email Address"
+                                    className="mb-4">
                                     <Form.Control size="lg" type="email" placeholder="example@example.com"
-                                        value={signupEmail} onChange={(e) => setSignupEmail(e.target.value)} />
-                                    </FloatingLabel>
-                                    <FloatingLabel
-                                            controlId="FloatingPhoneNumber"
-                                            label="Phone Number"
-                                            className="mb-4">
+                                        value={signupEmail} onChange={(e) => setSignupEmail(e.target.value)}
+                                        type="email" />
+                                </FloatingLabel>
+                                <FloatingLabel
+                                    controlId="FloatingPhoneNumber"
+                                    label="Phone Number"
+                                    className="mb-4">
                                     <Form.Control size="lg" placeholder="(123)456-7890"
                                         value={phoneNumber} type="tel" pattern="\d*" onChange={(e) => setPhoneNumber(e.target.value)} />
-                                    </FloatingLabel>
-                                    <FloatingLabel
-                                            controlId="FloatingPassword"
-                                            label="Password"
-                                            className="mb-4">
+                                </FloatingLabel>
+                                <FloatingLabel
+                                    controlId="FloatingPassword"
+                                    label="Password"
+                                    className="mb-1"
+                                    >
                                     <Form.Control size="lg" type="password" placeholder="Password"
                                         value={signupPassword} onChange={(e) => setSignupPassword(e.target.value)} />
-                                    </FloatingLabel>
+                                </FloatingLabel>
+                                <div className="passwordHelpText">
+                                <Form.Text id="passwordHelpBlock" style={{color: textColor }}>
+                                    Your password must be 8-15 characters long, contain at least one lowercase letter, one uppercase letter, one numeric digit, and one special character
+                                </Form.Text>
+                                </div>
                                     <FloatingLabel
-                                            controlId="FloatingConfirmPassword"
-                                            label="Confirm Password"
-                                            className="mb-4">
-                                    <Form.Control size="lg" type="password" placeholder="Confirm Password"
-                                        value={signupConfirmPassword} onChange={(e) => setSignupConfirmPassword(e.target.value)} />
+                                        controlId="FloatingConfirmPassword"
+                                        label="Confirm Password"
+                                        className="mb-4">
+                                        <Form.Control size="lg" type="password" placeholder="Confirm Password"
+                                            value={signupConfirmPassword} onChange={(e) => setSignupConfirmPassword(e.target.value)} />
                                     </FloatingLabel>
-                                <Button variant="primary" type="submit" size="lg" className="mb-3">
-                                    Create Account
-                                </Button>
-                                <p onClick={(e) => handleFormChange(e)}>Already have an account? Sign in here.</p>
+                                    <Button variant="primary" type="submit" size="lg" className="mb-3">
+                                        Create Account
+                                    </Button>
+                                    <p onClick={(e) => handleFormChange(e)}>Already have an account? Sign in here.</p>
                             </Form>
                         </Col>
 
@@ -191,8 +220,8 @@ export default function Login() {
                                     />
                                 </FloatingLabel>
                                 {/* <Link to={"/recovery"}>Forgot Password?</Link> */}
-                                <p onClick={() => {dispatch(actionClearAlerts()); history.push('/recovery')}}>Forgot Password?</p>
-                                <Button size="lg"  type="submit">Sign in</Button>
+                                <p onClick={() => { dispatch(actionClearAlerts()); history.push('/recovery') }}>Forgot Password?</p>
+                                <Button size="lg" type="submit">Sign in</Button>
                                 <p className="guestBtn" onClick={(e) => handleGuestLogin(e)}>
                                     Sign in as Guest
                                 </p>
