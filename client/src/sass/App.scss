@@ -1,13 +1,13 @@
-$grey: #2B2D42;
-$pink: #E86A92;
-$yellow: #F7EFBE;
-$white: #F7F7F9;
-$mint:#6FB379;
-$menuItemFont: 'M PLUS 1 Code', sans-serif;
+$grey: #2b2d42;
+$pink: #e86a92;
+$yellow: #f7efbe;
+$white: #f7f7f9;
+$mint: #6fb379;
+$menuItemFont: "M PLUS 1 Code", sans-serif;
 
 .App {
   text-align: center;
-  padding-bottom: 60px; 
+  padding-bottom: 60px;
 }
 
 .App-logo {
@@ -48,9 +48,9 @@ $menuItemFont: 'M PLUS 1 Code', sans-serif;
 
 .navbar {
   // background-color:  #9873AC!important;
-  background: #9873AC;
+  background: #9873ac;
   .navbar-brand {
-    font-family: 'Leckerli One', cursive;
+    font-family: "Leckerli One", cursive;
     color: $white;
   }
   .navbar-brand:active {
@@ -65,7 +65,6 @@ $menuItemFont: 'M PLUS 1 Code', sans-serif;
   img {
     height: 30px;
   }
-
 }
 
 .admin-nav {
@@ -76,18 +75,18 @@ $menuItemFont: 'M PLUS 1 Code', sans-serif;
   }
 }
 
-html, body {
+html,
+body {
   width: 100%;
   max-height: 100%;
   overflow-x: hidden;
   background-color: $white;
 }
 
-h1 { 
+h1 {
   color: $pink;
   font-size: 5em;
-  font-family: 'Leckerli One', cursive;
-  
+  font-family: "Leckerli One", cursive;
 }
 
 h4 {
@@ -101,14 +100,14 @@ h4 {
 }
 
 h6 {
-  font-family: 'Open Sans Condensed', sans-serif;
+  font-family: "Open Sans Condensed", sans-serif;
   font-size: 1.1em;
 }
 
 h2 {
   font-weight: bold;
-  font-family: 'Anton', sans-serif;
-  font-family: 'M PLUS 1 Code', sans-serif;
+  font-family: "Anton", sans-serif;
+  font-family: "M PLUS 1 Code", sans-serif;
 
   font-size: 3em;
   color: $grey;
@@ -126,35 +125,55 @@ h2 {
 }
 
 @keyframes fadeIn {
-  0% {opacity:0;}
-  100% {opacity:1;}
+  0% {
+    opacity: 0;
+  }
+  100% {
+    opacity: 1;
+  }
 }
 
 @-moz-keyframes fadeIn {
-  0% {opacity:0;}
-  100% {opacity:1;}
+  0% {
+    opacity: 0;
+  }
+  100% {
+    opacity: 1;
+  }
 }
 
 @-webkit-keyframes fadeIn {
-  0% {opacity:0;}
-  100% {opacity:1;}
+  0% {
+    opacity: 0;
+  }
+  100% {
+    opacity: 1;
+  }
 }
 
 @-o-keyframes fadeIn {
-  0% {opacity:0;}
-  100% {opacity:1;}
+  0% {
+    opacity: 0;
+  }
+  100% {
+    opacity: 1;
+  }
 }
 
 @-ms-keyframes fadeIn {
-  0% {opacity:0;}
-  100% {opacity:1;}
+  0% {
+    opacity: 0;
+  }
+  100% {
+    opacity: 1;
+  }
 }
 
-.btn:focus, .btn:active {
+.btn:focus,
+.btn:active {
   outline: none !important;
   box-shadow: none;
 }
-
 
 input:placeholder-shown + label {
   color: gray;
@@ -180,7 +199,7 @@ input:placeholder-shown + label {
     object-fit: cover;
   }
   .card-body {
-    background-color: #FFD1DC;
+    background-color: #ffd1dc;
     display: flex;
     justify-content: space-between;
     align-items: stretch;
@@ -193,15 +212,14 @@ input:placeholder-shown + label {
   }
 
   .btn {
-    font-family: 'Anton', sans-serif;
-    font-family: 'M PLUS 1 Code', sans-serif;
+    font-family: "Anton", sans-serif;
+    font-family: "M PLUS 1 Code", sans-serif;
     background-color: $pink;
     border-color: $pink;
   }
   .btn:hover {
-
-    background-color: #E75480;
-    border-color: #E75480;
+    background-color: #e75480;
+    border-color: #e75480;
   }
 }
 
@@ -224,7 +242,6 @@ input:placeholder-shown + label {
   .quantity {
     span {
       width: 100%;
-
     }
     .btn {
       width: 100%;
@@ -232,12 +249,9 @@ input:placeholder-shown + label {
     }
   }
 
-
   .item-column-right {
     flex-direction: column;
     justify-content: space-around;
-    
-
   }
 
   h5 {
@@ -246,16 +260,15 @@ input:placeholder-shown + label {
 
   p {
     color: red;
-    font-family:Arial, Helvetica, sans-serif;
+    font-family: Arial, Helvetica, sans-serif;
     margin-bottom: 0;
   }
 
   .modal-footer {
-
     .btn {
       flex-grow: 1;
       flex-basis: 0;
-      font-weight: bold; 
+      font-weight: bold;
       background-color: grey;
       border-color: grey;
     }
@@ -270,26 +283,23 @@ input:placeholder-shown + label {
       border-color: $pink;
     }
     .btn.cart-btn:hover {
-      background-color: #E75480;
-      border-color: #E75480;
+      background-color: #e75480;
+      border-color: #e75480;
     }
   }
 }
-
-
 
 #root {
   position: relative;
   min-height: 100vh;
 }
 
-
 .header-image {
   width: 100vw;
   position: relative;
-margin-left: -50vw;
-margin-right: -50vw;
-opacity: .60;
+  margin-left: -50vw;
+  margin-right: -50vw;
+  opacity: 0.6;
 }
 
 .container {
@@ -314,12 +324,10 @@ opacity: .60;
   }
 }
 
-
 .login-container {
   min-height: 100%;
   min-height: 100vh; 
   // background-color: white;
-
 
   .form-col {
     -ms-flex: 0 0 500px;
@@ -335,11 +343,11 @@ opacity: .60;
   0 41.8px 33.4px rgba(0, 0, 0, 0.086),
   0 100px 70px rgba(0, 0, 0, 0.12);
 
-  input {
-    -webkit-border-radius: 25px !important;
-    -moz-border-radius: 25px !important;
-     border-radius: 25px !important;
-  }
+    input {
+      -webkit-border-radius: 25px !important;
+      -moz-border-radius: 25px !important;
+      border-radius: 25px !important;
+    }
 
 
     .btn {
@@ -351,7 +359,7 @@ opacity: .60;
       border-color: $pink;
       -webkit-border-radius: 25px !important;
       -moz-border-radius: 25px !important;
-       border-radius: 25px !important;
+      border-radius: 25px !important;
     }
 
     .btn:hover {
@@ -361,7 +369,6 @@ opacity: .60;
     p {
       text-decoration: underline !important;
       text-align: center;
-      
     }
     p:hover {
       color: $pink;
@@ -374,7 +381,6 @@ opacity: .60;
     a:hover {
       color: $pink;
     }
-    
   }
 
   .guestBtn {
@@ -387,14 +393,12 @@ opacity: .60;
     background-color: transparent !important;
     color: $grey;
     margin-bottom: 12px;
-
   }
 
   .form-check {
     text-align: left !important;
     margin-top: 1em;
   }
-
 }
 
 .signUpForm {
@@ -410,18 +414,17 @@ opacity: .60;
 
 
 .img-hover-zoom {
-  overflow: hidden; 
+  overflow: hidden;
 }
 
 .img-hover-zoom img {
-  transition: transform .5s ease;
+  transition: transform 0.5s ease;
 }
 
 .img-hover-zoom:hover img {
   transform: scale(1.1);
   opacity: 0.9;
 }
-
 
 
 .cart-total {
@@ -435,8 +438,6 @@ opacity: .60;
 }
 
 .cart-items {
-
-
   .increment-column {
     display: flex;
     text-align: center;
@@ -449,15 +450,12 @@ opacity: .60;
         color: $white !important;
       }
     }
-
   }
-
 
   .btn {
     background-color: transparent;
     border-color: $pink;
     color: $pink;
-
   }
 
   .cart-count {
@@ -469,9 +467,8 @@ opacity: .60;
     cursor: pointer;
   }
   .trash-image:hover {
-    transform: scale(1.09); 
+    transform: scale(1.09);
   }
-
 }
 
 .cart-total {
@@ -481,7 +478,6 @@ opacity: .60;
     background-color: transparent;
     border-color: $grey;
     color: $grey;
-
   }
   h5 {
     font-family: $menuItemFont;
@@ -493,11 +489,9 @@ opacity: .60;
   flex-direction: column;
 
   h5 {
-
     strong {
       display: block;
     }
-
   }
 
   .btn.clear-cart-btn {
@@ -505,7 +499,7 @@ opacity: .60;
     border-color: $grey;
     color: $grey;
   }
-  
+
   .btn.clear-cart-btn:hover {
     background-color: gray;
     border-color: gray;
@@ -517,24 +511,22 @@ opacity: .60;
     color: $white;
   }
   .btn:hover {
-    background-color: #9873AC;
-    border-color: #9873AC;
+    background-color: #9873ac;
+    border-color: #9873ac;
   }
 }
-
 
 .checkout-form {
   input:placeholder-shown + label {
     color: gray;
   }
 
-
   .checkout-col {
     -ms-flex: 0 0 500px;
     flex: 0 0 500px;
   }
   .cardInputWrapper {
-    border: 1px solid #D3D3D3;
+    border: 1px solid #d3d3d3;
     border-radius: 8px;
     padding: 20px 4px;
     background-color: #fff;
@@ -543,7 +535,7 @@ opacity: .60;
     width: 100%;
     background-color: $pink;
     border-color: $pink;
-    font-weight: bold; 
+    font-weight: bold;
     // font-family: $menuItemFont;
     font-size: 20px;
   }
