@@ -18,9 +18,8 @@ export default function Profile() {
     }, [])
 
     // console.log(userInfo)
-
-    return (
-        <div className='profile-page'>
+    if (user) {
+        (<div className='profile-page'>
             <h1>Profile Page</h1>
             <div className='account-details'>
                 <h4>Account Details</h4>
@@ -41,5 +40,5 @@ export default function Profile() {
             </div> */}
 
         </div>
-    )
+    )} else { return null }
 }

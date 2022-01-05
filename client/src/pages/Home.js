@@ -1,11 +1,12 @@
 import React, { useRef, useState } from 'react'
-import { Container, Card, Row, Col, Button, Spinner } from 'react-bootstrap'
+import { Container, Card, Row, Col, Button } from 'react-bootstrap'
 import ItemPopUp from '../components/ItemPopUp'
 import { useDispatch, useSelector } from 'react-redux'
 import { actionItemDetail } from '../redux/actions/itemDetail'
 import AboutUs from '../components/AboutUs'
 import BrandHeader from '../components/BrandHeader'
 import { actionClearAlerts } from '../redux/actions/status'
+import pink from '../images/pink-image.png'
 
 export default function Home() {
     const dispatch = useDispatch()
@@ -42,9 +43,9 @@ export default function Home() {
                         return <Col key={item.id} onClick={() => {
                             setModalShow(true); setTempItem(item); handleDetail(item.products[0])}}>
                             <Card className="bg-dark text-white ">
-                            {/* <div className="img-hover-zoom" style={{display: loading ? "block" : "none"}}>
-                            <Spinner animation="grow" />
-                            </div> */}
+                            <div className="img-hover-zoom" style={{display: loading ? "block" : "none"}}>
+                            <Card.Img variant="top" src={pink} alt="Card image" style={{ opacity: "0.7"}}/>
+                            </div>
                                 <div className="img-hover-zoom" style={{display: loading ? "none" : "block"}}>
                                 <Card.Img variant="top" onLoad={imageLoaded} src={item.image} alt="Card image" />
                                 </div>

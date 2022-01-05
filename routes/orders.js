@@ -23,12 +23,12 @@ router.post('/neworder', async function (req, res, next) {
         email,
         UserId: req.session.user.id,
     })
-    .then((order) => {
-        res.json({ 
-            order,
-            user: req.session.user
+        .then((order) => {
+            res.json({
+                order,
+                user: req.session.user
+            })
         })
-    })
 });
 
 router.post("/payment", async function (req, res) {
@@ -60,22 +60,36 @@ router.post("/payment", async function (req, res) {
 })
 
 // do a get route that will return all of the orders from the db in orders table
-router.get("/past-orders", async function(req, res) {
-    await db.Order.findAll({ 
-        UserId: req.session.user.id
-    })
-    .then((orders) => {res.json(orders)})
+router.get("/past-orders", async function (req, res) {
+    try {
+        await db.Order.findAll({
+            UserId: req.session.user.id
+        })
+            .then((orders) => { res.json(orders) }
+            ).catch(function (err) {
+                if (err) {
+                    res.status(401).json({ error: "Unauthorized" })
+                }
+            })
+
+    } catch (error) {
+        res
+            .status(401)
+            .json({
+            error: "Not authorized"
+            })
+    }
 })
 
-router.get("/all-orders", async function(req,res) {
+router.get("/all-orders", async function (req, res) {
     await db.Order.findAll({
         // raw: true
         attributes:
             ['createdAt', 'email', 'firstName', 'lastName', 'cartValues', 'cart', 'orderId'],
         order: [['id', 'DESC']]
-    
-        })
-    .then((orders) => {res.json(orders)})
+
+    })
+        .then((orders) => { res.json(orders) })
 })
 
 module.exports = router;

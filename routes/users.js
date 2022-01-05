@@ -151,7 +151,7 @@ router.get('/logout', (req, res) => {
   } else {
     req.session.destroy()
     res.json({
-      message: 'Succesfully logged out',
+      success: 'Succesfully logged out',
       session: req.session
     })
   }
