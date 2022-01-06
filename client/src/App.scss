@@ -47,10 +47,11 @@ $menuItemFont: 'M PLUS 1 Code', sans-serif;
 }
 
 .navbar {
-  background-color:  #9873AC!important;
+  background-color:  #FFF8E1 !important;
   .navbar-brand {
     font-family: 'Leckerli One', cursive;
-    color: $white;
+    font-size: 1.4em;
+    color: $pink;
   }
   .navbar-brand:active {
     color: $white;
@@ -59,7 +60,10 @@ $menuItemFont: 'M PLUS 1 Code', sans-serif;
     color: $pink !important;
   }
   .nav-link {
-    color: $white !important;
+    font-family: 'Red Hat Mono', monospace;
+    font-weight: 900;
+    font-size: 1.1em;
+    color: #9873AC !important;
   }
   img {
     height: 30px;
@@ -185,15 +189,17 @@ input:placeholder-shown + label {
 
 .menu {
   // background-color: $white;
-
+  font-family: 'Red Hat Mono', monospace;
   min-height: 100%;
 
-  .col {
-    cursor: pointer;
+  .row {
+    padding: 0px 16px 0px 16px;
   }
+
   .card {
     border-color: white;
     max-height: 500px;
+    cursor: pointer
   }
 
   .card-img-top {
@@ -210,28 +216,32 @@ input:placeholder-shown + label {
     }
   }
   .card-body {
-    background-color: #FFE2E6;
+    background-color: #FFF8E1 ;
     display: flex;
     justify-content: space-between;
-    align-items: stretch;
+    flex-direction: column;
+    // align-items: stretch;
+    align-items: center;
     vertical-align: middle;
   }
   .card-text {
     color: gray;
-    font-family: 'Acme', sans-serif;
     font-size: 1.5em;
   }
 
   .btn {
-    font-family: 'Anton', sans-serif;
-    font-family: 'M PLUS 1 Code', sans-serif;
-    background-color: $pink;
-    border-color: $pink;
+    background-color: #FFB6C1;
+    border-color: #FFB6C1;
+    color: grey;
+    min-width: 32%;
+    border-radius: 0%;
+    align-self: end;
+    // height: 3em;
   }
   .btn:hover {
 
-    background-color: #E75480;
-    border-color: #E75480;
+    background-color: #66BB6A;
+    border-color: #66BB6A;
   }
 
 }
