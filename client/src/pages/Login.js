@@ -171,7 +171,7 @@ export default function Login() {
                                     label="Phone Number"
                                     className="mb-4">
                                     <Form.Control size="lg" placeholder="(123)456-7890"
-                                        value={phoneNumber} type="tel" pattern="\d*" onChange={(e) => setPhoneNumber(e.target.value)} />
+                                        value={phoneNumber} type="tel" onChange={(e) => setPhoneNumber(e.target.value)} />
                                 </FloatingLabel>
                                 <FloatingLabel
                                     controlId="FloatingPassword"

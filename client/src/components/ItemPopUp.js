@@ -1,6 +1,6 @@
-import React, { useState } from 'react'
-import { Modal, Button, Image, Form, Row, Col } from 'react-bootstrap'
-import { useSelector, useDispatch } from 'react-redux'
+import React, { useState, useRef } from 'react'
+import { Modal, Button, Image, Form, Row, Col, Overlay, Tooltip } from 'react-bootstrap'
+import { useSelector, useDispatch, shallowEqual } from 'react-redux'
 import { actionUpdateCart } from '../redux/actions/cart'
 import { actionItemDetail } from '../redux/actions/itemDetail'
 
@@ -10,6 +10,8 @@ export default function ItemPopUp(props) {
     const { data: { name, description, image, products } } = props
     const clickedItem = useSelector(state => state.itemDetail)
     const [error, setError] = useState('')
+    const target = useRef(null);
+    const [show, setShow] = useState(false);
 
     const getItem = (id) => {
         const product = products.find(item => item.id === parseInt(id));
@@ -49,6 +51,8 @@ export default function ItemPopUp(props) {
         let isValid = validation([...e.target])
 
         if (isValid) {
+            setShow(true)
+            setTimeout( () => setShow(false), 1500);
             let copyProduct = { ...product }
 
             const price = copyProduct.price;
@@ -66,12 +70,13 @@ export default function ItemPopUp(props) {
 
     const closeModal = () => {
         props.onHide();
+        setShow(false)
         setError('')
     }
 
     return (
         <Modal
-            onExited={() => setError('')}
+            onExited={() => {setError(''); setShow(false)}}
             {...props}
             dialogClassName="modal-50w"
             aria-labelledby="contained-modal-title-vcenter"
@@ -113,8 +118,14 @@ export default function ItemPopUp(props) {
             </Modal.Body>
             <Modal.Footer>
                 <Button onClick={() => closeModal()}>Back To Products</Button>
-                <Button form="item-form" className="cart-btn" type="submit" >Add To Cart</Button>
-
+                <Button ref={target} form="item-form" className="cart-btn" type="submit" >Add To Cart</Button>
+                <Overlay target={target.current} show={show} placement="top">
+                    {(props) => (
+                        <Tooltip id="overlay-example" {...props}>
+                            Added to cart!
+                        </Tooltip>
+                    )}
+                </Overlay>
             </Modal.Footer>
         </Modal>
     )
