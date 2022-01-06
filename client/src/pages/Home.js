@@ -38,9 +38,10 @@ export default function Home() {
             <BrandHeader />
             <Container className="pt-4 pb-4 menu" fluid>
                 <h2>Our Treats</h2>
-                <Row xs={1} md={3} lg={3} xl={4} className="pt-4 g-4 justify-content-center">
+                {/* xs={1} md={3} lg={3} xl={4} */}
+                <Row  className="pt-4 g-4">
                     {items.map((item) => {
-                        return <Col key={item.id} onClick={() => {
+                        return <Col xs={12} sm={6} md={6} xl={4} key={item.id} onClick={() => {
                             setModalShow(true); setTempItem(item); handleDetail(item.products[0])}}>
                             <Card className="bg-dark text-white ">
                             <div className="img-hover-zoom" style={{display: loading ? "block" : "none"}}>

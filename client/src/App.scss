@@ -47,8 +47,7 @@ $menuItemFont: 'M PLUS 1 Code', sans-serif;
 }
 
 .navbar {
-  // background-color:  #9873AC!important;
-  background: #9873AC;
+  background-color:  #9873AC!important;
   .navbar-brand {
     font-family: 'Leckerli One', cursive;
     color: $white;
@@ -122,7 +121,7 @@ h2 {
   -o-animation: fadeIn linear 3s;
   -ms-animation: fadeIn linear 3s;
   img {
-    height: 1.8em;
+    height: 1.6em;
   }
 
   h1 {
@@ -133,8 +132,13 @@ h2 {
     font-size: 1.5em;
     position: relative;
     bottom: 10px;
-    left: 46px;
+    left: 50px;
     font-family: 'Red Hat Mono', monospace;
+  }
+
+  h6 {
+    position: relative;
+    bottom: 10px;
   }
 }
 
@@ -187,13 +191,23 @@ input:placeholder-shown + label {
   .col {
     cursor: pointer;
   }
-  // .card {
-  //   border-color: white;
-  // }
+  .card {
+    border-color: white;
+    max-height: 500px;
+  }
 
   .card-img-top {
-    height: 20vw;
+    // max-height: 20vw;
+    height: 22vw;
+    // min-height: 40vw;
+    // max-height: 10vh;
     object-fit: cover;
+  }
+
+  @media (max-width: 1199.98px) {
+    .card-img-top {
+      height: 36vw;
+    }
   }
   .card-body {
     background-color: #FFE2E6;
