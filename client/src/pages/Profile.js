@@ -1,4 +1,5 @@
 import React, { useEffect, useState } from 'react'
+import { Container, Row } from 'react-bootstrap'
 import { useSelector } from 'react-redux'
 import PastOrders from '../components/PastOrders'
 
@@ -31,9 +32,14 @@ export default function Profile() {
             </div>
             <div className='order-history'>
                 <h4>Order History</h4>
+                <Container>
+                    <Row>
+
                 { userOrders.length ? (userOrders.map((order) => {
                     return <PastOrders key={order.id} order={order} />
                 })) : ('')}
+                </Row>
+                </Container>
                 {/* <PastOrders /> */}
             </div>
             {/* <div className=''>
