@@ -85,7 +85,7 @@ html, body {
 
 h1 { 
   color: $pink;
-  font-size: 5em;
+  font-size: 3.5em;
   font-family: 'Leckerli One', cursive;
   
 }
@@ -106,12 +106,13 @@ h6 {
 }
 
 h2 {
-  font-weight: bold;
-  font-family: 'Anton', sans-serif;
-  font-family: 'M PLUS 1 Code', sans-serif;
+  // font-weight: bold;
+  font-family: 'Red Hat Mono', monospace;
+// font-family: 'Anton', sans-serif;
+// font-family: 'M PLUS 1 Code', sans-serif;
 
-  font-size: 3em;
-  color: $grey;
+  font-size: 2.5em;
+  color: grey;
 }
 
 .brandHeader {
@@ -122,6 +123,18 @@ h2 {
   -ms-animation: fadeIn linear 3s;
   img {
     height: 1.8em;
+  }
+
+  h1 {
+    margin-bottom: 0;
+  }
+
+  h3 {
+    font-size: 1.5em;
+    position: relative;
+    bottom: 10px;
+    left: 46px;
+    font-family: 'Red Hat Mono', monospace;
   }
 }
 
@@ -174,21 +187,24 @@ input:placeholder-shown + label {
   .col {
     cursor: pointer;
   }
+  // .card {
+  //   border-color: white;
+  // }
 
   .card-img-top {
-    height: 26vw;
+    height: 20vw;
     object-fit: cover;
   }
   .card-body {
-    background-color: #FFD1DC;
+    background-color: #FFE2E6;
     display: flex;
     justify-content: space-between;
     align-items: stretch;
     vertical-align: middle;
   }
   .card-text {
-    color: $grey;
-    font-family: $menuItemFont;
+    color: gray;
+    font-family: 'Acme', sans-serif;
     font-size: 1.5em;
   }
 
@@ -203,11 +219,12 @@ input:placeholder-shown + label {
     background-color: #E75480;
     border-color: #E75480;
   }
+
 }
 
 .modal-content {
-  font-family: $menuItemFont;
-
+  // font-family: 'Anton', sans-serif;
+  font-family: 'Acme', sans-serif;
   .col {
     display: flex;
     max-height: 100%;
@@ -216,7 +233,8 @@ input:placeholder-shown + label {
 
   .modal-title {
     font-size: 1.8em;
-    font-weight: bold;
+    font-weight: 100;
+    // color: #9873AC;
   }
   .img-fluid {
     max-height: 100%;
@@ -240,15 +258,15 @@ input:placeholder-shown + label {
 
   }
 
-  h5 {
-    font-weight: 500;
-  }
+  // h5 {
+  //   font-weight: 500;
+  // }
 
-  p {
-    color: red;
-    font-family:Arial, Helvetica, sans-serif;
-    margin-bottom: 0;
-  }
+  // p {
+  //   color: red;
+  //   font-family:Arial, Helvetica, sans-serif;
+  //   margin-bottom: 0;
+  // }
 
   .modal-footer {
 
