@@ -5,9 +5,10 @@ import bakeTool from '../images/dolce_baking_tool.png'
 export default function BrandHeader() {
     return (
         <div>
-            <Container className=" pb-4 brandHeader">
+            <Container className=" pb-4 brandHeader" fluid>
                 <h1>Dolce<br /> Desserts</h1>
-                <h6>Houston<img src={bakeTool} alt="spatula"/>Something <img src={bakeTool} alt="spatula"/> Est. 2016</h6>
+                <h3>Houston</h3>
+                <h6>Empanadas<img src={bakeTool} alt="spatula"/> Pound cake <img src={bakeTool} alt="spatula"/> Strawberries</h6>
             </Container>
         </div>
     )
