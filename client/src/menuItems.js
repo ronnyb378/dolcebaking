@@ -26,7 +26,7 @@ export const menuItems = {
         {
             id: 2,
             category: "Strawberries",
-            name: "Strawberries (6 count)",
+            name: "Strawberries (12 count)",
             image: '/images/halloween_strawberries.jpg',
             description: 'Chocolate covered strawberries for your boo',
             products: [{
@@ -53,7 +53,7 @@ export const menuItems = {
             products: [
                 {
                     id: 6,
-                    name: 'Pineapple Empanadas (6 count)',
+                    name: 'Pineapple Empanadas',
                     partNumber: "EM01P",
                     description: 'Homemade empanadas',
                     category: 'Empanadas',
@@ -65,7 +65,7 @@ export const menuItems = {
                 },
                 {
                     id: 7,
-                    name: 'Strawberry Empanadas (6 count)',
+                    name: 'Strawberry Empanadas',
                     partNumber: "EM02S",
                     description: 'Homemade empanadas',
                     category: 'Empanadas',
@@ -77,7 +77,7 @@ export const menuItems = {
                 },
                 {
                     id: 8,
-                    name: 'Cajeta Empanadas (6 count)',
+                    name: 'Cajeta Empanadas',
                     partNumber: "EM03C",
                     description: 'Homemade empanadas',
                     category: 'Empanadas',
