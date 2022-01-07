@@ -1,11 +1,9 @@
 import React, { useState, useEffect } from 'react'
 import { Container, Form, Row, Col, Button, FloatingLabel } from 'react-bootstrap'
-import BrandHeader from '../components/BrandHeader';
 import { useDispatch } from 'react-redux';
 import { actionLoggedIn } from '../redux/actions/user';
-import { Link, useHistory } from 'react-router-dom';
+import { useHistory } from 'react-router-dom';
 import { actionClearAlerts, actionSetError } from '../redux/actions/status';
-import Alerts from '../components/Alerts';
 
 export default function Login() {
     const dispatch = useDispatch()
@@ -29,9 +27,10 @@ export default function Login() {
     const [ textColor, setTextColor ] = useState('crimson')
 
     // between 8 to 15 characters which contain at least one lowercase letter, one uppercase letter, one numeric digit, and one special character
-    const paswd = /^(?=.*\d)(?=.*[a-z])(?=.*[A-Z])(?=.*[^a-zA-Z0-9])(?!.*\s).{8,15}$/
 
     useEffect(() => {
+        const paswd = /^(?=.*\d)(?=.*[a-z])(?=.*[A-Z])(?=.*[^a-zA-Z0-9])(?!.*\s).{8,15}$/
+
         if (signupPassword.match(paswd)) {
             setTextColor('forestgreen')
         } else {
@@ -164,7 +163,7 @@ export default function Login() {
                                     className="mb-4">
                                     <Form.Control size="lg" type="email" placeholder="example@example.com"
                                         value={signupEmail} onChange={(e) => setSignupEmail(e.target.value)}
-                                        type="email" />
+                                        />
                                 </FloatingLabel>
                                 <FloatingLabel
                                     controlId="FloatingPhoneNumber"

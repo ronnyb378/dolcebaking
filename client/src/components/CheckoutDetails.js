@@ -4,6 +4,7 @@ import { Container, Form, Row, Col, Button } from 'react-bootstrap'
 import { useSelector, useDispatch } from 'react-redux'
 import { actionClearCart } from '../redux/actions/cart'
 import { useHistory } from 'react-router'
+import { actionSetSuccess } from '../redux/actions/status'
 
 const initialContactInfo = {
     firstName: '',
@@ -29,7 +30,6 @@ export default function CheckoutDetails() {
     const stripe = useStripe()
     const elements = useElements()
 
-    const [orderSuccess, setOrderSuccess] = useState(false)
     const [isLoading, setLoading] = useState(false)
     const [contactInfo, setContactInfo] = useState({ ...initialContactInfo })
     const [billingInfo, setBillingInfo] = useState({ ...initialBillingInfo })
@@ -40,11 +40,14 @@ export default function CheckoutDetails() {
         currency: 'USD',
     });
 
+
     useEffect(() => {
-        if (cartData.cart.cartItems.length < 1 && orderSuccess === false) {
+        console.log('useEffect ran')
+        if (cartData.cart.cartItems < 1) {
             history.push('/')
         }
-    }, [orderSuccess])
+        
+    }, [cartData.cart.cartItems, history])
 
     const handleContact = (e) => {
         const { name, value } = e.target;
@@ -123,7 +126,7 @@ export default function CheckoutDetails() {
                                         .then(data => {
                                             console.log(data)
                                             dispatch(actionClearCart())
-                                            setOrderSuccess(true)
+                                            dispatch(actionSetSuccess({success: "Thank you for your order!"}))
                                         })
                                 } else {
                                     setLoading(false)
@@ -150,8 +153,6 @@ export default function CheckoutDetails() {
         hidePostalCode: true
     };
 
-
-    if (!orderSuccess) {
         return (
             <div>
                 <h2>Check Out</h2>
@@ -317,8 +318,4 @@ export default function CheckoutDetails() {
                 </Container>
             </div>
         )
-    } else {
-        return (<><h2>Thank you for your order!</h2></>)
-    }
-
 }

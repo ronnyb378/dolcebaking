@@ -5,7 +5,6 @@ import { useDispatch, useSelector } from 'react-redux'
 import { actionItemDetail } from '../redux/actions/itemDetail'
 import AboutUs from '../components/AboutUs'
 import BrandHeader from '../components/BrandHeader'
-import { actionClearAlerts } from '../redux/actions/status'
 import pink from '../images/pink-image.png'
 
 export default function Home() {

@@ -1,6 +1,6 @@
 import React, { useState, useRef } from 'react'
 import { Modal, Button, Image, Form, Row, Col, Overlay, Tooltip } from 'react-bootstrap'
-import { useSelector, useDispatch, shallowEqual } from 'react-redux'
+import { useSelector, useDispatch } from 'react-redux'
 import { actionUpdateCart } from '../redux/actions/cart'
 import { actionItemDetail } from '../redux/actions/itemDetail'
 

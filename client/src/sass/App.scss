@@ -46,8 +46,11 @@ $menuItemFont: "M PLUS 1 Code", sans-serif;
   }
 }
 
+
+
 .navbar {
   background-color:  #FFF8E1 !important;
+  border-bottom: 1px groove #bbaa99;
   .navbar-brand {
     font-family: 'Leckerli One', cursive;
     font-size: 1.4em;
@@ -197,6 +200,13 @@ h2 {
   box-shadow: none;
 }
 
+.btn {
+  background-color: #FFB6C1;
+  border-color: #FFB6C1;
+  color: grey;
+  border-radius: 0%;
+}
+
 input:placeholder-shown + label {
   color: gray;
 }
@@ -236,6 +246,7 @@ input:placeholder-shown + label {
     }
   }
   .card-body {
+    color: #9873AC;
     background-color: #FFF8E1 ;
     display: flex;
     justify-content: space-between;
@@ -245,7 +256,7 @@ input:placeholder-shown + label {
     vertical-align: middle;
   }
   .card-text {
-    color: gray;
+    // color: gray;
     font-size: 1.5em;
   }
 
@@ -253,8 +264,8 @@ input:placeholder-shown + label {
     background-color: #FFB6C1;
     border-color: #FFB6C1;
     color: grey;
-    min-width: 32%;
     border-radius: 0%;
+    min-width: 32%;
     align-self: end;
     // height: 3em;
   }
@@ -388,9 +399,11 @@ input:placeholder-shown + label {
   0 100px 70px rgba(0, 0, 0, 0.12);
 
     input {
-      -webkit-border-radius: 25px !important;
-      -moz-border-radius: 25px !important;
-      border-radius: 25px !important;
+      // -webkit-border-radius: 25px !important;
+      // -moz-border-radius: 25px !important;
+      // border-radius: 25px !important;
+
+      border-radius: 0%;
     }
 
 
@@ -399,11 +412,11 @@ input:placeholder-shown + label {
       margin-top: 1em;
       // background-color: #9873AC;
       // border-color: #9873AC;
-      background-color: $pink;
-      border-color: $pink;
-      -webkit-border-radius: 25px !important;
-      -moz-border-radius: 25px !important;
-      border-radius: 25px !important;
+      // background-color: $pink;
+      // border-color: $pink;
+      // -webkit-border-radius: 25px !important;
+      // -moz-border-radius: 25px !important;
+      // border-radius: 25px !important;
     }
 
     .btn:hover {
