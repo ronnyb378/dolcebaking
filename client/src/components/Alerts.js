@@ -22,7 +22,7 @@ export default function Alerts() {
                 return <SingleAlert variant={"warning"} key={index} message={error.msg} fluid />
             })}
             {successes.map((success, index) => {
-                return <SingleAlert variant={"info"} key={index} message={success.msg} fluid />
+                return <SingleAlert variant={"dark"} key={index} message={success.msg} fluid />
             })}
         </React.Fragment>
     )

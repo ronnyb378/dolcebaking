@@ -53,7 +53,7 @@ export default function Login() {
             .then(res => res.json())
             .then(data => {
                 if (data.error) {
-                    console.log(data.error)
+                    dispatch(actionSetError(data))
                 } else {
                     history.push('/')
                     dispatch(actionLoggedIn(data.user))
@@ -192,7 +192,7 @@ export default function Login() {
                                         <Form.Control size="lg" type="password" placeholder="Confirm Password"
                                             value={signupConfirmPassword} onChange={(e) => setSignupConfirmPassword(e.target.value)} />
                                     </FloatingLabel>
-                                    <Button variant="primary" type="submit" size="lg" className="mb-3">
+                                    <Button type="submit" size="lg" className="mb-3">
                                         Create Account
                                     </Button>
                                     <p onClick={(e) => handleFormChange(e)}>Already have an account? Sign in here.</p>
@@ -220,7 +220,7 @@ export default function Login() {
                                 </FloatingLabel>
                                 {/* <Link to={"/recovery"}>Forgot Password?</Link> */}
                                 <p onClick={() => { dispatch(actionClearAlerts()); history.push('/recovery') }}>Forgot Password?</p>
-                                <Button size="lg" type="submit">Sign in</Button>
+                                <Button className="form-btn" size="lg" type="submit">Sign in</Button>
                                 <p className="guestBtn" onClick={(e) => handleGuestLogin(e)}>
                                     Sign in as Guest
                                 </p>

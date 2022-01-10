@@ -25,7 +25,7 @@ export default function NavBar() {
 
     return (
         <div>
-            <Navbar collapseOnSelect variant="dark">
+            <Navbar collapseOnSelect expand="sm" variant="light">
                 <Container className="mx-1" fluid>
                     <Navbar.Brand as={Link} to={"/"} >Dolce Desserts</Navbar.Brand>
                     <Navbar.Toggle aria-controls="responsive-navbar-nav" />

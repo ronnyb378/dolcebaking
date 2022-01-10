@@ -156,7 +156,7 @@ export default function CheckoutDetails() {
         return (
             <div>
                 <h2>Check Out</h2>
-                <Container className="pt-4 checkout-form">
+                <Container className="pt-4 pb-4 checkout-form">
                     <Row className="justify-content-center">
                         <Col className="checkout-col pb-2">
                             <Form onSubmit={handleFormSubmit}>
