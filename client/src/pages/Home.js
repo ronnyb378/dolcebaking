@@ -3,9 +3,8 @@ import { Container, Card, Row, Col, Button } from 'react-bootstrap'
 import ItemPopUp from '../components/ItemPopUp'
 import { useDispatch, useSelector } from 'react-redux'
 import { actionItemDetail } from '../redux/actions/itemDetail'
-import AboutUs from '../components/AboutUs'
+
 import BrandHeader from '../components/BrandHeader'
-import { actionClearAlerts } from '../redux/actions/status'
 import pink from '../images/pink-image.png'
 
 export default function Home() {
@@ -34,7 +33,7 @@ export default function Home() {
 
 
     return (
-        <div>
+        <div className="pb-4">
             <BrandHeader />
             <Container className="pt-4 pb-4 menu" fluid>
                 <h2>Our Treats</h2>
@@ -70,7 +69,6 @@ export default function Home() {
                 data={tempItem}
             />
             }
-            <AboutUs />
         </div>
     )
 }

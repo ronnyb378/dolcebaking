@@ -1,11 +1,9 @@
 import React, { useState, useEffect } from 'react'
 import { Container, Form, Row, Col, Button, FloatingLabel } from 'react-bootstrap'
-import BrandHeader from '../components/BrandHeader';
 import { useDispatch } from 'react-redux';
 import { actionLoggedIn } from '../redux/actions/user';
-import { Link, useHistory } from 'react-router-dom';
+import { useHistory } from 'react-router-dom';
 import { actionClearAlerts, actionSetError } from '../redux/actions/status';
-import Alerts from '../components/Alerts';
 
 export default function Login() {
     const dispatch = useDispatch()
@@ -29,9 +27,10 @@ export default function Login() {
     const [ textColor, setTextColor ] = useState('crimson')
 
     // between 8 to 15 characters which contain at least one lowercase letter, one uppercase letter, one numeric digit, and one special character
-    const paswd = /^(?=.*\d)(?=.*[a-z])(?=.*[A-Z])(?=.*[^a-zA-Z0-9])(?!.*\s).{8,15}$/
 
     useEffect(() => {
+        const paswd = /^(?=.*\d)(?=.*[a-z])(?=.*[A-Z])(?=.*[^a-zA-Z0-9])(?!.*\s).{8,15}$/
+
         if (signupPassword.match(paswd)) {
             setTextColor('forestgreen')
         } else {
@@ -54,7 +53,7 @@ export default function Login() {
             .then(res => res.json())
             .then(data => {
                 if (data.error) {
-                    console.log(data.error)
+                    dispatch(actionSetError(data))
                 } else {
                     history.push('/')
                     dispatch(actionLoggedIn(data.user))
@@ -112,7 +111,6 @@ export default function Login() {
         fetch('/api/v1/users/login/guest')
             .then(res => res.json())
             .then(data => {
-                console.log(data)
                 dispatch(actionLoggedIn(data.user))
                 dispatch(actionClearAlerts())
                 history.push('/')
@@ -164,7 +162,7 @@ export default function Login() {
                                     className="mb-4">
                                     <Form.Control size="lg" type="email" placeholder="example@example.com"
                                         value={signupEmail} onChange={(e) => setSignupEmail(e.target.value)}
-                                        type="email" />
+                                        />
                                 </FloatingLabel>
                                 <FloatingLabel
                                     controlId="FloatingPhoneNumber"
@@ -193,7 +191,7 @@ export default function Login() {
                                         <Form.Control size="lg" type="password" placeholder="Confirm Password"
                                             value={signupConfirmPassword} onChange={(e) => setSignupConfirmPassword(e.target.value)} />
                                     </FloatingLabel>
-                                    <Button variant="primary" type="submit" size="lg" className="mb-3">
+                                    <Button type="submit" size="lg" className="mb-3">
                                         Create Account
                                     </Button>
                                     <p onClick={(e) => handleFormChange(e)}>Already have an account? Sign in here.</p>
@@ -221,7 +219,7 @@ export default function Login() {
                                 </FloatingLabel>
                                 {/* <Link to={"/recovery"}>Forgot Password?</Link> */}
                                 <p onClick={() => { dispatch(actionClearAlerts()); history.push('/recovery') }}>Forgot Password?</p>
-                                <Button size="lg" type="submit">Sign in</Button>
+                                <Button className="form-btn" size="lg" type="submit">Sign in</Button>
                                 <p className="guestBtn" onClick={(e) => handleGuestLogin(e)}>
                                     Sign in as Guest
                                 </p>

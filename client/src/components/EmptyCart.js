@@ -5,7 +5,7 @@ export default function EmptyCart() {
     return (
             <Row>
                 <Col className="pb-4">
-                    <h2>Your Cart Is Currently Empty 😢</h2>
+                    <h2>Your Cart Is Currently Empty</h2>
                 </Col>
             </Row>
     )

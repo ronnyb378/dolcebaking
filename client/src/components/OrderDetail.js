@@ -1,9 +1,9 @@
-import React, { useState } from 'react'
+import React from 'react'
 import { Accordion, Col, Container, Row } from 'react-bootstrap'
 
 export default function OrderDetail(props) {
 
-    const { id, orderId, cart, cartValues, firstName, email, lastName, createdAt } = props.order
+    const { orderId, cart, cartValues, firstName, email, lastName, createdAt } = props.order
     let dateObj = new Date(createdAt)
     let newDate = dateObj.toString().slice(4, 15)
 

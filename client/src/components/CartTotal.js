@@ -1,7 +1,7 @@
 import React, { useEffect } from 'react'
 import { Col, Button } from 'react-bootstrap'
 import { Link } from 'react-router-dom'
-import { useDispatch, useSelector } from 'react-redux'
+import { useDispatch } from 'react-redux'
 import { actionUpdateCartValues } from '../redux/actions/cartValues'
 import { actionClearCart } from '../redux/actions/cart'
 import { useHistory } from 'react-router'
@@ -9,7 +9,7 @@ import { useHistory } from 'react-router'
 export default function CartTotal({ value }) {
     const dispatch = useDispatch();
     const history = useHistory();
-    const cartData = useSelector(state => state)
+
     // console.log(cartData)
     const { cartValues: {cartSubTotal, cartTax, cartTotal}, cart } = value
 
@@ -33,25 +33,6 @@ export default function CartTotal({ value }) {
         }
         dispatch(actionUpdateCartValues(totalsObj))
     }, [cart.cartItems, dispatch])
-
-
-    const handleTotalClick = (e) => {
-        e.preventDefault()
-        console.log(cartData)
-        fetch('/api/v1/orders/neworder', {
-            method: 'POST',
-            headers: {
-                'Content-Type': 'application/json'
-            },
-            body: JSON.stringify({
-                value: cartData
-            })
-        })
-        .then(res => res.json())
-        .then(data => {
-            console.log(data.order)
-        })
-    }
 
 
     return (
