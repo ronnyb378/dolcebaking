@@ -1,22 +1,21 @@
 import React from 'react'
 import { useSelector } from 'react-redux'
-import { Route, useHistory } from 'react-router-dom'
+import { Route, Redirect } from 'react-router-dom'
 
-export default function ProtectedAdminRoute(props) {
+export default function ProtectedAdminRoute({component: Component, ...restOfProps }) {
     const { checked, user } = useSelector(state => state.user)
-    const history = useHistory()
 
     if (!checked) {
-        console.log('checking....')
         return 'Loading...'
     }
 
-    if (!user) {
-        history.push('/login')
-    } else if (!user.email.includes('guest@apple.com')) {
-        history.push('/')
-        // dispatch(actionSetError({error: 'Please log in'}))
+    if (user) {
+    return (
+        <Route {...restOfProps}>
+            { !user.email.includes('guest@apple.com') ? <Redirect to="/" /> : <Component />}
+        </Route>
+    )
+    } else {
+        return (<Redirect to="/login" />)
     }
-
-    return <Route {...props} />
 }

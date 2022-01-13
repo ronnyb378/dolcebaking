@@ -61,15 +61,9 @@ function App() {
             <Route exact path="/cart">
               <Cart />
             </Route>
-            <ProtectedRoute path="/cart/checkout">
-              <Checkout />
-            </ProtectedRoute>
-            <ProtectedRoute path="/profile">
-              <Profile />
-            </ProtectedRoute>
-            <ProtectedAdminRoute path="/admin">
-              <Admin />
-            </ProtectedAdminRoute>
+            <ProtectedRoute path="/cart/checkout" component={Checkout}/>
+            <ProtectedRoute path="/profile" component={Profile}/>
+            <ProtectedAdminRoute path="/admin" component={Admin} />
             <Route path="/recovery">
               <Recovery />
             </Route>

@@ -5,6 +5,7 @@ import Paginate from '../components/Paginate'
 
 export default function Admin() {
     const [orders, setOrders] = useState([])
+    console.log('this is being ran')
 
     const ordersLength = orders.length
     const [currentPage, setCurrentPage] = useState(1)
