@@ -5,6 +5,7 @@ import Paginate from '../components/Paginate'
 
 export default function Admin() {
     const [orders, setOrders] = useState([])
+    console.log('this is being ran')
 
     const ordersLength = orders.length
     const [currentPage, setCurrentPage] = useState(1)
@@ -26,6 +27,8 @@ export default function Admin() {
             })
     }, [])
 
+    const updateOrders = (orders) => { setOrders(orders) }
+
     return (
         <Tab.Container id="list-group-tabs-example" defaultActiveKey="first">
             <Row className="pt-2">
@@ -44,7 +47,7 @@ export default function Admin() {
                         <Tab.Pane eventKey="first">
                             <Paginate currentPage={currentPage} paginate={paginate} postsPerPage={postsPerPage} totalPosts={ordersLength} />
                             {currentPosts.map((order, index) => {
-                                return <OrderDetail order={order} key={index} />
+                                return <OrderDetail order={order} key={index} updateOrders={updateOrders} />
                             })}
                         </Tab.Pane>
                         <Tab.Pane eventKey="second">

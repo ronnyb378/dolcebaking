@@ -44,7 +44,7 @@ export default function CheckoutDetails() {
     useEffect(() => {
         // console.log('useEffect ran')
         if (cartData.cart.cartItems < 1) {
-            history.push('/login')
+            history.push('/')
         }
         
     }, [cartData.cart.cartItems, history])
@@ -120,7 +120,8 @@ export default function CheckoutDetails() {
                                             value: cartData,
                                             firstName: contactInfo.firstName,
                                             lastName: contactInfo.lastName,
-                                            email: contactInfo.email
+                                            email: contactInfo.email,
+                                            completed: false
                                         })
                                     }).then(res => res.json())
                                         .then(data => {
