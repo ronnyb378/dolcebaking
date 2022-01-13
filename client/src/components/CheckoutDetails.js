@@ -4,6 +4,7 @@ import { Container, Form, Row, Col, Button } from 'react-bootstrap'
 import { useSelector, useDispatch } from 'react-redux'
 import { actionClearCart } from '../redux/actions/cart'
 import { useHistory } from 'react-router'
+import { actionSetSuccess } from '../redux/actions/status'
 
 const initialContactInfo = {
     firstName: '',
@@ -29,7 +30,6 @@ export default function CheckoutDetails() {
     const stripe = useStripe()
     const elements = useElements()
 
-    const [orderSuccess, setOrderSuccess] = useState(false)
     const [isLoading, setLoading] = useState(false)
     const [contactInfo, setContactInfo] = useState({ ...initialContactInfo })
     const [billingInfo, setBillingInfo] = useState({ ...initialBillingInfo })
@@ -40,11 +40,14 @@ export default function CheckoutDetails() {
         currency: 'USD',
     });
 
+
     useEffect(() => {
-        if (cartData.cart.cartItems.length < 1 && orderSuccess === false) {
+        // console.log('useEffect ran')
+        if (cartData.cart.cartItems < 1) {
             history.push('/')
         }
-    }, [orderSuccess])
+        
+    }, [cartData.cart.cartItems, history])
 
     const handleContact = (e) => {
         const { name, value } = e.target;
@@ -117,13 +120,14 @@ export default function CheckoutDetails() {
                                             value: cartData,
                                             firstName: contactInfo.firstName,
                                             lastName: contactInfo.lastName,
-                                            email: contactInfo.email
+                                            email: contactInfo.email,
+                                            completed: false
                                         })
                                     }).then(res => res.json())
                                         .then(data => {
                                             console.log(data)
                                             dispatch(actionClearCart())
-                                            setOrderSuccess(true)
+                                            dispatch(actionSetSuccess({success: "Thank you for your order!"}))
                                         })
                                 } else {
                                     setLoading(false)
@@ -150,12 +154,10 @@ export default function CheckoutDetails() {
         hidePostalCode: true
     };
 
-
-    if (!orderSuccess) {
         return (
             <div>
                 <h2>Check Out</h2>
-                <Container className="pt-4 checkout-form">
+                <Container className="pt-4 pb-4 checkout-form">
                     <Row className="justify-content-center">
                         <Col className="checkout-col pb-2">
                             <Form onSubmit={handleFormSubmit}>
@@ -317,8 +319,4 @@ export default function CheckoutDetails() {
                 </Container>
             </div>
         )
-    } else {
-        return (<><h2>Thank you for your order!</h2></>)
-    }
-
 }

@@ -4,7 +4,7 @@ import cart from '../images/dolce_cart.png'
 import { Link, useHistory } from 'react-router-dom'
 import { useSelector, useDispatch } from 'react-redux'
 import { actionLoggedOut } from '../redux/actions/user'
-import { actionClearAlerts, actionSetSuccess } from '../redux/actions/status'
+import { actionSetSuccess } from '../redux/actions/status'
 
 export default function NavBar() {
     const dispatch = useDispatch()

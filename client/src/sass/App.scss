@@ -46,18 +46,23 @@ $menuItemFont: "M PLUS 1 Code", sans-serif;
   }
 }
 
+
+
 .navbar {
-  background-color:  #FFF8E1 !important;
+  background-color:  $white !important;
+  border-bottom: 1px dotted #bbaa99;
   .navbar-brand {
     font-family: 'Leckerli One', cursive;
     font-size: 1.4em;
     color: $pink;
   }
-  .navbar-brand:active {
-    color: $white;
+
+  .navbar-brand:focus {
+    color: #9873AC !important;
   }
+
   .navbar-brand:hover, .nav-link:hover {
-    color: $pink !important;
+    color: #E75480 !important;
   }
   .nav-link {
     font-family: 'Red Hat Mono', monospace;
@@ -191,10 +196,20 @@ h2 {
   }
 }
 
-.btn:focus,
-.btn:active {
+.btn:focus, .btn:active {
   outline: none !important;
   box-shadow: none;
+}
+
+.btn:active {
+  background-color: none;
+}
+
+.btn {
+  background-color: #FFB6C1;
+  border-color: #FFB6C1;
+  color: grey;
+  border-radius: 0%;
 }
 
 input:placeholder-shown + label {
@@ -222,12 +237,15 @@ input:placeholder-shown + label {
     cursor: pointer
   }
 
+
+
   .card-img-top {
-    // max-height: 20vw;
     height: 22vw;
-    // min-height: 40vw;
-    // max-height: 10vh;
     object-fit: cover;
+  }
+
+  .card:hover > .card-body {
+    background-color: 	#F8E1FF;
   }
 
   @media (max-width: 1199.98px) {
@@ -236,6 +254,7 @@ input:placeholder-shown + label {
     }
   }
   .card-body {
+    color: #9873AC;
     background-color: #FFF8E1 ;
     display: flex;
     justify-content: space-between;
@@ -245,16 +264,16 @@ input:placeholder-shown + label {
     vertical-align: middle;
   }
   .card-text {
-    color: gray;
+    // color: gray;
     font-size: 1.5em;
   }
 
   .btn {
-    background-color: #FFB6C1;
+    background-color: #ff9dab;
     border-color: #FFB6C1;
     color: grey;
-    min-width: 32%;
     border-radius: 0%;
+    min-width: 32%;
     align-self: end;
     // height: 3em;
   }
@@ -268,7 +287,11 @@ input:placeholder-shown + label {
 
 .modal-content {
   // font-family: 'Anton', sans-serif;
-  font-family: 'Acme', sans-serif;
+  font-family: 'Red Hat Mono', monospace;
+
+  p {
+    color: red;
+  }
   .col {
     display: flex;
     max-height: 100%;
@@ -298,15 +321,6 @@ input:placeholder-shown + label {
     justify-content: space-around;
   }
 
-  // h5 {
-  //   font-weight: 500;
-  // }
-
-  // p {
-  //   color: red;
-  //   font-family:Arial, Helvetica, sans-serif;
-  //   margin-bottom: 0;
-  // }
 
   .modal-footer {
     .btn {
@@ -315,11 +329,13 @@ input:placeholder-shown + label {
       font-weight: bold;
       background-color: grey;
       border-color: grey;
+      color: white;
     }
 
     .btn:not(.cart-btn):hover {
       background-color: #909090;
       border-color: #909090;
+
     }
 
     .btn.cart-btn {
@@ -354,7 +370,7 @@ input:placeholder-shown + label {
   // background-color: $white;
   padding: 20px;
   color: $grey;
-  border-top: 1px dotted $grey;
+  border-top: 1px dotted #bbaa99;
   display: flex;
   justify-content: center;
   align-items: center;
@@ -370,14 +386,18 @@ input:placeholder-shown + label {
 
 .login-container {
   min-height: 100%;
-  min-height: 100vh; 
+  // min-height: 100vh; 
   // background-color: white;
+
 
   .form-col {
     -ms-flex: 0 0 500px;
     flex: 0 0 500px;
-    background-color: #FFDAE0;
-    border-style: outset;
+    background-color: #BCEAF1;
+    border-color: #67898E;
+    border-style: dotted;
+    border-width: 0.5ex;
+
     
     box-shadow:
   0 2.8px 2.2px rgba(0, 0, 0, 0.034),
@@ -390,25 +410,28 @@ input:placeholder-shown + label {
     input {
       -webkit-border-radius: 25px !important;
       -moz-border-radius: 25px !important;
-      border-radius: 25px !important;
     }
 
 
     .btn {
       width: 100% !important;
       margin-top: 1em;
-      // background-color: #9873AC;
-      // border-color: #9873AC;
-      background-color: $pink;
-      border-color: $pink;
+      color: #67898E;
+      height: 2.8em;
       -webkit-border-radius: 25px !important;
-      -moz-border-radius: 25px !important;
-      border-radius: 25px !important;
+      background-color: $pink;
+      color: white;
+      border-color: $pink;
+    }
+
+    .btn.btn-primary.btn-lg:focus,.btn.btn-primary.btn-lg:active {
+      background-color: $pink !important;
+      border-color: $pink !important;
     }
 
     .btn:hover {
-      background-color: $pink;
-      border-color: $pink;
+      background-color: #FFB6C1;
+      border-color: #FFB6C1;
     }
     p {
       text-decoration: underline !important;
@@ -479,9 +502,14 @@ input:placeholder-shown + label {
 
 .cart-columns {
   text-transform: uppercase;
+  font-family: 'Red Hat Mono', monospace;
+  font-weight: bold;
 }
 
 .cart-items {
+
+  font-family: 'Red Hat Mono', monospace;
+  // font-size: 1.1em;
   .increment-column {
     display: flex;
     text-align: center;
@@ -580,8 +608,14 @@ input:placeholder-shown + label {
     background-color: $pink;
     border-color: $pink;
     font-weight: bold;
+    color: $white;
     // font-family: $menuItemFont;
     font-size: 20px;
+  }
+
+  .btn:hover {
+    background-color: #FFB6C1;
+    border-color: #FFB6C1;
   }
 }
 

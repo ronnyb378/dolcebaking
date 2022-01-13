@@ -51,6 +51,9 @@ module.exports = {
           key: 'email'
         }
       },
+      completed: {
+        type: Sequelize.BOOLEAN
+      },
       createdAt: {
         allowNull: false,
         type: Sequelize.DATE

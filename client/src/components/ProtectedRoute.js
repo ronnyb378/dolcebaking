@@ -1,21 +1,22 @@
 import React from 'react'
-import { useDispatch, useSelector } from 'react-redux'
-import { Route, useHistory } from 'react-router-dom'
-import {actionSetError} from '../redux/actions/status'
+import { useSelector } from 'react-redux'
+import { Route, Redirect} from 'react-router-dom'
 
-export default function ProtectedRoute(props) {
+export default function ProtectedRoute({component: Component, ...restOfProps }) {
     const { checked, user } = useSelector(state => state.user)
-    const history = useHistory()
-    const dispatch = useDispatch()
+    const { cartItems } = useSelector( state => state.cart)
 
     if (!checked) {
-        console.log('checking....')
         return 'Loading...'
     }
 
-    if (!user) {
-        history.push('/login')
-        // dispatch(actionSetError({error: 'Please log in'}))
+    if (user) {
+        return (
+            <Route {...restOfProps}>
+                {cartItems.length < 1 ? <Redirect to="/" /> : <Component />}
+            </Route>
+        )
+    } else {
+        return (<Redirect to="/login" />)
     }
-    return <Route {...props} />
 }

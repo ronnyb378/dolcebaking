@@ -1,13 +1,14 @@
 import React, { useEffect, useState } from 'react'
-import { Col, Row, Tab, ListGroup } from 'react-bootstrap'
+import { Col, Row, Tab, Nav } from 'react-bootstrap'
 import OrderDetail from '../components/OrderDetail'
 import Paginate from '../components/Paginate'
 
 export default function Admin() {
-    const [ orders, setOrders ] = useState([])
+    const [orders, setOrders] = useState([])
+    console.log('this is being ran')
 
     const ordersLength = orders.length
-    const [currentPage, setCurrentPage ] = useState(1)
+    const [currentPage, setCurrentPage] = useState(1)
     const postsPerPage = 5
 
     let indexOfLastPost = currentPage * postsPerPage
@@ -20,34 +21,36 @@ export default function Admin() {
 
     useEffect(() => {
         fetch('/api/v1/orders/all-orders')
-        .then(res => res.json())
-        .then(data => {
-            setOrders(data)
-        })
+            .then(res => res.json())
+            .then(data => {
+                setOrders(data)
+            })
     }, [])
 
+    const updateOrders = (orders) => { setOrders(orders) }
+
     return (
-        <Tab.Container id="list-group-tabs-example" defaultActiveKey="#link1">
+        <Tab.Container id="list-group-tabs-example" defaultActiveKey="first">
             <Row className="pt-2">
                 <Col xs={12} sm={4}>
-                    <ListGroup>
-                        <ListGroup.Item action href="#link1">
-                            Orders
-                        </ListGroup.Item>
-                        <ListGroup.Item action href="#link2">
-                            Something else
-                        </ListGroup.Item>
-                    </ListGroup>
+                    <Nav variant="pills" className="flex-column">
+                        <Nav.Item>
+                            <Nav.Link eventKey="first">Tab 1</Nav.Link>
+                        </Nav.Item>
+                        <Nav.Item>
+                            <Nav.Link eventKey="second">Tab 2</Nav.Link>
+                        </Nav.Item>
+                    </Nav>
                 </Col>
                 <Col xs={12} sm={8}>
                     <Tab.Content>
-                        <Tab.Pane eventKey="#link1">
-                        <Paginate currentPage={currentPage} paginate={paginate} postsPerPage={postsPerPage} totalPosts={ordersLength}/>
+                        <Tab.Pane eventKey="first">
+                            <Paginate currentPage={currentPage} paginate={paginate} postsPerPage={postsPerPage} totalPosts={ordersLength} />
                             {currentPosts.map((order, index) => {
-                                return <OrderDetail order={order} key={index} />
+                                return <OrderDetail order={order} key={index} updateOrders={updateOrders} />
                             })}
                         </Tab.Pane>
-                        <Tab.Pane eventKey="#link2">
+                        <Tab.Pane eventKey="second">
                             Hello World
                         </Tab.Pane>
                     </Tab.Content>

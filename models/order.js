@@ -22,7 +22,8 @@ module.exports = (sequelize, DataTypes) => {
     cartValues: DataTypes.JSON,
     firstName: DataTypes.STRING,
     lastName: DataTypes.STRING,
-    email: DataTypes.STRING
+    email: DataTypes.STRING,
+    completed: DataTypes.BOOLEAN
   }, {
     sequelize,
     modelName: 'Order',
