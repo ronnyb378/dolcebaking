@@ -111,7 +111,6 @@ export default function Login() {
         fetch('/api/v1/users/login/guest')
             .then(res => res.json())
             .then(data => {
-                console.log(data)
                 dispatch(actionLoggedIn(data.user))
                 dispatch(actionClearAlerts())
                 history.push('/')

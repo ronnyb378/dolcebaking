@@ -7,12 +7,15 @@ export default function ProtectedRoute(props) {
     const history = useHistory()
 
     if (!checked) {
-        console.log('checking....')
+        // console.log('checking....')
         return 'Loading...'
     }
 
     if (!user) {
-        history.push('/login')
+        history.push('/login');
+        // return <Route path="/login" />
     }
+
+    console.log({...props})
     return <Route {...props} />
 }

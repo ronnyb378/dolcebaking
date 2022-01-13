@@ -35,6 +35,7 @@ function App() {
         if (!data.error) {
           dispatch(actionLoggedIn(data))
         } else {
+          // console.log('this ran')
           dispatch(actionLoggedOut())
         }
       })

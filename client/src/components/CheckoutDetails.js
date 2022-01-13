@@ -42,9 +42,9 @@ export default function CheckoutDetails() {
 
 
     useEffect(() => {
-        console.log('useEffect ran')
+        // console.log('useEffect ran')
         if (cartData.cart.cartItems < 1) {
-            history.push('/')
+            history.push('/login')
         }
         
     }, [cartData.cart.cartItems, history])
