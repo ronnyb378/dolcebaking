@@ -9,7 +9,7 @@ const stripe = require("stripe")(process.env.STRIPE_SECRET_TEST)
 
 router.post('/neworder', async function (req, res, next) {
     const value = req.body.value
-    const { firstName, lastName, email } = req.body
+    const { firstName, lastName, email, completed } = req.body
     const id = orderid.generate();
     // console.log(value)
     db.Order.create({
@@ -21,6 +21,7 @@ router.post('/neworder', async function (req, res, next) {
         firstName,
         lastName,
         email,
+        completed,
         UserId: req.session.user.id,
     })
         .then((order) => {
