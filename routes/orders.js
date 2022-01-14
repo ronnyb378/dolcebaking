@@ -9,7 +9,8 @@ const stripe = require("stripe")(process.env.STRIPE_SECRET_TEST)
 
 router.post('/neworder', async function (req, res, next) {
     const value = req.body.value
-    const { firstName, lastName, email, completed } = req.body
+    const { firstName, lastName, email, completed, number } = req.body
+
     const id = orderid.generate();
     // console.log(value)
     db.Order.create({
@@ -21,13 +22,15 @@ router.post('/neworder', async function (req, res, next) {
         firstName,
         lastName,
         email,
+        phoneNumber: number,
         completed,
         UserId: req.session.user.id,
     })
         .then((order) => {
             res.json({
                 order,
-                user: req.session.user
+                user: req.session.user,
+                success: "Order placed"
             })
         })
 });
@@ -77,7 +80,7 @@ router.get("/past-orders", async function (req, res) {
         res
             .status(401)
             .json({
-            error: "Not authorized"
+                error: "Not authorized"
             })
     }
 })
@@ -86,11 +89,36 @@ router.get("/all-orders", async function (req, res) {
     await db.Order.findAll({
         // raw: true
         attributes:
-            ['createdAt', 'email', 'firstName', 'lastName', 'cartValues', 'cart', 'orderId'],
+            ['createdAt', 'email', 'firstName', 'lastName', 'cartValues', 'cart', 'orderId', 'completed', 'phoneNumber'],
         order: [['id', 'DESC']]
 
     })
         .then((orders) => { res.json(orders) })
+})
+
+router.patch('/update-order', async (req, res) => {
+    try {
+    const {orderId, status } = req.body
+    // const status = req.body
+    const order = await db.Order.findOne({
+        where: {
+            orderId,
+        }
+    })
+
+    db.Order.update({
+        completed: status
+    }, {
+        where: {
+            orderId: order.orderId
+        }
+    }).then(() => {
+        db.Order.sync()
+        res.json({ success: 'Changes made'})
+    })
+    } catch(error) {
+        res.json({ error: 'An error occured'})
+    }
 })
 
 module.exports = router;

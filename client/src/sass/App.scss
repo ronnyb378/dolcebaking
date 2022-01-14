@@ -655,3 +655,9 @@ input:placeholder-shown + label {
     border-color: #E75480;
   }
 }
+
+.accordion-custom {
+  button {
+    display: block;
+  }
+}
