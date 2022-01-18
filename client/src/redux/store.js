@@ -5,6 +5,7 @@ import { cart } from './reducers/cart'
 import { cartValues } from './reducers/cartValues'
 import { user } from './reducers/user'
 import { status } from './reducers/status'
+import { orders } from './reducers/orders'
 
 const rootReducer = combineReducers({
     products: items,
@@ -13,6 +14,7 @@ const rootReducer = combineReducers({
     cartValues,
     user,
     status,
+    orders,
 })
 
 const saveToSessionStorage = (globalState) => {
