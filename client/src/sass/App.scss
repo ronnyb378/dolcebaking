@@ -386,6 +386,7 @@ input:placeholder-shown + label {
 
 .login-container {
   min-height: 100%;
+  padding-bottom: 45px;
   // min-height: 100vh; 
   // background-color: white;
 
@@ -475,10 +476,9 @@ input:placeholder-shown + label {
     width: 100%;
     text-align: justify;
     padding-bottom: 5px;
+    text-align: center;
   }
 }
-
-
 
 .img-hover-zoom {
   overflow: hidden;

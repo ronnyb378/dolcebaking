@@ -62,8 +62,6 @@ export default function Login() {
             })
     }
 
-
-
     const handleSignupSubmit = (e) => {
         e.preventDefault()
         fetch('/api/v1/users/signup', {
@@ -120,7 +118,6 @@ export default function Login() {
 
     return (
         <div>
-
             <Container className="pt-4 login-container" fluid>
                 <Row className="justify-content-center">
                     {login === true ? (
@@ -146,7 +143,6 @@ export default function Login() {
                                             controlId="FloatingLast"
                                             label="Last Name"
                                             className="mb-4">
-
                                             <Form.Control
                                                 size="lg"
                                                 type="text"
