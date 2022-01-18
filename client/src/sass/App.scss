@@ -113,7 +113,7 @@ h6 {
   font-size: 1.1em;
 }
 
-h2 {
+h2 { 
   // font-weight: bold;
   font-family: 'Red Hat Mono', monospace;
 // font-family: 'Anton', sans-serif;
@@ -129,6 +129,8 @@ h2 {
   -moz-animation: fadeIn linear 3s;
   -o-animation: fadeIn linear 3s;
   -ms-animation: fadeIn linear 3s;
+
+  // background-color: #BCEAF1;
   img {
     height: 1.6em;
   }
@@ -586,6 +588,10 @@ input:placeholder-shown + label {
     background-color: #9873ac;
     border-color: #9873ac;
   }
+}
+
+.new > small {
+  text-align: left;
 }
 
 .checkout-form {
