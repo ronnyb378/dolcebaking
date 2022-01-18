@@ -23,7 +23,7 @@ export default function CartTotal({ value }) {
 
         let subTotal = 0;
         cart.cartItems.map(item => (subTotal += item.total))
-        const tempTax = subTotal * .0625
+        const tempTax = subTotal * .0825
         const tax = parseFloat(tempTax.toFixed(2));
         const total = subTotal + tax
         let totalsObj = {
@@ -42,13 +42,14 @@ export default function CartTotal({ value }) {
                     Clear Cart
                 </Button>
             </Link>
-            <div className="pt-4">
+            <div className="pt-4 pb-2">
                 <h5>Subtotal: <strong>{formatter.format(cartSubTotal)}</strong> </h5>
                 <h5>Tax: <strong>{formatter.format(cartTax)}</strong></h5>
                 <h5>Grand Total: <strong>{formatter.format(cartTotal)}</strong></h5>
                 {/* <Button onClick={(e) => handleTotalClick(e)}>Checkout</Button> */}
                 <Button size="lg" onClick={() => history.push('/cart/checkout')}>Check Out</Button>
             </div>
+            <small><b>Note:</b> Customers will have to pick up their orders</small>
         </Col>
     )
 }

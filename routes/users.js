@@ -188,15 +188,20 @@ router.patch('/recovery', async (req, res) => {
           user: process.env.MAIL_USER,
           pass: process.env.MAIL_PASS
         },
+        // service: 'gmail',
+        // auth: {
+        //   user: process.env.BUSINESS_EMAIL,
+        //   pass: process.env.BUSINESS_PASS
+        // },
         tls: {
           rejectUnauthorized: false
         }
       });
 
       var mailOptions = {
-        from: 'youremail@gmail.com',
+        from: 'dolcedesserts868@gmail.com',
         to: `${email}`,
-        subject: 'Sending Email using Node.js',
+        subject: 'TEST -- Reset your Dolce Desserts password',
         html: `<h2>Please click on given link to reset your password</h2>
               <p>${process.env.CLIENT_URL}/resetpassword/${token}</p>
       `
