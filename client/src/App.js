@@ -14,7 +14,7 @@ import Footer from './components/Footer';
 import Checkout from './pages/Checkout';
 import { actionLoggedIn, actionLoggedOut } from './redux/actions/user';
 import ProtectedRoute from './components/ProtectedRoute';
-import Profile from './pages/Profile';
+// import Profile from './pages/Profile';
 import Alerts from './components/Alerts';
 import ScrollToTop from './components/ScrollToTop';
 import Recovery from './pages/Recovery';
@@ -62,7 +62,7 @@ function App() {
               <Cart />
             </Route>
             <ProtectedRoute path="/cart/checkout" component={Checkout}/>
-            <ProtectedRoute path="/profile" component={Profile}/>
+            {/* <ProtectedRoute path="/profile" component={Profile}/> */}
             <ProtectedAdminRoute path="/admin" component={Admin} />
             <Route path="/recovery">
               <Recovery />

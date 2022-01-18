@@ -36,8 +36,8 @@ export default function NavBar() {
                             <Nav.Link as={Link} to={"/cart"} eventKey={2}>
                                 <img src={cart} alt="shopping cart"/>
                             </Nav.Link>
-                            { checked && user ? (
-                            <Nav.Link as={Link} to={"/profile"}>Profile</Nav.Link>) : (null)}
+                            {/* { checked && user ? (
+                            <Nav.Link as={Link} to={"/profile"}>Profile</Nav.Link>) : (null)} */}
                             { checked && user ? (
                             <Nav.Link href="#" onClick={handleLogout}>Logout</Nav.Link>
                             ) : (<Nav.Link as={Link} to={"/login"}>Login</Nav.Link>)}
