@@ -15,8 +15,6 @@ router.post('/neworder', async function (req, res, next) {
     // console.log(value)
     db.Order.create({
         orderId: id,
-        products: value.products,
-        itemDetail: value.itemDetail,
         cart: value.cart,
         cartValues: value.cartValues,
         firstName,

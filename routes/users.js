@@ -69,7 +69,7 @@ router.post('/login', async (req, res) => {
   // check for email and password
   if (!req.body.email || !req.body.password) {
     res.status(400).json({
-      error: 'please include email and password'
+      error: 'Include email and password'
     })
     return
   }
@@ -82,7 +82,7 @@ router.post('/login', async (req, res) => {
   // checks if email exist in db
   if (!user) {
     res.status(404).json({
-      error: 'could not find user with that email'
+      error: 'Invalid Email'
     })
     return
   }

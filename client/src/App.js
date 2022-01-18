@@ -1,11 +1,8 @@
 import { BrowserRouter as Router, Route, Switch, Redirect } from 'react-router-dom'
 import React, { useEffect } from 'react';
-// import logo from './logo.svg';
-// import { Counter } from './features/counter/Counter';
 import { useDispatch } from 'react-redux';
 import 'bootstrap/dist/css/bootstrap.min.css';
 import './sass/App.scss';
-import './sass/Profile.scss';
 import Home from './pages/Home';
 import Login from './pages/Login';
 import Cart from './pages/Cart';
