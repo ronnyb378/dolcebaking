@@ -1,11 +1,15 @@
 import React, { useEffect, useState } from 'react'
 import { Col, Row, Tab, Nav } from 'react-bootstrap'
+import { useDispatch, useSelector } from 'react-redux'
 import OrderDetail from '../components/OrderDetail'
 import Paginate from '../components/Paginate'
+import { actionSetOrders } from '../redux/actions/orders'
 
 export default function Admin() {
+    const dispatch = useDispatch()
     const [orders, setOrders] = useState([])
-    console.log('this is being ran')
+    const orderList = useSelector(state => state.orders)
+
 
     const ordersLength = orders.length
     const [currentPage, setCurrentPage] = useState(1)
@@ -16,42 +20,44 @@ export default function Admin() {
 
     let currentPosts = [];
 
-    currentPosts = orders.slice(indexOfFirstPost, indexOfLastPost)
+    currentPosts = orderList.slice(indexOfFirstPost, indexOfLastPost)
     const paginate = (pageNumber) => setCurrentPage(pageNumber)
 
     useEffect(() => {
+        console.log('Admin page useEffect')
         fetch('/api/v1/orders/all-orders')
             .then(res => res.json())
             .then(data => {
-                setOrders(data)
+                dispatch(actionSetOrders(data))
             })
-    }, [])
+    }, [dispatch])
 
     const updateOrders = (orders) => { setOrders(orders) }
 
     return (
         <Tab.Container id="list-group-tabs-example" defaultActiveKey="first">
-            <Row className="pt-2">
-                <Col xs={12} sm={4}>
+            <h2>Admin Dashboard</h2>
+            <Row className=" justify-content-center">
+                <Col xs={4} lg={3}>
                     <Nav variant="pills" className="flex-column">
                         <Nav.Item>
-                            <Nav.Link eventKey="first">Tab 1</Nav.Link>
+                            <Nav.Link eventKey="first">Orders</Nav.Link>
                         </Nav.Item>
                         <Nav.Item>
-                            <Nav.Link eventKey="second">Tab 2</Nav.Link>
+                            <Nav.Link eventKey="second">TBD</Nav.Link>
                         </Nav.Item>
                     </Nav>
                 </Col>
-                <Col xs={12} sm={8}>
+                <Col xs={12} lg={9}>
                     <Tab.Content>
                         <Tab.Pane eventKey="first">
                             <Paginate currentPage={currentPage} paginate={paginate} postsPerPage={postsPerPage} totalPosts={ordersLength} />
                             {currentPosts.map((order, index) => {
-                                return <OrderDetail order={order} key={index} updateOrders={updateOrders} />
+                                return <OrderDetail order={order} id={order.orderId} key={index} updateOrders={updateOrders} />
                             })}
                         </Tab.Pane>
                         <Tab.Pane eventKey="second">
-                            Hello World
+                            Under Maintenance
                         </Tab.Pane>
                     </Tab.Content>
                 </Col>

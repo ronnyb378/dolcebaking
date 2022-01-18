@@ -4,7 +4,7 @@ import { Container, Form, Row, Col, Button } from 'react-bootstrap'
 import { useSelector, useDispatch } from 'react-redux'
 import { actionClearCart } from '../redux/actions/cart'
 import { useHistory } from 'react-router'
-import { actionSetSuccess } from '../redux/actions/status'
+import { actionSetError, actionSetSuccess } from '../redux/actions/status'
 
 const initialContactInfo = {
     firstName: '',
@@ -68,11 +68,19 @@ export default function CheckoutDetails() {
     const handleFormSubmit = async e => {
         e.preventDefault();
         setLoading(true)
+
         if (
             !contactInfo.firstName || !contactInfo.lastName || !contactInfo.email || !contactInfo.number ||
             !billingInfo.line1 || !billingInfo.city || !billingInfo.state ||
             !billingInfo.postal_code || !nameOnCard
         ) {
+            setLoading(false)
+            return
+        }
+        const phoneReg = /^[\+]?[(]?[0-9]{3}[)]?[-\s\.]?[0-9]{3}[-\s\.]?[0-9]{4,6}$/im //eslint-disable-line
+
+        if (!contactInfo.number.match(phoneReg)){
+            dispatch(actionSetError({error: 'Not a valid phone number'}))
             setLoading(false)
             return
         }
@@ -121,13 +129,19 @@ export default function CheckoutDetails() {
                                             firstName: contactInfo.firstName,
                                             lastName: contactInfo.lastName,
                                             email: contactInfo.email,
+                                            number: contactInfo.number,
                                             completed: false
                                         })
                                     }).then(res => res.json())
                                         .then(data => {
-                                            console.log(data)
-                                            dispatch(actionClearCart())
-                                            dispatch(actionSetSuccess({success: "Thank you for your order!"}))
+                                            if (data.success) {
+                                                console.log(data)
+                                                dispatch(actionClearCart())
+                                                dispatch(actionSetSuccess({success: "Thank you for your order!"}))
+                                            } else if (data.error) {
+                                                dispatch(actionSetError(data))
+                                            }
+
                                         })
                                 } else {
                                     setLoading(false)

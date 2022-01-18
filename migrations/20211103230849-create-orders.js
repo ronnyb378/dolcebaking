@@ -44,6 +44,9 @@ module.exports = {
           key: 'lastName'
         }
       },
+      phoneNumber: {
+        type: Sequelize.STRING,
+      },
       email: {
         type: Sequelize.STRING,
         refecences: {
