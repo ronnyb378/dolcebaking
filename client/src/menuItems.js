@@ -31,7 +31,7 @@ export const menuItems = {
             description: 'Chocolate covered strawberries for your boo',
             products: [{
                 id: 5,
-                name: 'Strawberries (12ct',
+                name: 'Strawberries (12ct)',
                 partNumber: "ST01CH",
                 description: 'Chocolate covered strawberries for your boo',
                 category: 'Strawberries',
