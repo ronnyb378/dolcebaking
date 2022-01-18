@@ -21,7 +21,7 @@ app.use(express.urlencoded({ extended: false }));
 app.use(cookieParser());
 app.use(
     session({
-        secret: 'AprilMarch', // used to sign the cookie
+        secret: process.env.COOKIE_PASS, // used to sign the cookie
         resave: false, // update session even w/ no changes
         saveUninitialized: true, // always create a session
         cookie: {
