@@ -1,6 +1,4 @@
 var express = require('express');
-// was getting error because of this line
-// const { json } = require('sequelize/types');
 var router = express.Router();
 const db = require('../models');
 const orderid = require('order-id')('mysecret');
@@ -13,24 +11,31 @@ router.post('/neworder', async function (req, res, next) {
 
     const id = orderid.generate();
     // console.log(value)
-    db.Order.create({
-        orderId: id,
-        cart: value.cart,
-        cartValues: value.cartValues,
-        firstName,
-        lastName,
-        email,
-        phoneNumber: number,
-        completed,
-        UserId: req.session.user.id,
-    })
-        .then((order) => {
-            res.json({
-                order,
-                user: req.session.user,
-                success: "Order placed"
-            })
+    try {
+        db.Order.create({
+            orderId: id,
+            cart: value.cart,
+            cartValues: value.cartValues,
+            firstName,
+            lastName,
+            email,
+            phoneNumber: number,
+            completed,
+            UserId: req.session.user.id,
         })
+            .then((order) => {
+                res.json({
+                    order,
+                    user: req.session.user,
+                    success: "Order placed"
+                })
+            })
+    } catch (error) {
+        res.json({
+            error: error.message,
+            issue: true
+            })
+    }
 });
 
 router.post("/payment", async function (req, res) {
