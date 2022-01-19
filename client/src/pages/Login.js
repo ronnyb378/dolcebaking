@@ -122,7 +122,7 @@ export default function Login() {
                 <Row className="justify-content-center">
                     {login === true ? (
                         <Col className="form-col">
-                            <h4 className="pt-2">Sign Up</h4>
+                            <h4 className="pt-2 signup-title">Sign Up</h4>
                             <Form className="signUpForm pt-4" onSubmit={handleSignupSubmit}>
                                 <Row>
                                     <Col>
