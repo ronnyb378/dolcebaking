@@ -25,6 +25,7 @@ export default function Recovery() {
         }).then(res => res.json())
         .then(data => {
             if (data.error) {
+                console.log(data)
                 dispatch(actionSetError(data))
                 setLoading(false)
             } else {

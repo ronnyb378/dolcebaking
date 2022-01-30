@@ -11,14 +11,14 @@ router.post('/signup', function (req, res, next) {
   const paswd = /^(?=.*\d)(?=.*[a-z])(?=.*[A-Z])(?=.*[^a-zA-Z0-9])(?!.*\s).{8,15}$/
   const phoneReg = /^[\+]?[(]?[0-9]{3}[)]?[-\s\.]?[0-9]{3}[-\s\.]?[0-9]{4,6}$/im
 
-  if (!req.body.email || !req.body.first_name || !req.body.last_name || !req.body.phone_number || !req.body.password || !req.body.confirmed_password ) {
-    res.status(400).json({error: "All fields are required!"})
+  if (!req.body.email || !req.body.first_name || !req.body.last_name || !req.body.phone_number || !req.body.password || !req.body.confirmed_password) {
+    res.status(400).json({ error: "All fields are required!" })
     return
-  } else if (!req.body.phone_number.match(phoneReg)){
-    res.status(400).json({error: "Not a valid phone number"})
+  } else if (!req.body.phone_number.match(phoneReg)) {
+    res.status(400).json({ error: "Not a valid phone number" })
     return
   } else if (!req.body.password.match(paswd)) {
-    res.status(400).json({error: "Password must be 8-15 characters long, contain at least one lowercase letter, one uppercase letter, one numeric digit, and one special character"})
+    res.status(400).json({ error: "Password must be 8-15 characters long, contain at least one lowercase letter, one uppercase letter, one numeric digit, and one special character" })
     return
   } else if (req.body.password != req.body.confirmed_password) {
     res.status(400).json({
@@ -182,28 +182,69 @@ router.patch('/recovery', async (req, res) => {
       const token = jwt.sign(userData, process.env.RESET_PASSWORD_KEY, { expiresIn: '30m' });
 
       var transport = nodemailer.createTransport({
-        host: process.env.MAIL_HOST,
-        port: process.env.MAIL_PORT,
-        auth: {
-          user: process.env.MAIL_USER,
-          pass: process.env.MAIL_PASS
-        },
-        // service: 'gmail',
+        // host: process.env.MAIL_HOST,
+        // port: process.env.MAIL_PORT,
         // auth: {
-        //   user: process.env.BUSINESS_EMAIL,
-        //   pass: process.env.BUSINESS_PASS
+        //   user: process.env.MAIL_USER,
+        //   pass: process.env.MAIL_PASS
         // },
-        tls: {
-          rejectUnauthorized: false
+        service: 'gmail',
+        auth: {
+          user: process.env.TEMP_BUSINESS_EMAIL,
+          pass: process.env.TEMP_BUSINESS_PASS
         }
+        // tls: {
+        //   rejectUnauthorized: false
+        // }
       });
 
       var mailOptions = {
         from: 'dolcedesserts868@gmail.com',
         to: `${email}`,
-        subject: 'TEST -- Reset your Dolce Desserts password',
-        html: `<h2>Please click on given link to reset your password</h2>
-              <p>${process.env.CLIENT_URL}/resetpassword/${token}</p>
+        subject: 'Reset your Dolce Desserts password',
+        html: `
+      <!DOCTYPE html>
+<html lang="en" xmlns="http://www.w3.org/1999/xhtml" xmlns:o="urn:schemas-microsoft-com:office:office">
+<head>
+    <meta charset="UTF-8">
+	<meta name="viewport" content="width=device-width,initial-scale=1">
+	<meta name="x-apple-disable-message-reformatting">
+	<title></title>
+	<!--[if mso]>
+	<noscript>
+		<xml>
+            <o:OfficeDocumentSettings>
+				<o:PixelsPerInch>96</o:PixelsPerInch>
+			</o:OfficeDocumentSettings>
+		</xml>
+	</noscript>
+	<![endif]-->
+	<style>
+		table, td, div, h1, p {font-family: Arial, sans-serif;}
+		table, td {border:2px solid #000000 !important;}
+    a {         background-color: #e86a92;
+      text-decoration: none;
+      border: none;
+      color: #000000;
+      padding: 14px 28px;
+      text-align: center;
+      display: inline-block;
+      font-size: 14px;
+      margin: 4px 2px;
+      cursor: pointer; }
+	</style>
+</head>
+<body style="margin:0;padding:0; background-color: #ffffff">
+    <table role="presentation" style="width:100%;border-collapse:collapse;border:0;border-spacing:0;background-color:#427CA9;">
+		<tr>
+			<td style="padding:5px 5px;">
+				<h3>A request has been received to change the password for your Dolce Desserts account</h3>
+        <a href="${process.env.CLIENT_URL}/resetpassword/${token}">Reset Password</a>
+			</td>
+		</tr>
+	</table>
+</body>
+</html>
       `
       };
 
@@ -251,17 +292,17 @@ router.patch('/resetpassword', async (req, res) => {
                 }
               }).then(function () {
                 db.User.sync();
-                response = res.status(401).json({error: "This token has expired. Please have new token resent to your email."})
+                response = res.status(401).json({ error: "This token has expired. Please have new token resent to your email." })
               })
               break;
             case ("JsonWebTokenError"):
-              response = res.status(401).json({error: "Invalid token"})
+              response = res.status(401).json({ error: "Invalid token" })
               break;
             default:
-              response = res.status(400).json({error: "Invalid token"})
+              response = res.status(400).json({ error: "Invalid token" })
           }
           return response
-        } 
+        }
         db.User.findOne({
           where: {
             resetLink: resetLink
