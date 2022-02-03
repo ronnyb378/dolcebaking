@@ -10,7 +10,7 @@ export default function SingleAlert(props) {
 
     if (show) {
     return (
-        <Alert onClick={() => { setShow(false); dispatch(actionClearAlerts()) }} variant={props.variant} dismissible>
+        <Alert onClick={() => { setShow(false); dispatch(actionClearAlerts()) }} style={{backgroundColor: `${props.color}`, borderColor: `${props.color}`, color: "black"}} dismissible>
             {props.message}
         </Alert>
     )

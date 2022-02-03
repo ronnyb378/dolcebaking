@@ -7,7 +7,7 @@ export const menuItems = {
             category: "Pound Cake",
             name: "Pound Cake (6ct)",
             image: '/images/pound_cake.jpg',
-            description: 'Delicious warm pound cakes made with love',
+            description: 'Delicious, warm pound cakes made with love',
             products: [
                 {
                     id: 4,
@@ -28,7 +28,7 @@ export const menuItems = {
             category: "Strawberries",
             name: "Strawberries (12ct)",
             image: '/images/halloween_strawberries.jpg',
-            description: 'Chocolate covered strawberries for your boo',
+            description: 'Chocolate covered strawberries for any occasion',
             products: [{
                 id: 5,
                 name: 'Strawberries (12ct)',
@@ -49,7 +49,7 @@ export const menuItems = {
             category: "Empanadas",
             name: "Empanadas (6ct)",
             image: "/images/empanadas.jpg",
-            description: 'Homemade empanadas much better than store bought',
+            description: 'Soft, filled empanadas lightly sprinkled with sugar',
             products: [
                 {
                     id: 6,
