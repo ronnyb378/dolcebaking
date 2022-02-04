@@ -27,7 +27,7 @@ router.post('/neworder', async function (req, res, next) {
                 res.json({
                     order,
                     user: req.session.user,
-                    success: "Order placed"
+                    success: "Order created successfully."
                 })
             })
     } catch (error) {
