@@ -35,6 +35,7 @@ export default function Home() {
     return (
         <div className="pb-4">
             <BrandHeader />
+            <hr  className='line-break'/>
             <Container className="pt-4 pb-4 menu" fluid>
                 <h2>Our Treats</h2>
                 {/* xs={1} md={3} lg={3} xl={4} */}
