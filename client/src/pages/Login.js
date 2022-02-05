@@ -3,7 +3,7 @@ import { Container, Form, Row, Col, Button, FloatingLabel } from 'react-bootstra
 import { useDispatch } from 'react-redux';
 import { actionLoggedIn } from '../redux/actions/user';
 import { useHistory } from 'react-router-dom';
-import { actionClearAlerts, actionSetError } from '../redux/actions/status';
+import { actionClearAlerts, actionSetError, actionSetSuccess } from '../redux/actions/status';
 
 const initialSignupInfo = {
     signupEmail: '',
@@ -93,7 +93,7 @@ export default function Login() {
                 if (data.success) {
                     setLogin(!login)
                     setSignupInfo({...initialSignupInfo})
-                    dispatch(actionClearAlerts())
+                    dispatch(actionSetSuccess(data))
                 } else {
                     dispatch(actionSetError(data))
                 }

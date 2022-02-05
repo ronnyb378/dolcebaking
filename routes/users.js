@@ -5,6 +5,7 @@ const jwt = require('jsonwebtoken')
 const bcrypt = require('bcrypt');
 const checkAuth = require('../checkAuth');
 const nodemailer = require('nodemailer');
+const { application } = require('express');
 
 // users signup
 router.post('/signup', function (req, res, next) {
@@ -56,7 +57,7 @@ router.post('/signup', function (req, res, next) {
             .then((user) => {
               // req.session.user = user
               res.status(201).json({
-                success: user
+                success: 'Account successfully created.'
               })
             })
         })
@@ -341,6 +342,13 @@ router.patch('/resetpassword', async (req, res) => {
     }
   }
 })
+
+// router.get('/adminemail', (req, res) => {
+//   return res.json({
+//     success: true,
+//     data: process.env.ADMIN_EMAIL
+//   })
+// })
 
 
 module.exports = router;
