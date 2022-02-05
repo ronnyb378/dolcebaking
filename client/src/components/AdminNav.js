@@ -17,7 +17,7 @@ export default function AdminNav() {
                 <Nav className="me-auto">
                 </Nav>
                 <Nav>
-                    <Nav.Link as={Link} to={"/admin"}>My Admin</Nav.Link>
+                    <Nav.Link as={Link} to="/admin">My Admin</Nav.Link>
                 </Nav>
             </Container>
         </Navbar>

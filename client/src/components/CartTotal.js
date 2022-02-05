@@ -10,17 +10,15 @@ export default function CartTotal({ value }) {
     const dispatch = useDispatch();
     const history = useHistory();
 
-    // console.log(cartData)
     const { cartValues: {cartSubTotal, cartTax, cartTotal}, cart } = value
 
-    var formatter = new Intl.NumberFormat('en-US', {
+    let formatter = new Intl.NumberFormat('en-US', {
         style: 'currency',
         currency: 'USD',
     });
 
 
     useEffect(() => {
-
         let subTotal = 0;
         cart.cartItems.map(item => (subTotal += item.total))
         const tempTax = subTotal * .0825
@@ -46,7 +44,6 @@ export default function CartTotal({ value }) {
                 <h5>Subtotal: <strong>{formatter.format(cartSubTotal)}</strong> </h5>
                 <h5>Tax: <strong>{formatter.format(cartTax)}</strong></h5>
                 <h5>Grand Total: <strong>{formatter.format(cartTotal)}</strong></h5>
-                {/* <Button onClick={(e) => handleTotalClick(e)}>Checkout</Button> */}
                 <Button size="lg" onClick={() => history.push('/cart/checkout')}>Check Out</Button>
             </div>
             <small><b>Note:</b> Customers will have to pick up their orders</small>

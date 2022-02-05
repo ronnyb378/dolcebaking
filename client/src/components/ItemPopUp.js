@@ -1,4 +1,4 @@
-import React, { useState, useRef } from 'react'
+import React, { useState, useRef, useEffect } from 'react'
 import { Modal, Button, Image, Form, Row, Col, Overlay, Tooltip } from 'react-bootstrap'
 import { useSelector, useDispatch } from 'react-redux'
 import { actionUpdateCart } from '../redux/actions/cart'
@@ -8,10 +8,12 @@ import { actionItemDetail } from '../redux/actions/itemDetail'
 export default function ItemPopUp(props) {
     const dispatch = useDispatch()
     const { data: { name, description, image, products } } = props
-    const clickedItem = useSelector(state => state.itemDetail)
+
     const [error, setError] = useState('')
-    const target = useRef(null);
     const [show, setShow] = useState(false);
+    const [ selectedItem, setSelectedItem ] = useState({})
+
+    const target = useRef(null);
 
     const getItem = (id) => {
         const product = products.find(item => item.id === parseInt(id));
@@ -37,12 +39,22 @@ export default function ItemPopUp(props) {
         if (!formValid) {
             setError('Please choose a flavor')
             return false
-        } else if (formValid) {
-            return true
-        }
+        } 
+        
+        return true
     }
 
 
+    useEffect(() => {
+        let mounted = true;
+        setTimeout(() => {
+            if (mounted) {
+                setShow(false)
+            }
+        }, 2000);
+
+        return () => { mounted = false }
+    }, [])
 
 
     const handleAddToCart = (e, product) => {
@@ -52,12 +64,9 @@ export default function ItemPopUp(props) {
 
         if (isValid) {
             setShow(true)
-            setTimeout( () => setShow(false), 1500);
             let copyProduct = { ...product }
-
             const price = copyProduct.price;
             copyProduct.total = price
-
             dispatch(actionUpdateCart(copyProduct))
             setError('')
         }
@@ -65,7 +74,7 @@ export default function ItemPopUp(props) {
 
     const handleRadioButton = id => {
         const product = getItem(id)
-        dispatch(actionItemDetail(product))
+        setSelectedItem(product)
     }
 
     const closeModal = () => {
@@ -76,7 +85,7 @@ export default function ItemPopUp(props) {
 
     return (
         <Modal
-            onExited={() => {setError(''); setShow(false)}}
+            onExited={() => closeModal()}
             {...props}
             dialogClassName="modal-50w"
             aria-labelledby="contained-modal-title-vcenter"
@@ -94,8 +103,7 @@ export default function ItemPopUp(props) {
                     </Col>
                     <Col className="d-flex align-items-center item-column-right">
                         <h5>{description}</h5>
-                        {/* form having id and button having form attribute not supported by IE11? */}
-                        <Form noValidate id="item-form" onSubmit={(e) => handleAddToCart(e, clickedItem)} onChange={(e) => handleRadioButton(e.target.value)}>
+                        <Form noValidate id="item-form" onSubmit={(e) => handleAddToCart(e, selectedItem)} onChange={(e) => handleRadioButton(e.target.value)}>
                             {products.length > 1 && <h5>Flavors</h5>} {error && <p>{error}</p>}
                             {(products.length > 1) ? (
                                 products.map(data =>

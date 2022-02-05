@@ -19,10 +19,10 @@ export default function Alerts() {
     return (
         <React.Fragment>
             {errors.map((error, index) => {
-                return <SingleAlert color={'#ffffba'} key={index} message={error.msg} fluid />
+                return <SingleAlert color="#ffffba" key={index} message={error.msg} fluid />
             })}
             {successes.map((success, index) => {
-                return <SingleAlert color={"#ffe1e6"} key={index} message={success.msg} fluid />
+                return <SingleAlert color="#ffe1e6" key={index} message={success.msg} fluid />
             })}
         </React.Fragment>
     )

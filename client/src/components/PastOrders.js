@@ -3,9 +3,9 @@ import { Card, Col } from 'react-bootstrap'
 
 export default function PastOrders(props) {
     const order = props.order.cart
+    
     return (
         <Col>
-            {/* {props.order["id"]} */}
             <Card>
                 <Card.Header>Order Id: {props.order.orderId}</Card.Header>
                 <Card.Body>

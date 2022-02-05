@@ -9,6 +9,7 @@ export default function ProtectedAdminRoute({component: Component, ...restOfProp
         return 'Loading...'
     }
 
+
     if (user) {
     return (
         <Route {...restOfProps}>
