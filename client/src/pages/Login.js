@@ -5,6 +5,15 @@ import { actionLoggedIn } from '../redux/actions/user';
 import { useHistory } from 'react-router-dom';
 import { actionClearAlerts, actionSetError } from '../redux/actions/status';
 
+const initialSignupInfo = {
+    signupEmail: '',
+    firstName: '',
+    lastName: '',
+    phoneNumber: '',
+    signupPassword: '',
+    signupConfirmPassword: '',
+}
+
 export default function Login() {
     const dispatch = useDispatch()
     const history = useHistory()
@@ -16,14 +25,7 @@ export default function Login() {
     const [loginPassword, setLoginPassword] = useState('');
 
     // sign up states
-    // const [ signupUsername, setSignupUsername ] = useState('');
-    const [signupEmail, setSignupEmail] = useState('');
-    const [firstName, setFirstName] = useState('');
-    const [lastName, setLastName] = useState('');
-    const [phoneNumber, setPhoneNumber] = useState('');
-    const [signupPassword, setSignupPassword] = useState('');
-    const [signupConfirmPassword, setSignupConfirmPassword] = useState('')
-
+    const [signupInfo, setSignupInfo] = useState({ ...initialSignupInfo})
     const [ textColor, setTextColor ] = useState('crimson')
 
     // between 8 to 15 characters which contain at least one lowercase letter, one uppercase letter, one numeric digit, and one special character
@@ -31,12 +33,20 @@ export default function Login() {
     useEffect(() => {
         const paswd = /^(?=.*\d)(?=.*[a-z])(?=.*[A-Z])(?=.*[^a-zA-Z0-9])(?!.*\s).{8,15}$/
 
-        if (signupPassword.match(paswd)) {
+        if (signupInfo.signupPassword.match(paswd)) {
             setTextColor('forestgreen')
         } else {
             setTextColor('crimson')
         }
-    }, [signupPassword])
+    }, [signupInfo.signupPassword])
+
+    const handleSignupChange = (e) => {
+        const { name, value } = e.target
+        setSignupInfo({
+            ...signupInfo,
+            [name]: value
+        })
+    }
 
     const handleLoginSubmit = (e) => {
         e.preventDefault()
@@ -63,34 +73,26 @@ export default function Login() {
     }
 
     const handleSignupSubmit = (e) => {
-        e.preventDefault()
+        e.preventDefault();
         fetch('/api/v1/users/signup', {
             method: 'POST',
             headers: {
                 'Content-Type': 'application/json'
             },
             body: JSON.stringify({
-                // username: signupUsername,
-                email: signupEmail,
-                first_name: firstName,
-                last_name: lastName,
-                phone_number: phoneNumber,
-                password: signupPassword,
-                confirmed_password: signupConfirmPassword
+                email: signupInfo.signupEmail,
+                first_name: signupInfo.firstName,
+                last_name: signupInfo.lastName,
+                phone_number: signupInfo.phoneNumber,
+                password: signupInfo.signupPassword,
+                confirmed_password: signupInfo.signupConfirmPassword
             })
         })
             .then(res => res.json())
             .then(data => {
                 if (data.success) {
-                    // history.push('/')
                     setLogin(!login)
-                    setFirstName('');
-                    setLastName('');
-                    setSignupEmail('');
-                    setPhoneNumber('');
-                    setSignupPassword('');
-                    setSignupConfirmPassword('');
-                    console.log(data.success)
+                    setSignupInfo({...initialSignupInfo})
                     dispatch(actionClearAlerts())
                 } else {
                     dispatch(actionSetError(data))
@@ -134,8 +136,9 @@ export default function Login() {
                                                 size="lg"
                                                 type="text"
                                                 placeholder="John"
-                                                value={firstName}
-                                                onChange={(e) => setFirstName(e.target.value)} />
+                                                name="firstName"
+                                                value={signupInfo.firstName}
+                                                onChange={(e) => handleSignupChange(e)} />
                                         </FloatingLabel>
                                     </Col>
                                     <Col>
@@ -147,8 +150,9 @@ export default function Login() {
                                                 size="lg"
                                                 type="text"
                                                 placeholder="Doe"
-                                                value={lastName}
-                                                onChange={(e) => setLastName(e.target.value)} />
+                                                name="lastName"
+                                                value={signupInfo.lastName}
+                                                onChange={(e) => handleSignupChange(e)} />
                                         </FloatingLabel>
                                     </Col>
                                 </Row>
@@ -157,7 +161,7 @@ export default function Login() {
                                     label="Email Address"
                                     className="mb-4">
                                     <Form.Control size="lg" type="email" placeholder="example@example.com"
-                                        value={signupEmail} onChange={(e) => setSignupEmail(e.target.value)}
+                                        name="signupEmail" value={signupInfo.signupEmail} onChange={(e) => handleSignupChange(e)}
                                         />
                                 </FloatingLabel>
                                 <FloatingLabel
@@ -165,7 +169,7 @@ export default function Login() {
                                     label="Phone Number"
                                     className="mb-4">
                                     <Form.Control size="lg" placeholder="(123)456-7890"
-                                        value={phoneNumber} type="tel" onChange={(e) => setPhoneNumber(e.target.value)} />
+                                        name="phoneNumber" value={signupInfo.phoneNumber} type="tel" onChange={(e) => handleSignupChange(e)} />
                                 </FloatingLabel>
                                 <FloatingLabel
                                     controlId="FloatingPassword"
@@ -173,7 +177,7 @@ export default function Login() {
                                     className="mb-1"
                                     >
                                     <Form.Control size="lg" type="password" placeholder="Password"
-                                        value={signupPassword} onChange={(e) => setSignupPassword(e.target.value)} />
+                                        name="signupPassword" value={signupInfo.signupPassword} onChange={(e) => handleSignupChange(e)} />
                                 </FloatingLabel>
                                 <div className="passwordHelpText">
                                 <Form.Text id="passwordHelpBlock" style={{color: textColor }}>
@@ -185,7 +189,7 @@ export default function Login() {
                                         label="Confirm Password"
                                         className="mb-4">
                                         <Form.Control size="lg" type="password" placeholder="Confirm Password"
-                                            value={signupConfirmPassword} onChange={(e) => setSignupConfirmPassword(e.target.value)} />
+                                            name="signupConfirmPassword" value={signupInfo.signupConfirmPassword} onChange={(e) => handleSignupChange(e)} />
                                     </FloatingLabel>
                                     <Button type="submit" size="lg" className="mb-3">
                                         Create Account

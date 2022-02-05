@@ -1,17 +1,17 @@
 import React, { useState, useRef, useEffect } from 'react'
 import { Modal, Button, Image, Form, Row, Col, Overlay, Tooltip } from 'react-bootstrap'
-import { useSelector, useDispatch } from 'react-redux'
+import { useDispatch } from 'react-redux'
 import { actionUpdateCart } from '../redux/actions/cart'
-import { actionItemDetail } from '../redux/actions/itemDetail'
 
 
 export default function ItemPopUp(props) {
     const dispatch = useDispatch()
     const { data: { name, description, image, products } } = props
 
+
     const [error, setError] = useState('')
     const [show, setShow] = useState(false);
-    const [ selectedItem, setSelectedItem ] = useState({})
+    const [ selectedItem, setSelectedItem ] = useState({...props.data})
 
     const target = useRef(null);
 
@@ -51,20 +51,24 @@ export default function ItemPopUp(props) {
             if (mounted) {
                 setShow(false)
             }
-        }, 2000);
+        }, 1500);
 
         return () => { mounted = false }
-    }, [])
+    }, [show])
 
 
     const handleAddToCart = (e, product) => {
-
         e.preventDefault();
+        let copyProduct = { ...product };
+
+        if (product.products) {
+            copyProduct = { ...products[0]}
+        }
+
         let isValid = validation([...e.target])
 
         if (isValid) {
             setShow(true)
-            let copyProduct = { ...product }
             const price = copyProduct.price;
             copyProduct.total = price
             dispatch(actionUpdateCart(copyProduct))
@@ -105,8 +109,7 @@ export default function ItemPopUp(props) {
                         <h5>{description}</h5>
                         <Form noValidate id="item-form" onSubmit={(e) => handleAddToCart(e, selectedItem)} onChange={(e) => handleRadioButton(e.target.value)}>
                             {products.length > 1 && <h5>Flavors</h5>} {error && <p>{error}</p>}
-                            {(products.length > 1) ? (
-                                products.map(data =>
+                            {products.length > 1 && products.map(data =>
                                     <Form.Check
                                         required
                                         key={data.id}
@@ -117,9 +120,7 @@ export default function ItemPopUp(props) {
                                         id={`default-radio`}
                                         label={`${data.name}`}
                                     />
-                                )
-                            ) : (null)
-                            }
+                            )}
                         </Form>
                     </Col>
                 </Row>
