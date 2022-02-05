@@ -7,12 +7,19 @@ export default function SingleAlert(props) {
     const dispatch = useDispatch()
     const [show, setShow] = useState(true)
 
+    const { color, message } = props
 
-    if (show) {
+    const styles = {
+        alert: {backgroundColor: `${color}`, borderColor: `${color}`, color: "black"}
+    }
+
+    const close = () => {
+        setShow(false); dispatch(actionClearAlerts()) 
+    }
+
     return (
-        <Alert onClick={() => { setShow(false); dispatch(actionClearAlerts()) }} style={{backgroundColor: `${props.color}`, borderColor: `${props.color}`, color: "black"}} dismissible>
-            {props.message}
-        </Alert>
+    show && <Alert onClick={() => close()} style={styles.alert} dismissible>
+                {message}
+            </Alert>
     )
-    } else { return null }
 }

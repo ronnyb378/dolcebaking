@@ -213,7 +213,6 @@ export default function Login() {
                                         value={loginPassword} onChange={e => setLoginPassword(e.target.value)}
                                     />
                                 </FloatingLabel>
-                                {/* <Link to={"/recovery"}>Forgot Password?</Link> */}
                                 <p onClick={() => { dispatch(actionClearAlerts()); history.push('/recovery') }}>Forgot Password?</p>
                                 <Button className="form-btn" size="lg" type="submit">Sign in</Button>
                                 <p className="guestBtn" onClick={(e) => handleGuestLogin(e)}>

@@ -7,11 +7,12 @@ import { actionSetOrders } from '../redux/actions/orders'
 
 export default function Admin() {
     const dispatch = useDispatch()
+
     const [orders, setOrders] = useState([])
     const orderList = useSelector(state => state.orders)
 
-
-    const ordersLength = orders.length
+    // pagination 
+    const ordersLength = orderList.length
     const [currentPage, setCurrentPage] = useState(1)
     const postsPerPage = 5
 
@@ -20,11 +21,11 @@ export default function Admin() {
 
     let currentPosts = [];
 
+
     currentPosts = orderList.slice(indexOfFirstPost, indexOfLastPost)
     const paginate = (pageNumber) => setCurrentPage(pageNumber)
 
     useEffect(() => {
-        console.log('Admin page useEffect')
         fetch('/api/v1/orders/all-orders')
             .then(res => res.json())
             .then(data => {

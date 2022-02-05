@@ -667,5 +667,11 @@ input:placeholder-shown + label {
   button {
     display: block;
   }
+  p {
+    margin: 0;
+  }
+  .form-check {
+    margin-top: 6px;
+  }
 }
 

@@ -35,7 +35,7 @@ export default function CheckoutDetails() {
     const [billingInfo, setBillingInfo] = useState({ ...initialBillingInfo })
     const [nameOnCard, setNameOnCard] = useState('')
 
-    var formatter = new Intl.NumberFormat('en-US', {
+    let formatter = new Intl.NumberFormat('en-US', {
         style: 'currency',
         currency: 'USD',
     });

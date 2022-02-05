@@ -11,8 +11,11 @@ export default function Home() {
     const dispatch = useDispatch()
 
     const items = useSelector(state => state.products.categories)
+
+    const item = useSelector(state => state.itemDetail)
+
     const [modalShow, setModalShow] = useState(false)
-    const [tempItem, setTempItem ] = useState(null)
+    // const [tempItem, setTempItem ] = useState(null)
 
     const [ loading, setLoading ] = useState(true)
     const counter = useRef(0)
@@ -31,6 +34,12 @@ export default function Home() {
 
     const hideModal = () => setModalShow(false)
 
+    const clickedItem = item => {
+        setModalShow(true);
+        // setTempItem(item);
+        handleDetail(item)
+    }
+
 
     return (
         <div className="pb-4">
@@ -38,11 +47,9 @@ export default function Home() {
             <hr  className='line-break'/>
             <Container className="pt-4 pb-4 menu" fluid>
                 <h2>Our Treats</h2>
-                {/* xs={1} md={3} lg={3} xl={4} */}
                 <Row  className="pt-4 g-4">
                     {items.map((item) => {
-                        return <Col xs={12} sm={6} md={6} xl={4} key={item.id} onClick={() => {
-                            setModalShow(true); setTempItem(item); handleDetail(item.products[0])}}>
+                        return <Col xs={12} sm={6} xl={4} key={item.id} onClick={() => clickedItem(item)}>
                             <Card className="bg-dark text-white ">
                             <div className="img-hover-zoom" style={{display: loading ? "block" : "none"}}>
                             <Card.Img variant="top" src={pink} alt="Card image" style={{ opacity: "0.7"}}/>
@@ -63,12 +70,20 @@ export default function Home() {
                     })}
                 </Row>
             </Container>
-            {tempItem && 
+            {/* {tempItem && 
             <ItemPopUp
                 show={modalShow}
                 onHide={() => setModalShow(hideModal)}
                 data={tempItem}
             />
+            } */}
+            { modalShow && 
+                <ItemPopUp
+                show={modalShow}
+                onHide={() => setModalShow(hideModal)}
+                data={item}
+            />
+
             }
         </div>
     )

@@ -120,7 +120,7 @@ router.patch('/update-order', async (req, res) => {
         res.json({ success: 'Changes made'})
     })
     } catch(error) {
-        res.json({ error: 'An error occured'})
+        res.json({ error: 'An error occurred'})
     }
 })
 
