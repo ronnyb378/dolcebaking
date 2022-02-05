@@ -8,7 +8,6 @@ import { actionSetOrders } from '../redux/actions/orders'
 export default function Admin() {
     const dispatch = useDispatch()
 
-    const [orders, setOrders] = useState([])
     const orderList = useSelector(state => state.orders)
 
     // pagination 
@@ -33,8 +32,6 @@ export default function Admin() {
             })
     }, [dispatch])
 
-    const updateOrders = (orders) => { setOrders(orders) }
-
     return (
         <Tab.Container id="list-group-tabs-example" defaultActiveKey="first">
             <h2>Admin Dashboard</h2>
@@ -54,7 +51,7 @@ export default function Admin() {
                         <Tab.Pane eventKey="first">
                             <Paginate currentPage={currentPage} paginate={paginate} postsPerPage={postsPerPage} totalPosts={ordersLength} />
                             {currentPosts.map((order, index) => {
-                                return <OrderDetail order={order} id={order.orderId} key={index} updateOrders={updateOrders} />
+                                return <OrderDetail order={order} id={order.orderId} key={index} />
                             })}
                         </Tab.Pane>
                         <Tab.Pane eventKey="second">
