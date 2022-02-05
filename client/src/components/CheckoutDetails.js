@@ -1,6 +1,6 @@
 import { CardElement, useElements, useStripe } from '@stripe/react-stripe-js'
 import React, { useState, useEffect } from 'react'
-import { Container, Form, Row, Col, Button } from 'react-bootstrap'
+import { Container, Form, Row, Col, Button, Alert } from 'react-bootstrap'
 import { useSelector, useDispatch } from 'react-redux'
 import { actionClearCart } from '../redux/actions/cart'
 import { useHistory } from 'react-router'
@@ -113,15 +113,17 @@ export default function CheckoutDetails() {
                 })
                 .then(({ paymentMethod, error }) => {
                     if (!paymentMethod) {
-                        console.log(error)
                         setLoading(false);
                         dispatch(actionSetError({ error: error.message }))
                     } else {
                         stripe.confirmCardPayment(clientSecret, {
                             payment_method: paymentMethod.id
                         })
-                        .then(({ paymentIntent }) => {
-                            if (paymentIntent.status === 'succeeded') {
+                        .then(({ paymentIntent, error }) => {
+                            if (!paymentIntent) {
+                                setLoading(false)
+                                dispatch(actionSetError({ error: error.message}))
+                            } else if (paymentIntent.status === 'succeeded') {
                                 createOrder();
                             } else {
                                 setLoading(false)
@@ -184,6 +186,9 @@ export default function CheckoutDetails() {
             <Container className="pt-4 pb-4 checkout-form">
                 <Row className="justify-content-center">
                     <Col className="checkout-col pb-2">
+                    <Alert style={{backgroundColor: "white"}}>
+            Please note: Dolce Desserts is not accepting actual payments/orders at this time.
+    </Alert>
                         <Form onSubmit={handleFormSubmit}>
                             <h4>Contact Information</h4>
                             <Row>

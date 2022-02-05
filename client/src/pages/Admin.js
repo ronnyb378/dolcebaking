@@ -41,9 +41,9 @@ export default function Admin() {
                         <Nav.Item>
                             <Nav.Link eventKey="first">Orders</Nav.Link>
                         </Nav.Item>
-                        <Nav.Item>
+                        {/* <Nav.Item>
                             <Nav.Link eventKey="second">TBD</Nav.Link>
-                        </Nav.Item>
+                        </Nav.Item> */}
                     </Nav>
                 </Col>
                 <Col xs={12} lg={9}>
@@ -54,9 +54,9 @@ export default function Admin() {
                                 return <OrderDetail order={order} id={order.orderId} key={index} />
                             })}
                         </Tab.Pane>
-                        <Tab.Pane eventKey="second">
+                        {/* <Tab.Pane eventKey="second">
                             Under Maintenance
-                        </Tab.Pane>
+                        </Tab.Pane> */}
                     </Tab.Content>
                 </Col>
             </Row>
