@@ -34,6 +34,11 @@
 
 <h2>Screenshots</h2>
 
+![Screen Shot 2022-02-06 at 2 28 31 PM](https://user-images.githubusercontent.com/84594956/152701556-7bf9dffb-5210-4877-a62d-de9fd1b57c72.png)
+
+![Screen Shot 2022-02-06 at 2 29 11 PM](https://user-images.githubusercontent.com/84594956/152701564-c2fa4317-c9aa-4e81-9208-e0aed9e7be59.png)
+
+
 <h2>Developers</h2>
 <ul>
     <li>Ronny Barahona</li>
