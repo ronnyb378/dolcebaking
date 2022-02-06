@@ -15,7 +15,6 @@ export default function Home() {
     const item = useSelector(state => state.itemDetail)
 
     const [modalShow, setModalShow] = useState(false)
-    // const [tempItem, setTempItem ] = useState(null)
 
     const [ loading, setLoading ] = useState(true)
     const counter = useRef(0)
