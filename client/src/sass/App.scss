@@ -338,6 +338,8 @@ input:placeholder-shown + label {
   }
 
   .modal-footer {
+    align-items: stretch;
+    
     .btn {
       flex-grow: 1;
       flex-basis: 0;
