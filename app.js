@@ -31,7 +31,12 @@ app.use(
         store: store,
     })
 );
-app.use(express.static(path.join(__dirname, 'public')));
+
+if (process.env.NODE_ENV === "production") {
+    app.use(express.static(path.join(__dirname, 'client/build')));
+} else {
+    app.use(express.static(path.join(__dirname, 'public')));
+}
 
 app.use('/', indexRouter);
 app.use('/api/v1/users', usersRouter);
