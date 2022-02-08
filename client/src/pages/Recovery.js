@@ -25,7 +25,7 @@ export default function Recovery() {
         }).then(res => res.json())
         .then(data => {
             if (data.error) {
-                dispatch(actionSetError(data))
+                dispatch(actionSetError({ error: "We are unable to send you an email at this time. Please try again later."}))
                 setLoading(false)
             } else {
                 history.push('/login')
